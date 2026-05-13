@@ -1,4 +1,11 @@
-import { useCallback, useRef, useState, type CSSProperties, type WheelEvent } from "react";
+import {
+  useCallback,
+  useRef,
+  useState,
+  type CSSProperties,
+  type PointerEvent,
+  type WheelEvent,
+} from "react";
 import { motion, useReducedMotion } from "motion/react";
 import type { BrandId } from "../../brands/brands";
 import type { ProductCrossSellContent, ProductCrossSellItem } from "../../data/products";
@@ -9,19 +16,73 @@ type ProductCrossSellProps = {
   content: ProductCrossSellContent;
 };
 
+type DragGesture = {
+  isHorizontal: boolean;
+  startScrollLeft: number;
+  startX: number;
+  startY: number;
+};
+
 export function ProductCrossSell({ brand, content }: ProductCrossSellProps) {
   const scrollerRef = useRef<HTMLDivElement | null>(null);
+  const dragGestureRef = useRef<DragGesture | null>(null);
+  const [isDragging, setIsDragging] = useState(false);
   const [wishlistById, setWishlistById] = useState<Record<string, boolean>>({});
   const [addedById, setAddedById] = useState<Record<string, boolean>>({});
 
   const handleWheel = useCallback((event: WheelEvent<HTMLDivElement>) => {
     const scroller = scrollerRef.current;
+    if (!scroller || Math.abs(event.deltaX) <= Math.abs(event.deltaY)) return;
+    scroller.scrollLeft += event.deltaX;
+  }, []);
 
-    if (!scroller || Math.abs(event.deltaX) <= Math.abs(event.deltaY)) {
-      return;
+  // Mouse-only drag — native scroll handles touch on its own.
+  const handlePointerDown = useCallback((event: PointerEvent<HTMLDivElement>) => {
+    const scroller = scrollerRef.current;
+    if (!scroller || event.pointerType !== "mouse" || event.button !== 0) return;
+    if (isInteractiveElement(event.target)) return;
+
+    dragGestureRef.current = {
+      isHorizontal: false,
+      startScrollLeft: scroller.scrollLeft,
+      startX: event.clientX,
+      startY: event.clientY,
+    };
+  }, []);
+
+  const handlePointerMove = useCallback((event: PointerEvent<HTMLDivElement>) => {
+    const scroller = scrollerRef.current;
+    const gesture = dragGestureRef.current;
+    if (!scroller || !gesture) return;
+
+    const deltaX = event.clientX - gesture.startX;
+    const deltaY = event.clientY - gesture.startY;
+
+    if (!gesture.isHorizontal) {
+      if (Math.abs(deltaX) < 6 && Math.abs(deltaY) < 6) return;
+      if (Math.abs(deltaY) > Math.abs(deltaX)) {
+        dragGestureRef.current = null;
+        return;
+      }
+      gesture.isHorizontal = true;
+      setIsDragging(true);
+      event.currentTarget.setPointerCapture(event.pointerId);
     }
 
-    scroller.scrollLeft += event.deltaX;
+    event.preventDefault();
+    scroller.scrollLeft = gesture.startScrollLeft - deltaX;
+  }, []);
+
+  const finishPointerGesture = useCallback((event: PointerEvent<HTMLDivElement>) => {
+    const gesture = dragGestureRef.current;
+    dragGestureRef.current = null;
+
+    if (!gesture?.isHorizontal) return;
+
+    if (event.currentTarget.hasPointerCapture(event.pointerId)) {
+      event.currentTarget.releasePointerCapture(event.pointerId);
+    }
+    setIsDragging(false);
   }, []);
 
   return (
@@ -32,6 +93,11 @@ export function ProductCrossSell({ brand, content }: ProductCrossSellProps) {
         className={styles.scroller}
         ref={scrollerRef}
         onWheel={handleWheel}
+        onPointerDown={handlePointerDown}
+        onPointerMove={handlePointerMove}
+        onPointerUp={finishPointerGesture}
+        onPointerCancel={finishPointerGesture}
+        data-dragging={isDragging ? "true" : "false"}
         aria-label={content.title}
       >
         {content.items.map((item) => (
@@ -52,6 +118,10 @@ export function ProductCrossSell({ brand, content }: ProductCrossSellProps) {
       </motion.div>
     </section>
   );
+}
+
+function isInteractiveElement(target: EventTarget) {
+  return target instanceof Element && target.closest("button, a, input, select, textarea") !== null;
 }
 
 function CrossSellCard({

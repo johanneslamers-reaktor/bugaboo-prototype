@@ -28,14 +28,19 @@ const CENTER_CYCLE = 1;
 type DragEvent = MouseEvent | TouchEvent | PointerEvent;
 
 export type CarouselTrackProps = {
-  style: { x: MotionValue<number> };
+  /**
+   * `touch-action: pan-y` is critical for low-friction swipe. It tells the
+   * browser to commit vertical touches to page scroll and horizontal touches
+   * to JS handlers, with NO "feel out" period. Without it, the browser hesitates
+   * to decide which way the user is going, which feels like initial drag.
+   */
+  style: { x: MotionValue<number>; touchAction: "pan-y" };
   onKeyDown: (event: ReactKeyboardEvent<HTMLElement>) => void;
 } & (
   | {
       // Bounded mode - uses motion's built-in drag with elastic overdrag.
       drag: "x";
       dragConstraints: { left: number; right: number };
-      dragDirectionLock: true;
       dragElastic: number;
       dragMomentum: false;
       onDragStart: () => void;
@@ -228,7 +233,7 @@ export function useCarousel({
 
   const trackProps = useMemo<CarouselTrackProps>(() => {
     const shared = {
-      style: { x },
+      style: { x, touchAction: "pan-y" as const },
       onKeyDown: handleKeyDown,
     };
 
@@ -257,7 +262,6 @@ export function useCarousel({
       ...shared,
       drag: "x" as const,
       dragConstraints: { left: minX, right: 0 },
-      dragDirectionLock: true,
       dragElastic: DRAG_ELASTIC_BOUNDED,
       dragMomentum: false,
       onDragStart: () => stopAnim(),

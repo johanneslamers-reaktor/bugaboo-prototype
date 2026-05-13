@@ -1,4 +1,4 @@
-import { useCallback, useRef, useState, type PointerEvent } from "react";
+import { useCallback, useEffect, useRef, useState, type PointerEvent } from "react";
 import { motion, useReducedMotion } from "motion/react";
 import type { BrandId } from "../../brands/brands";
 import type { ProductFeatureBenefitsContent } from "../../data/products";
@@ -20,10 +20,26 @@ type DragGesture = {
 export function ProductFeatureBenefits({ brand, content }: ProductFeatureBenefitsProps) {
   const scrollerRef = useRef<HTMLDivElement | null>(null);
   const dragGestureRef = useRef<DragGesture | null>(null);
+  // Debounce activeIndex updates so they only land once scroll settles.
+  // Without this, intermediate scroll positions during a programmatic scrollTo
+  // (or even native momentum scroll) flip prev/next disabled state and
+  // create a visible flicker on the button background-color transition.
+  const settleTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [activeIndex, setActiveIndex] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
   const [openHotspots, setOpenHotspots] = useState<Record<string, string | null>>({});
   const shouldReduceMotion = useReducedMotion();
+
+  const computeNearestIndex = useCallback(() => {
+    const scroller = scrollerRef.current;
+    if (!scroller) return 0;
+    const cards = Array.from(scroller.children) as HTMLElement[];
+    return cards.reduce((closestIndex, card, index) => {
+      const closestDistance = Math.abs(getCardTargetLeft(scroller, cards[closestIndex]) - scroller.scrollLeft);
+      const distance = Math.abs(getCardTargetLeft(scroller, card) - scroller.scrollLeft);
+      return distance < closestDistance ? index : closestIndex;
+    }, 0);
+  }, []);
 
   const scrollToIndex = useCallback((index: number) => {
     const scroller = scrollerRef.current;
@@ -39,30 +55,29 @@ export function ProductFeatureBenefits({ brand, content }: ProductFeatureBenefit
       return;
     }
 
+    // Commit the index immediately; debounced handleScroll won't overwrite
+    // it with intermediate positions during the smooth scroll.
+    setActiveIndex(clampedIndex);
+    if (settleTimerRef.current) {
+      clearTimeout(settleTimerRef.current);
+      settleTimerRef.current = null;
+    }
+
     scroller.scrollTo({
       behavior: shouldReduceMotion ? "auto" : "smooth",
       left: getCardTargetLeft(scroller, card),
     });
-    setActiveIndex(clampedIndex);
   }, [content.items.length, shouldReduceMotion]);
 
   const handleScroll = useCallback(() => {
-    const scroller = scrollerRef.current;
-
-    if (!scroller) {
-      return;
+    if (settleTimerRef.current) {
+      clearTimeout(settleTimerRef.current);
     }
-
-    const cards = Array.from(scroller.children) as HTMLElement[];
-    const nextIndex = cards.reduce((closestIndex, card, index) => {
-      const closestDistance = Math.abs(getCardTargetLeft(scroller, cards[closestIndex]) - scroller.scrollLeft);
-      const distance = Math.abs(getCardTargetLeft(scroller, card) - scroller.scrollLeft);
-
-      return distance < closestDistance ? index : closestIndex;
-    }, 0);
-
-    setActiveIndex(nextIndex);
-  }, []);
+    // Only commit activeIndex once scroll has been quiet for 100ms.
+    settleTimerRef.current = setTimeout(() => {
+      setActiveIndex(computeNearestIndex());
+    }, 100);
+  }, [computeNearestIndex]);
 
   const handleWheel = useCallback((event: React.WheelEvent<HTMLDivElement>) => {
     const scroller = scrollerRef.current;
@@ -124,6 +139,14 @@ export function ProductFeatureBenefits({ brand, content }: ProductFeatureBenefit
 
     event.preventDefault();
     scroller.scrollLeft = gesture.startScrollLeft - deltaX * 1.18;
+  }, []);
+
+  useEffect(() => {
+    return () => {
+      if (settleTimerRef.current) {
+        clearTimeout(settleTimerRef.current);
+      }
+    };
   }, []);
 
   const finishPointerGesture = useCallback((event: PointerEvent<HTMLDivElement>) => {

@@ -1,25 +1,13 @@
-import { useCallback, useEffect, useRef } from "react";
-import {
-  animate,
-  type AnimationPlaybackControls,
-  motion,
-  useMotionValue,
-  useReducedMotion,
-  useTransform,
-} from "motion/react";
+import { motion, useReducedMotion } from "motion/react";
 import type { BrandId } from "../../brands/brands";
 import type { ProductCardItem, ProductTitleSegment } from "../../data/homepage";
 import styles from "./ProductCard.module.css";
 
-const IMAGE_AUTOPLAY_DURATION = 3.2;
-
 type ProductCardProps = {
   activeImageIndex: number;
   brand: BrandId;
-  hasImageInteracted: boolean;
   isWishlisted: boolean;
   onImageChange: (productId: string, index: number) => void;
-  onImageInteracted: (productId: string) => void;
   onWishlistChange: (productId: string, isWishlisted: boolean) => void;
   product: ProductCardItem;
 };
@@ -27,73 +15,19 @@ type ProductCardProps = {
 export function ProductCard({
   activeImageIndex,
   brand,
-  hasImageInteracted,
   isWishlisted,
   onImageChange,
-  onImageInteracted,
   onWishlistChange,
   product,
 }: ProductCardProps) {
   const shouldReduceMotion = useReducedMotion();
-  const imageProgress = useMotionValue(0);
-  const autoplayRef = useRef<AnimationPlaybackControls | null>(null);
   const imageCount = product.images.length;
   const activeImage = product.images[activeImageIndex] ?? product.images[0];
-  const progressScale = useTransform(imageProgress, (latest) => {
-    if (imageCount <= 1) {
-      return 1;
-    }
-
-    return Math.min(1, (activeImageIndex + latest) / imageCount);
-  });
-
-  const stopAutoplay = useCallback(() => {
-    onImageInteracted(product.id);
-    autoplayRef.current?.stop();
-    imageProgress.set(1);
-  }, [imageProgress, onImageInteracted, product.id]);
-
-  const selectImage = useCallback((index: number) => {
-    stopAutoplay();
-    onImageChange(product.id, index);
-  }, [onImageChange, product.id, stopAutoplay]);
-
-  useEffect(() => {
-    autoplayRef.current?.stop();
-    imageProgress.set(imageCount <= 1 ? 1 : 0);
-
-    return () => autoplayRef.current?.stop();
-  }, [imageCount, imageProgress, product.id]);
-
-  useEffect(() => {
-    autoplayRef.current?.stop();
-
-    if (hasImageInteracted || shouldReduceMotion || imageCount <= 1) {
-      imageProgress.set(1);
-      return;
-    }
-
-    imageProgress.set(0);
-    autoplayRef.current = animate(imageProgress, [0, 1], {
-      duration: IMAGE_AUTOPLAY_DURATION,
-      ease: "linear",
-      onComplete: () => {
-        if (!hasImageInteracted) {
-          onImageChange(product.id, (activeImageIndex + 1) % imageCount);
-        }
-      },
-    });
-
-    return () => autoplayRef.current?.stop();
-  }, [activeImageIndex, hasImageInteracted, imageCount, imageProgress, onImageChange, product.id, shouldReduceMotion]);
+  // Discrete progress: how many images user has seen (current position).
+  const progressScale = imageCount <= 1 ? 1 : (activeImageIndex + 1) / imageCount;
 
   return (
-    <article
-      className={styles.card}
-      data-brand={brand}
-      onFocusCapture={stopAutoplay}
-      onPointerDownCapture={stopAutoplay}
-    >
+    <article className={styles.card} data-brand={brand}>
       <div className={styles.mediaBlock}>
         <div className={styles.mediaStage}>
           <motion.img
@@ -145,7 +79,7 @@ export function ProductCard({
                     key={image.src}
                     onClick={(event) => {
                       event.stopPropagation();
-                      selectImage(index);
+                      onImageChange(product.id, index);
                     }}
                   >
                     <img src={image.src} alt="" loading="lazy" decoding="async" draggable={false} />
@@ -157,7 +91,10 @@ export function ProductCard({
         </div>
 
         <div className={styles.progressTrack} aria-hidden="true">
-          <motion.span className={styles.progressFill} style={{ scaleX: progressScale }} />
+          <span
+            className={styles.progressFill}
+            style={{ transform: `scaleX(${progressScale})` }}
+          />
         </div>
       </div>
 

@@ -23,18 +23,11 @@ export function ProductCarousel({ brand, content }: ProductCarouselProps) {
   });
 
   const [activeImageByProduct, setActiveImageByProduct] = useState<Record<string, number>>({});
-  const [interactedImageByProduct, setInteractedImageByProduct] = useState<Record<string, boolean>>({});
   const [wishlistByProduct, setWishlistByProduct] = useState<Record<string, boolean>>({});
 
   const setProductImage = useCallback((productId: string, index: number) => {
     setActiveImageByProduct((current) => (
       current[productId] === index ? current : { ...current, [productId]: index }
-    ));
-  }, []);
-
-  const markProductImageInteracted = useCallback((productId: string) => {
-    setInteractedImageByProduct((current) => (
-      current[productId] ? current : { ...current, [productId]: true }
     ));
   }, []);
 
@@ -47,7 +40,6 @@ export function ProductCarousel({ brand, content }: ProductCarouselProps) {
   useEffect(() => {
     reset();
     setActiveImageByProduct({});
-    setInteractedImageByProduct({});
     setWishlistByProduct({});
   }, [brand, reset]);
 
@@ -76,10 +68,8 @@ export function ProductCarousel({ brand, content }: ProductCarouselProps) {
                 <ProductCard
                   activeImageIndex={activeImageByProduct[product.id] ?? 0}
                   brand={brand}
-                  hasImageInteracted={interactedImageByProduct[product.id] === true}
                   isWishlisted={wishlistByProduct[product.id] === true}
                   onImageChange={setProductImage}
-                  onImageInteracted={markProductImageInteracted}
                   onWishlistChange={setProductWishlist}
                   product={product}
                 />
