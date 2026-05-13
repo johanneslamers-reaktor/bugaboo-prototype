@@ -37,6 +37,7 @@ export type ProductDetail = {
   crossSell?: ProductCrossSellContent;
   productUsp?: ProductUspContent;
   videoStory?: ProductVideoStoryContent;
+  storyShop?: ProductStoryShopContent;
   impact: ProductImpactContent;
   accordions: ProductAccordionItem[];
   colorways: ProductColorway[];
@@ -195,6 +196,50 @@ export type ProductVideoStoryContent = {
         accent: string;
       };
   ariaLabel: string;
+};
+
+export type ProductStoryShopContent = {
+  nodeId: string;
+  eyebrow: string;
+  title:
+    | {
+        kind: "plain";
+        lines: string[];
+      }
+    | {
+        kind: "highlight";
+        lines: {
+          text: string;
+          emphasis?: string;
+        }[];
+      };
+  author: {
+    name: string;
+    role: string;
+    avatarSrc: string;
+    avatarAlt: string;
+  };
+  lead: {
+    strong: string;
+    muted: string;
+  };
+  body: string;
+  ctaLabel: string;
+  images: {
+    id: string;
+    src: string;
+    alt: string;
+    objectPosition?: string;
+  }[];
+  setup: {
+    label: string;
+    title: string;
+    subtitle: string;
+    imageSrc: string;
+    imageAlt: string;
+  };
+  decorationSrc?: string;
+  decorationAlt?: string;
 };
 
 export type ProductAccordionItem = {
@@ -536,6 +581,49 @@ export const productCatalog: Record<BrandId, ProductDetail[]> = {
           lines: ["Go further,", "together"],
         },
         ariaLabel: "Bugaboo Fox 5 Renew video story",
+      },
+      storyShop: {
+        nodeId: "8618:4399",
+        eyebrow: "Parent perspective",
+        title: {
+          kind: "plain",
+          lines: ["How parenthood has", "opened up our world"],
+        },
+        author: {
+          name: "By Luca",
+          role: "Father of Liam",
+          avatarSrc: "/assets/pdp/story-shop/bugaboo/avatar.png",
+          avatarAlt: "Portrait of Luca",
+        },
+        lead: {
+          strong: "Becoming a parent changed everything, not how I expected though.",
+          muted:
+            " I thought life would get smaller. Instead, it opened up. Longer walks, more adventures, extra spontaneity, and an urge to get outside.",
+        },
+        body:
+          "The Bugaboo Fox 5 Renew made it easy. All-terrain, smooth to steer, and comfortable from the start, it moves effortlessly from city streets to park paths. It gave me the confidence to go further, without overthinking it.",
+        ctaLabel: "Read the full story",
+        images: [
+          {
+            id: "walk",
+            src: "/assets/pdp/story-shop/bugaboo/story-01.png",
+            alt: "Luca walking with a Bugaboo stroller outdoors",
+            objectPosition: "center",
+          },
+          {
+            id: "portrait",
+            src: "/assets/pdp/story-shop/bugaboo/story-02.png",
+            alt: "Parent and child outdoors with Bugaboo stroller",
+            objectPosition: "center",
+          },
+        ],
+        setup: {
+          label: "See Luca's setup",
+          title: "Ultimate newborn bundle",
+          subtitle: "Forrest Green",
+          imageSrc: "/assets/pdp/story-shop/bugaboo/setup.png",
+          imageAlt: "Bugaboo Fox 5 Renew setup",
+        },
       },
       accordions: [
         {
@@ -1024,6 +1112,55 @@ export const productCatalog: Record<BrandId, ProductDetail[]> = {
           accent: "fast asleep in theirs",
         },
         ariaLabel: "Joolz Aer2 video story",
+      },
+      storyShop: {
+        nodeId: "8612:5055",
+        eyebrow: "Parent perspective",
+        title: {
+          kind: "highlight",
+          lines: [
+            { text: "How parenthood" },
+            { text: "kept us ", emphasis: "moving" },
+          ],
+        },
+        author: {
+          name: "By Mila",
+          role: "Mother of Otis",
+          avatarSrc: "/assets/pdp/story-shop/joolz/avatar.png",
+          avatarAlt: "Portrait of Mila",
+        },
+        lead: {
+          strong:
+            "Becoming a parent changed everything, but not how I expected. I thought getting out the door",
+          muted:
+            " would take forever, that every plan needed planning. Instead, we just go. A quick coffee while he naps, hopping on trams, folding it up with one hand while holding him with the other.",
+        },
+        body:
+          "The Joolz Aer 2 makes that easy. Lightweight, compact, and effortless from the start, it fits into days on the move. From narrow sidewalks to overhead compartments, it's always ready. It gave me the confidence to head out without a second thought.",
+        ctaLabel: "Read the full story",
+        decorationSrc: "/assets/pdp/story-shop/joolz/smile-bg.svg",
+        decorationAlt: "",
+        images: [
+          {
+            id: "city",
+            src: "/assets/pdp/story-shop/joolz/story-01.png",
+            alt: "Mila walking through the city with a Joolz stroller",
+            objectPosition: "center",
+          },
+          {
+            id: "street",
+            src: "/assets/pdp/story-shop/joolz/story-02.png",
+            alt: "Joolz stroller in the city",
+            objectPosition: "center",
+          },
+        ],
+        setup: {
+          label: "See Mila's setup",
+          title: "Forrest Green",
+          subtitle: "Rain cover",
+          imageSrc: "/assets/pdp/story-shop/joolz/setup.png",
+          imageAlt: "Joolz Aer2 setup",
+        },
       },
       impact: {
         nodeId: "8677:5113",

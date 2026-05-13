@@ -9,6 +9,7 @@ import { ProductFloatingCta } from "../../components/ProductFloatingCta";
 import { ProductGallery } from "../../components/ProductGallery";
 import { ProductImpact } from "../../components/ProductImpact";
 import { ProductReasons } from "../../components/ProductReasons";
+import { ProductStoryShop } from "../../components/ProductStoryShop";
 import { ProductSummary } from "../../components/ProductSummary";
 import { ProductUsp } from "../../components/ProductUsp";
 import { ProductVideoStory } from "../../components/ProductVideoStory";
@@ -55,6 +56,9 @@ export function ProductMasterPage({ brand, product }: ProductMasterPageProps) {
         ) : null}
         {product.videoStory ? (
           <ProductVideoStory brand={brand} content={product.videoStory} />
+        ) : null}
+        {product.storyShop ? (
+          <ProductStoryShop brand={brand} content={product.storyShop} />
         ) : null}
       </div>
 

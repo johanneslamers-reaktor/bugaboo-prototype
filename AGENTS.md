@@ -141,6 +141,7 @@ PDP:
 - `ProductCrossSell`
 - `ProductUsp`
 - `ProductVideoStory`
+- `ProductStoryShop`
 - `ProductFloatingCta`
 
 ## Theming
@@ -225,6 +226,7 @@ PDP sections currently include:
 - Cross-sell carousel
 - Product USP sticky scroll block
 - Video story block
+- Parent storytelling with shoppable setup block
 - Floating CTA with iOS safe-area-aware spacing
 
 ## Figma
@@ -256,6 +258,7 @@ Useful known nodes:
 - PDP cross-sell: Bugaboo `8618:4200`, Joolz `8612:5032`
 - PDP product USP: Bugaboo `8618:2335`, Joolz `8612:4989`
 - PDP video story: Bugaboo `8618:2358`, Joolz `8612:5017`
+- PDP storytelling/shoppable setup: Bugaboo `8618:4399`, Joolz `8612:5055`
 - Floating CTA: Bugaboo `8681:5162`, Joolz `8677:5183`
 
 When implementing from Figma:

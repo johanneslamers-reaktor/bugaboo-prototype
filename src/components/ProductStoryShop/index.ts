@@ -1,0 +1,1 @@
+export { ProductStoryShop } from "./ProductStoryShop";

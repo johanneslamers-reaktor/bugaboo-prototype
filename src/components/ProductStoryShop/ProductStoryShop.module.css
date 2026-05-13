@@ -1,0 +1,559 @@
+.section {
+  background: #121212;
+  box-sizing: border-box;
+  color: #ffffff;
+  overflow: hidden;
+  padding: 27px 0 38px;
+  position: relative;
+  width: 100%;
+}
+
+.section[data-brand="joolz"] {
+  background: #ffffff;
+  color: var(--joolz-deep-blue);
+  padding: 48px 0 58px;
+}
+
+.decoration {
+  display: none;
+}
+
+.section[data-brand="joolz"] .decoration {
+  display: block;
+  height: 658px;
+  pointer-events: none;
+  position: absolute;
+  right: -195px;
+  top: 763px;
+  width: 586px;
+  z-index: 0;
+}
+
+.copy,
+.mediaArea {
+  position: relative;
+  z-index: 1;
+}
+
+.copy {
+  box-sizing: border-box;
+  padding: 0 18px;
+}
+
+.section[data-brand="joolz"] .copy {
+  padding: 0 22px;
+}
+
+.eyebrow {
+  color: currentColor;
+  font-family: var(--font-aeonik);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.25;
+  margin: 0 0 17px;
+}
+
+.section[data-brand="joolz"] .eyebrow {
+  font-family: var(--font-value-sans);
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 10px;
+}
+
+.title {
+  color: currentColor;
+  display: flex;
+  flex-direction: column;
+  font-family: var(--font-aeonik);
+  font-size: 32px;
+  font-weight: 400;
+  letter-spacing: -0.64px;
+  line-height: 1;
+  margin: 0;
+  max-width: 361px;
+}
+
+.section[data-brand="joolz"] .title {
+  align-items: flex-start;
+  font-family: var(--font-value-sans-joolz);
+  font-size: 32px;
+  font-weight: 700;
+  letter-spacing: 0;
+  line-height: 1;
+  max-width: 312px;
+}
+
+.title mark {
+  background: #d0b6d8;
+  color: inherit;
+  display: inline-block;
+  font: inherit;
+  line-height: 0.95;
+  margin-top: -1px;
+  padding: 0 7px 3px;
+}
+
+.title em {
+  font-family: var(--font-value-sans);
+  font-style: italic;
+  font-weight: 700;
+}
+
+.author {
+  align-items: center;
+  display: flex;
+  gap: 16px;
+  margin-top: 25px;
+}
+
+.section[data-brand="joolz"] .author {
+  gap: 16px;
+  margin-top: 18px;
+}
+
+.author img {
+  border-radius: 999px;
+  display: block;
+  height: 48px;
+  object-fit: cover;
+  width: 48px;
+}
+
+.section[data-brand="joolz"] .author img {
+  height: 40px;
+  width: 40px;
+}
+
+.author p,
+.storyCopy p {
+  margin: 0;
+}
+
+.author p {
+  display: flex;
+  flex-direction: column;
+  font-family: var(--font-aeonik);
+  font-size: 16px;
+  line-height: 1.25;
+}
+
+.section[data-brand="joolz"] .author p {
+  font-family: var(--font-value-sans);
+  font-size: 14px;
+}
+
+.author strong {
+  color: currentColor;
+  font-weight: 400;
+}
+
+.section[data-brand="joolz"] .author strong {
+  font-family: var(--font-value-sans-joolz);
+  font-weight: 700;
+}
+
+.author span {
+  color: rgb(255 255 255 / 50%);
+}
+
+.section[data-brand="joolz"] .author span {
+  color: var(--joolz-deep-blue);
+  font-weight: 400;
+}
+
+.storyCopy {
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+  margin-top: 75px;
+  max-width: 352px;
+}
+
+.section[data-brand="joolz"] .storyCopy {
+  margin-top: 88px;
+}
+
+.lead {
+  font-family: var(--font-aeonik);
+  font-size: 28px;
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: 1.05;
+}
+
+.section[data-brand="joolz"] .lead {
+  font-family: var(--font-value-sans);
+  font-weight: 500;
+  line-height: 1.15;
+}
+
+.lead span:first-child {
+  color: currentColor;
+}
+
+.lead span:last-child {
+  color: #717171;
+}
+
+.section[data-brand="joolz"] .lead span:last-child {
+  color: rgb(19 15 49 / 40%);
+}
+
+.body {
+  color: rgb(255 255 255 / 40%);
+  font-family: var(--font-aeonik);
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.05;
+}
+
+.section[data-brand="joolz"] .body {
+  color: rgb(19 15 49 / 40%);
+  font-family: var(--font-value-sans);
+  font-size: 20px;
+  line-height: 1.15;
+}
+
+.storyLink {
+  align-items: center;
+  color: currentColor;
+  display: inline-flex;
+  font-family: var(--font-aeonik);
+  font-size: 14px;
+  font-weight: 400;
+  gap: 4px;
+  line-height: 1.25;
+  margin-top: 34px;
+  text-decoration: none;
+}
+
+.section[data-brand="joolz"] .storyLink {
+  font-family: var(--font-value-sans-joolz);
+  font-size: 16px;
+  font-weight: 700;
+  gap: 12px;
+  margin-top: 55px;
+}
+
+.storyLinkIcon {
+  display: none;
+}
+
+.storyLink::after {
+  border-color: currentColor;
+  border-style: solid;
+  border-width: 1px 1px 0 0;
+  content: "";
+  display: block;
+  height: 5px;
+  transform: rotate(45deg);
+  width: 5px;
+}
+
+.section[data-brand="joolz"] .storyLink::after {
+  display: none;
+}
+
+.section[data-brand="joolz"] .storyLinkIcon {
+  align-items: center;
+  background: #fdfdfd;
+  border-radius: 999px;
+  box-shadow: 0 2px 8px rgb(19 15 49 / 8%);
+  display: flex;
+  height: 44px;
+  justify-content: center;
+  position: relative;
+  width: 44px;
+}
+
+.section[data-brand="joolz"] .storyLinkIcon::before,
+.section[data-brand="joolz"] .storyLinkIcon::after {
+  background: var(--joolz-deep-blue);
+  border-radius: 999px;
+  content: "";
+  left: 50%;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.section[data-brand="joolz"] .storyLinkIcon::before {
+  height: 2px;
+  width: 9px;
+}
+
+.section[data-brand="joolz"] .storyLinkIcon::after {
+  height: 9px;
+  width: 2px;
+}
+
+.mediaArea {
+  margin-top: 32px;
+}
+
+.section[data-brand="joolz"] .mediaArea {
+  margin-top: 157px;
+}
+
+.mediaRail {
+  display: flex;
+  gap: 4px;
+  overflow-x: auto;
+  padding: 0 17px;
+  scroll-padding-inline: 17px;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  width: 100%;
+}
+
+.section[data-brand="joolz"] .mediaRail {
+  gap: 16px;
+  padding: 0 20px;
+  scroll-padding-inline: 20px;
+}
+
+.mediaRail::-webkit-scrollbar {
+  display: none;
+}
+
+.mediaCard {
+  aspect-ratio: 1;
+  flex: 0 0 369px;
+  margin: 0;
+  overflow: hidden;
+  position: relative;
+  scroll-snap-align: start;
+}
+
+.section[data-brand="joolz"] .mediaCard {
+  border-radius: 12px;
+  flex-basis: 342px;
+}
+
+.mediaCard img {
+  display: block;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+  user-select: none;
+  width: 100%;
+  -webkit-user-drag: none;
+}
+
+.controls {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+  margin: 16px 17px 0;
+}
+
+.section[data-brand="joolz"] .controls {
+  gap: 12px;
+  margin: 24px 28px 0;
+}
+
+.control {
+  align-items: center;
+  appearance: none;
+  background: rgb(255 255 255 / 15%);
+  border: 0;
+  border-radius: 999px;
+  color: #ffffff;
+  cursor: pointer;
+  display: flex;
+  height: 48px;
+  justify-content: center;
+  padding: 0;
+  width: 48px;
+}
+
+.control:focus-visible,
+.setup:focus-visible {
+  outline: 1.5px solid currentColor;
+  outline-offset: 4px;
+}
+
+.section[data-brand="joolz"] .control {
+  background: var(--joolz-deep-blue);
+  color: #fdfdfd;
+}
+
+.control:disabled {
+  background: rgb(255 255 255 / 5%);
+  color: rgb(255 255 255 / 50%);
+  cursor: default;
+}
+
+.section[data-brand="joolz"] .control:disabled {
+  background: rgb(19 15 49 / 7%);
+  color: rgb(19 15 49 / 50%);
+}
+
+.control span {
+  border-color: currentColor;
+  border-style: solid;
+  border-width: 2px 2px 0 0;
+  display: block;
+  height: 10px;
+  width: 10px;
+}
+
+.control:first-child span {
+  transform: rotate(-135deg);
+}
+
+.control:last-child span {
+  transform: rotate(45deg);
+}
+
+.setup {
+  align-items: center;
+  appearance: none;
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  background: rgb(255 255 255 / 10%);
+  border: 0;
+  border-radius: 0;
+  color: #ffffff;
+  cursor: pointer;
+  display: grid;
+  grid-template-columns: 72px 1fr 24px;
+  height: 89px;
+  margin: 20px 16px 0;
+  padding: 8px;
+  position: relative;
+  text-align: left;
+  width: calc(100% - 32px);
+}
+
+.section[data-brand="joolz"] .setup {
+  background: rgb(19 15 49 / 7%);
+  border-radius: 8px;
+  color: var(--joolz-deep-blue);
+  grid-template-columns: 72px 1fr 42px;
+  margin: 24px 20px 0;
+  width: calc(100% - 40px);
+}
+
+.setupImage {
+  align-items: center;
+  background: #f2f1ef;
+  display: flex;
+  height: 72px;
+  justify-content: center;
+  overflow: hidden;
+  width: 72px;
+}
+
+.section[data-brand="joolz"] .setupImage {
+  background: #fafafa;
+  border-radius: 4px;
+}
+
+.setupImage img {
+  display: block;
+  height: 84%;
+  object-fit: contain;
+  pointer-events: none;
+  user-select: none;
+  width: 84%;
+  -webkit-user-drag: none;
+}
+
+.section[data-brand="joolz"] .setupImage img {
+  height: 98%;
+  width: 72%;
+}
+
+.setupCopy {
+  display: flex;
+  flex-direction: column;
+  font-family: var(--font-aeonik);
+  font-size: 14px;
+  line-height: 1.25;
+  min-width: 0;
+  padding-left: 18px;
+}
+
+.section[data-brand="joolz"] .setupCopy {
+  font-family: var(--font-value-sans);
+  padding-left: 19px;
+}
+
+.setupCopy strong {
+  color: currentColor;
+  font-weight: 400;
+}
+
+.section[data-brand="joolz"] .setupCopy strong {
+  font-family: var(--font-value-sans-joolz);
+  font-weight: 700;
+}
+
+.setupCopy span {
+  color: rgb(255 255 255 / 50%);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.section[data-brand="joolz"] .setupCopy span {
+  color: var(--joolz-deep-blue);
+}
+
+.setupIcon {
+  border-color: currentColor;
+  border-style: solid;
+  border-width: 1.5px 1.5px 0 0;
+  display: block;
+  height: 8px;
+  justify-self: center;
+  position: relative;
+  transform: rotate(45deg);
+  width: 8px;
+}
+
+.section[data-brand="joolz"] .setupIcon {
+  align-items: center;
+  background: #fdfdfd;
+  border: 0;
+  border-radius: 999px;
+  box-shadow: 0 2px 8px rgb(19 15 49 / 8%);
+  display: flex;
+  height: 42px;
+  justify-content: center;
+  transform: none;
+  width: 42px;
+}
+
+.section[data-brand="joolz"] .setupIcon::before,
+.section[data-brand="joolz"] .setupIcon::after {
+  background: var(--joolz-deep-blue);
+  border-radius: 999px;
+  content: "";
+  position: absolute;
+}
+
+.section[data-brand="joolz"] .setupIcon::before {
+  height: 2px;
+  width: 9px;
+}
+
+.section[data-brand="joolz"] .setupIcon::after {
+  height: 9px;
+  width: 2px;
+}
+
+@media (max-width: 374px) {
+  .mediaCard {
+    flex-basis: calc(100vw - 34px);
+  }
+
+  .section[data-brand="joolz"] .mediaCard {
+    flex-basis: calc(100vw - 40px);
+  }
+
+  .lead {
+    font-size: 26px;
+  }
+}
