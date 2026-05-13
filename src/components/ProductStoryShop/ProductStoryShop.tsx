@@ -143,7 +143,7 @@ export function ProductStoryShop({ brand, content }: ProductStoryShopProps) {
             brand={brand}
             className={styles.lead}
             progress={scrollYProgress}
-            range={[0.04, 0.4]}
+            range={[0.02, 0.32]}
             shouldReduceMotion={shouldReduceMotion}
             text={leadText}
             variant="lead"
@@ -152,7 +152,7 @@ export function ProductStoryShop({ brand, content }: ProductStoryShopProps) {
             brand={brand}
             className={styles.body}
             progress={scrollYProgress}
-            range={[0.42, 0.76]}
+            range={[0.3, 0.56]}
             shouldReduceMotion={shouldReduceMotion}
             text={content.body}
             variant="body"
