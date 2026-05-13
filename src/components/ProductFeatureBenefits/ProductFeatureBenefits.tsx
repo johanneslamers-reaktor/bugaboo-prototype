@@ -162,8 +162,8 @@ export function ProductFeatureBenefits({ brand, content }: ProductFeatureBenefit
           <motion.article
             className={styles.card}
             data-active={index === activeIndex ? "true" : "false"}
-            initial={shouldReduceMotion ? false : { opacity: 0, y: 18 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={shouldReduceMotion ? false : { opacity: 0 }}
+            whileInView={{ opacity: 1 }}
             viewport={{ once: true, amount: 0.12 }}
             transition={{ duration: 0.38, delay: index * 0.04, ease: [0.22, 1, 0.36, 1] }}
             key={item.id}
