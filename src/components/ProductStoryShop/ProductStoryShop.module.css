@@ -32,8 +32,8 @@
   height: 658px;
   pointer-events: none;
   position: absolute;
-  right: -195px;
-  top: 763px;
+  right: -286px;
+  top: 392px;
   width: 586px;
   z-index: 0;
 }
@@ -54,6 +54,10 @@
 }
 
 .section[data-brand="joolz"] .copy {
+  background:
+    var(--story-bg)
+    url("/assets/pdp/story-shop/joolz/smile-bg.svg")
+    no-repeat calc(100% + 286px) 392px / 586px 658px;
   padding: 0 22px;
 }
 
@@ -196,6 +200,7 @@
 
 .section[data-brand="joolz"] .lead {
   font-family: var(--font-value-sans);
+  font-size: 26px;
   font-weight: 500;
   line-height: 1.15;
 }
@@ -239,6 +244,7 @@
   line-height: inherit;
   max-width: 100%;
   overflow-wrap: break-word;
+  white-space: nowrap;
   width: fit-content;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -358,7 +364,9 @@
   scroll-padding-inline: 16px;
   scroll-snap-type: x mandatory;
   scrollbar-width: none;
+  touch-action: pan-x pan-y;
   width: 100%;
+  -webkit-overflow-scrolling: touch;
 }
 
 .section[data-brand="joolz"] .productRail {

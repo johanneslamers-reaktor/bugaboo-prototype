@@ -1,4 +1,5 @@
-import { useCallback, useMemo, useRef, useState, type CSSProperties } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState, type CSSProperties } from "react";
+import { layoutWithLines, prepareWithSegments } from "@chenglou/pretext";
 import { motion, useReducedMotion, useScroll, useTransform, type MotionValue } from "motion/react";
 import type { BrandId } from "../../brands/brands";
 import type { ProductStoryShopContent } from "../../data/products";
@@ -11,14 +12,37 @@ type ProductStoryShopProps = {
 
 type RevealVariant = "lead" | "body";
 
-const revealLineLengths: Record<BrandId, Record<RevealVariant, number>> = {
+const fallbackLineLengths: Record<BrandId, Record<RevealVariant, number>> = {
   bugaboo: {
     lead: 28,
     body: 42,
   },
   joolz: {
-    lead: 25,
-    body: 36,
+    lead: 24,
+    body: 38,
+  },
+};
+
+const revealTextMetrics: Record<BrandId, Record<RevealVariant, { font: string; lineHeight: number }>> = {
+  bugaboo: {
+    lead: {
+      font: '400 28px "Aeonik Pro"',
+      lineHeight: 29.4,
+    },
+    body: {
+      font: '400 18px "Aeonik Pro"',
+      lineHeight: 18.9,
+    },
+  },
+  joolz: {
+    lead: {
+      font: '500 26px "Value Sans Pro"',
+      lineHeight: 29.9,
+    },
+    body: {
+      font: '400 20px "Value Sans Pro"',
+      lineHeight: 23,
+    },
   },
 };
 
@@ -119,7 +143,7 @@ export function ProductStoryShop({ brand, content }: ProductStoryShopProps) {
             brand={brand}
             className={styles.lead}
             progress={scrollYProgress}
-            range={[0.08, 0.58]}
+            range={[0.04, 0.4]}
             shouldReduceMotion={shouldReduceMotion}
             text={leadText}
             variant="lead"
@@ -128,7 +152,7 @@ export function ProductStoryShop({ brand, content }: ProductStoryShopProps) {
             brand={brand}
             className={styles.body}
             progress={scrollYProgress}
-            range={[0.62, 0.98]}
+            range={[0.42, 0.76]}
             shouldReduceMotion={shouldReduceMotion}
             text={content.body}
             variant="body"
@@ -203,10 +227,53 @@ function RevealParagraph({
   text: string;
   variant: RevealVariant;
 }) {
-  const lines = useMemo(() => splitTextIntoLines(text, revealLineLengths[brand][variant]), [brand, text, variant]);
+  const paragraphRef = useRef<HTMLParagraphElement | null>(null);
+  const fallbackLines = useMemo(() => splitTextIntoLines(text, fallbackLineLengths[brand][variant]), [brand, text, variant]);
+  const [layoutWidth, setLayoutWidth] = useState(0);
+  const [lines, setLines] = useState(fallbackLines);
+
+  useEffect(() => {
+    const paragraph = paragraphRef.current;
+
+    if (!paragraph) {
+      return undefined;
+    }
+
+    const updateWidth = () => {
+      const nextWidth = Math.floor(paragraph.getBoundingClientRect().width);
+      setLayoutWidth((currentWidth) => (Math.abs(currentWidth - nextWidth) > 1 ? nextWidth : currentWidth));
+    };
+    const observer = new ResizeObserver(updateWidth);
+
+    updateWidth();
+    observer.observe(paragraph);
+
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
+
+  useEffect(() => {
+    let isCancelled = false;
+
+    const updateLines = () => {
+      if (isCancelled) {
+        return;
+      }
+
+      setLines(measureTextLines(text, brand, variant, layoutWidth, fallbackLines));
+    };
+
+    updateLines();
+    void document.fonts?.ready.then(updateLines);
+
+    return () => {
+      isCancelled = true;
+    };
+  }, [brand, fallbackLines, layoutWidth, text, variant]);
 
   return (
-    <p className={`${className} ${styles.revealParagraph}`} aria-label={text}>
+    <p className={`${className} ${styles.revealParagraph}`} aria-label={text} ref={paragraphRef}>
       <span className={styles.revealLineStack} aria-hidden="true">
         {lines.map((line, index) => (
           <RevealLine
@@ -222,6 +289,29 @@ function RevealParagraph({
       </span>
     </p>
   );
+}
+
+function measureTextLines(
+  text: string,
+  brand: BrandId,
+  variant: RevealVariant,
+  width: number,
+  fallbackLines: string[],
+) {
+  if (width <= 0 || typeof document === "undefined") {
+    return fallbackLines;
+  }
+
+  try {
+    const metrics = revealTextMetrics[brand][variant];
+    const prepared = prepareWithSegments(text, metrics.font);
+    const layout = layoutWithLines(prepared, width, metrics.lineHeight);
+    const lines = layout.lines.map((line) => line.text.trim()).filter(Boolean);
+
+    return lines.length > 0 ? lines : fallbackLines;
+  } catch {
+    return fallbackLines;
+  }
 }
 
 function RevealLine({

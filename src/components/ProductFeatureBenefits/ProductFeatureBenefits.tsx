@@ -11,9 +11,7 @@ type ProductFeatureBenefitsProps = {
 
 export function ProductFeatureBenefits({ brand, content }: ProductFeatureBenefitsProps) {
   const scrollerRef = useRef<HTMLDivElement | null>(null);
-  const dragStartScrollLeftRef = useRef(0);
   const [activeIndex, setActiveIndex] = useState(0);
-  const [isDragging, setIsDragging] = useState(false);
   const [openHotspots, setOpenHotspots] = useState<Record<string, string | null>>({});
   const shouldReduceMotion = useReducedMotion();
 
@@ -56,33 +54,6 @@ export function ProductFeatureBenefits({ brand, content }: ProductFeatureBenefit
     setActiveIndex(nextIndex);
   }, []);
 
-  const snapToNearestCard = useCallback(() => {
-    const scroller = scrollerRef.current;
-
-    if (!scroller) {
-      return;
-    }
-
-    const cards = Array.from(scroller.children) as HTMLElement[];
-    const nextIndex = cards.reduce((closestIndex, card, index) => {
-      const closestDistance = Math.abs(getCardTargetLeft(scroller, cards[closestIndex]) - scroller.scrollLeft);
-      const distance = Math.abs(getCardTargetLeft(scroller, card) - scroller.scrollLeft);
-
-      return distance < closestDistance ? index : closestIndex;
-    }, 0);
-    const nextCard = cards[nextIndex];
-
-    if (!nextCard) {
-      return;
-    }
-
-    scroller.scrollTo({
-      behavior: shouldReduceMotion ? "auto" : "smooth",
-      left: getCardTargetLeft(scroller, nextCard),
-    });
-    setActiveIndex(nextIndex);
-  }, [shouldReduceMotion]);
-
   const handleWheel = useCallback((event: React.WheelEvent<HTMLDivElement>) => {
     const scroller = scrollerRef.current;
 
@@ -99,33 +70,9 @@ export function ProductFeatureBenefits({ brand, content }: ProductFeatureBenefit
 
       <motion.div
         className={styles.scroller}
-        data-dragging={isDragging ? "true" : "false"}
         ref={scrollerRef}
         onScroll={handleScroll}
         onWheel={handleWheel}
-        onPanStart={() => {
-          const scroller = scrollerRef.current;
-
-          if (!scroller) {
-            return;
-          }
-
-          dragStartScrollLeftRef.current = scroller.scrollLeft;
-          setIsDragging(true);
-        }}
-        onPan={(_, info) => {
-          const scroller = scrollerRef.current;
-
-          if (!scroller) {
-            return;
-          }
-
-          scroller.scrollLeft = dragStartScrollLeftRef.current - info.offset.x;
-        }}
-        onPanEnd={() => {
-          setIsDragging(false);
-          snapToNearestCard();
-        }}
         aria-label={content.title}
       >
         {content.items.map((item, index) => (

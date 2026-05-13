@@ -11,37 +11,8 @@ type ProductCrossSellProps = {
 
 export function ProductCrossSell({ brand, content }: ProductCrossSellProps) {
   const scrollerRef = useRef<HTMLDivElement | null>(null);
-  const dragStartScrollLeftRef = useRef(0);
-  const shouldReduceMotion = useReducedMotion();
-  const [isDragging, setIsDragging] = useState(false);
   const [wishlistById, setWishlistById] = useState<Record<string, boolean>>({});
   const [addedById, setAddedById] = useState<Record<string, boolean>>({});
-
-  const snapToNearestCard = useCallback(() => {
-    const scroller = scrollerRef.current;
-
-    if (!scroller) {
-      return;
-    }
-
-    const cards = Array.from(scroller.children) as HTMLElement[];
-    const nextIndex = cards.reduce((closestIndex, card, index) => {
-      const closestDistance = Math.abs(getCardTargetLeft(scroller, cards[closestIndex]) - scroller.scrollLeft);
-      const distance = Math.abs(getCardTargetLeft(scroller, card) - scroller.scrollLeft);
-
-      return distance < closestDistance ? index : closestIndex;
-    }, 0);
-    const nextCard = cards[nextIndex];
-
-    if (!nextCard) {
-      return;
-    }
-
-    scroller.scrollTo({
-      behavior: shouldReduceMotion ? "auto" : "smooth",
-      left: getCardTargetLeft(scroller, nextCard),
-    });
-  }, [shouldReduceMotion]);
 
   const handleWheel = useCallback((event: WheelEvent<HTMLDivElement>) => {
     const scroller = scrollerRef.current;
@@ -59,32 +30,8 @@ export function ProductCrossSell({ brand, content }: ProductCrossSellProps) {
 
       <motion.div
         className={styles.scroller}
-        data-dragging={isDragging ? "true" : "false"}
         ref={scrollerRef}
         onWheel={handleWheel}
-        onPanStart={() => {
-          const scroller = scrollerRef.current;
-
-          if (!scroller) {
-            return;
-          }
-
-          dragStartScrollLeftRef.current = scroller.scrollLeft;
-          setIsDragging(true);
-        }}
-        onPan={(_, info) => {
-          const scroller = scrollerRef.current;
-
-          if (!scroller) {
-            return;
-          }
-
-          scroller.scrollLeft = dragStartScrollLeftRef.current - info.offset.x;
-        }}
-        onPanEnd={() => {
-          setIsDragging(false);
-          snapToNearestCard();
-        }}
         aria-label={content.title}
       >
         {content.items.map((item) => (
@@ -243,12 +190,6 @@ function Swatches({ brand, item }: { brand: BrandId; item: ProductCrossSellItem 
       {item.moreColorsLabel ? <span className={styles.moreColors}>{item.moreColorsLabel}</span> : null}
     </div>
   );
-}
-
-function getCardTargetLeft(scroller: HTMLElement, card: HTMLElement) {
-  const firstCard = scroller.children.item(0) as HTMLElement | null;
-
-  return Math.max(0, card.offsetLeft - (firstCard?.offsetLeft ?? 0));
 }
 
 function HeartIcon({ filled }: { filled: boolean }) {
