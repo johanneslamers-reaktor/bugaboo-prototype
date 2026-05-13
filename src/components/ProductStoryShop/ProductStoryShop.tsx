@@ -1,5 +1,5 @@
-import { useCallback, useRef, useState, type CSSProperties } from "react";
-import { motion, useReducedMotion, useScroll, useTransform } from "motion/react";
+import { useCallback, useMemo, useRef, useState, type CSSProperties } from "react";
+import { motion, useReducedMotion, useScroll, useTransform, type MotionValue } from "motion/react";
 import type { BrandId } from "../../brands/brands";
 import type { ProductStoryShopContent } from "../../data/products";
 import styles from "./ProductStoryShop.module.css";
@@ -9,6 +9,19 @@ type ProductStoryShopProps = {
   content: ProductStoryShopContent;
 };
 
+type RevealVariant = "lead" | "body";
+
+const revealLineLengths: Record<BrandId, Record<RevealVariant, number>> = {
+  bugaboo: {
+    lead: 28,
+    body: 42,
+  },
+  joolz: {
+    lead: 25,
+    body: 36,
+  },
+};
+
 export function ProductStoryShop({ brand, content }: ProductStoryShopProps) {
   const sectionRef = useRef<HTMLElement | null>(null);
   const railRef = useRef<HTMLDivElement | null>(null);
@@ -16,16 +29,9 @@ export function ProductStoryShop({ brand, content }: ProductStoryShopProps) {
   const shouldReduceMotion = useReducedMotion();
   const { scrollYProgress } = useScroll({
     target: sectionRef,
-    offset: ["start 24%", "center 16%"],
+    offset: ["start 68%", "end 26%"],
   });
-  const leadReveal = useTransform(scrollYProgress, [0.02, 0.44], ["0%", "100%"]);
-  const bodyReveal = useTransform(scrollYProgress, [0.34, 0.82], ["0%", "100%"]);
-  const leadRevealStyle = {
-    "--story-reveal": shouldReduceMotion ? "100%" : leadReveal,
-  } as CSSProperties;
-  const bodyRevealStyle = {
-    "--story-reveal": shouldReduceMotion ? "100%" : bodyReveal,
-  } as CSSProperties;
+  const leadText = `${content.lead.strong}${content.lead.muted}`;
 
   const scrollToIndex = useCallback((index: number) => {
     const rail = railRef.current;
@@ -109,13 +115,24 @@ export function ProductStoryShop({ brand, content }: ProductStoryShopProps) {
         </div>
 
         <div className={styles.storyCopy}>
-          <motion.p className={`${styles.lead} ${styles.revealText}`} style={leadRevealStyle}>
-            {content.lead.strong}
-            {content.lead.muted}
-          </motion.p>
-          <motion.p className={`${styles.body} ${styles.revealText}`} style={bodyRevealStyle}>
-            {content.body}
-          </motion.p>
+          <RevealParagraph
+            brand={brand}
+            className={styles.lead}
+            progress={scrollYProgress}
+            range={[0.08, 0.58]}
+            shouldReduceMotion={shouldReduceMotion}
+            text={leadText}
+            variant="lead"
+          />
+          <RevealParagraph
+            brand={brand}
+            className={styles.body}
+            progress={scrollYProgress}
+            range={[0.62, 0.98]}
+            shouldReduceMotion={shouldReduceMotion}
+            text={content.body}
+            variant="body"
+          />
         </div>
 
         <a className={styles.storyLink} href="#stories">
@@ -167,6 +184,107 @@ export function ProductStoryShop({ brand, content }: ProductStoryShopProps) {
       </div>
     </section>
   );
+}
+
+function RevealParagraph({
+  brand,
+  className,
+  progress,
+  range,
+  shouldReduceMotion,
+  text,
+  variant,
+}: {
+  brand: BrandId;
+  className: string;
+  progress: MotionValue<number>;
+  range: [number, number];
+  shouldReduceMotion: boolean | null;
+  text: string;
+  variant: RevealVariant;
+}) {
+  const lines = useMemo(() => splitTextIntoLines(text, revealLineLengths[brand][variant]), [brand, text, variant]);
+
+  return (
+    <p className={`${className} ${styles.revealParagraph}`} aria-label={text}>
+      <span className={styles.revealLineStack} aria-hidden="true">
+        {lines.map((line, index) => (
+          <RevealLine
+            key={`${line}-${index}`}
+            index={index}
+            progress={progress}
+            range={range}
+            shouldReduceMotion={shouldReduceMotion}
+            text={line}
+            total={lines.length}
+          />
+        ))}
+      </span>
+    </p>
+  );
+}
+
+function RevealLine({
+  index,
+  progress,
+  range,
+  shouldReduceMotion,
+  text,
+  total,
+}: {
+  index: number;
+  progress: MotionValue<number>;
+  range: [number, number];
+  shouldReduceMotion: boolean | null;
+  text: string;
+  total: number;
+}) {
+  const rangeSize = range[1] - range[0];
+  const lineSegment = rangeSize / Math.max(total, 1);
+  const lineStart = range[0] + lineSegment * index;
+  const lineEnd = Math.min(range[1], lineStart + lineSegment * 0.92);
+  const lineReveal = useTransform(progress, [lineStart, lineEnd], ["-2%", "103%"]);
+  const lineStyle = {
+    "--story-line-reveal": shouldReduceMotion ? "100%" : lineReveal,
+  } as CSSProperties;
+
+  return (
+    <motion.span className={styles.revealLine} style={lineStyle}>
+      {text}
+    </motion.span>
+  );
+}
+
+function splitTextIntoLines(text: string, targetLength: number) {
+  const words = text.trim().split(/\s+/);
+  const lines: string[] = [];
+  let currentLine = "";
+
+  words.forEach((word) => {
+    const nextLine = currentLine ? `${currentLine} ${word}` : word;
+
+    if (nextLine.length > targetLength && currentLine) {
+      lines.push(currentLine);
+      currentLine = word;
+      return;
+    }
+
+    currentLine = nextLine;
+  });
+
+  if (currentLine) {
+    lines.push(currentLine);
+  }
+
+  if (lines.length > 1 && lines[lines.length - 1].length < targetLength * 0.45) {
+    const previousWords = lines[lines.length - 2].split(" ");
+    const movedWords = previousWords.splice(Math.max(previousWords.length - 2, 1));
+
+    lines[lines.length - 2] = previousWords.join(" ");
+    lines[lines.length - 1] = `${movedWords.join(" ")} ${lines[lines.length - 1]}`;
+  }
+
+  return lines;
 }
 
 function StoryTitle({ title }: { title: ProductStoryShopContent["title"] }) {

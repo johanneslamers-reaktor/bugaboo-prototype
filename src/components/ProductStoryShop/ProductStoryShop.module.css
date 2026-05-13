@@ -215,18 +215,31 @@
   line-height: 1.15;
 }
 
-.revealText {
-  --story-reveal: 0%;
+.revealParagraph {
+  color: var(--story-muted-color);
+}
+
+.revealLineStack {
+  display: block;
+}
+
+.revealLine {
+  --story-line-reveal: 0%;
 
   background: linear-gradient(
-    180deg,
+    90deg,
     var(--story-active-color) 0%,
-    var(--story-active-color) var(--story-reveal),
-    var(--story-muted-color) var(--story-reveal),
+    var(--story-active-color) var(--story-line-reveal),
+    var(--story-muted-color) var(--story-line-reveal),
     var(--story-muted-color) 100%
   );
   background-clip: text;
   color: transparent;
+  display: block;
+  line-height: inherit;
+  max-width: 100%;
+  overflow-wrap: break-word;
+  width: fit-content;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
