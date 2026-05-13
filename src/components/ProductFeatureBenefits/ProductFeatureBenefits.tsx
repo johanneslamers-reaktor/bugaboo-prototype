@@ -1,4 +1,4 @@
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useRef, useState, type PointerEvent } from "react";
 import { motion, useReducedMotion } from "motion/react";
 import type { BrandId } from "../../brands/brands";
 import type { ProductFeatureBenefitsContent } from "../../data/products";
@@ -9,9 +9,19 @@ type ProductFeatureBenefitsProps = {
   content: ProductFeatureBenefitsContent;
 };
 
+type DragGesture = {
+  isHorizontal: boolean;
+  startIndex: number;
+  startScrollLeft: number;
+  startX: number;
+  startY: number;
+};
+
 export function ProductFeatureBenefits({ brand, content }: ProductFeatureBenefitsProps) {
   const scrollerRef = useRef<HTMLDivElement | null>(null);
+  const dragGestureRef = useRef<DragGesture | null>(null);
   const [activeIndex, setActiveIndex] = useState(0);
+  const [isDragging, setIsDragging] = useState(false);
   const [openHotspots, setOpenHotspots] = useState<Record<string, string | null>>({});
   const shouldReduceMotion = useReducedMotion();
 
@@ -64,6 +74,74 @@ export function ProductFeatureBenefits({ brand, content }: ProductFeatureBenefit
     scroller.scrollLeft += event.deltaX;
   }, []);
 
+  const handlePointerDown = useCallback((event: PointerEvent<HTMLDivElement>) => {
+    const scroller = scrollerRef.current;
+
+    if (!scroller || event.button !== 0 || isInteractiveElement(event.target)) {
+      return;
+    }
+
+    dragGestureRef.current = {
+      isHorizontal: false,
+      startIndex: activeIndex,
+      startScrollLeft: scroller.scrollLeft,
+      startX: event.clientX,
+      startY: event.clientY,
+    };
+  }, [activeIndex]);
+
+  const handlePointerMove = useCallback((event: PointerEvent<HTMLDivElement>) => {
+    const scroller = scrollerRef.current;
+    const gesture = dragGestureRef.current;
+
+    if (!scroller || !gesture) {
+      return;
+    }
+
+    const deltaX = event.clientX - gesture.startX;
+    const deltaY = event.clientY - gesture.startY;
+
+    if (!gesture.isHorizontal) {
+      if (Math.abs(deltaX) < 6 && Math.abs(deltaY) < 6) {
+        return;
+      }
+
+      if (Math.abs(deltaY) > Math.abs(deltaX)) {
+        dragGestureRef.current = null;
+        return;
+      }
+
+      gesture.isHorizontal = true;
+      setIsDragging(true);
+      event.currentTarget.setPointerCapture(event.pointerId);
+    }
+
+    event.preventDefault();
+    scroller.scrollLeft = gesture.startScrollLeft - deltaX * 1.18;
+  }, []);
+
+  const finishPointerGesture = useCallback((event: PointerEvent<HTMLDivElement>) => {
+    const gesture = dragGestureRef.current;
+
+    dragGestureRef.current = null;
+
+    if (!gesture?.isHorizontal) {
+      return;
+    }
+
+    if (event.currentTarget.hasPointerCapture(event.pointerId)) {
+      event.currentTarget.releasePointerCapture(event.pointerId);
+    }
+
+    const deltaX = event.clientX - gesture.startX;
+    const direction = deltaX < 0 ? 1 : -1;
+    const shouldStep = Math.abs(deltaX) > 28;
+    const nextIndex = shouldStep ? gesture.startIndex + direction : activeIndex;
+
+    setIsDragging(false);
+    scrollToIndex(nextIndex);
+  }, [activeIndex, scrollToIndex]);
+
   return (
     <section className={styles.section} data-brand={brand} data-node-id={content.nodeId}>
       <h2 className={styles.heading}>{content.title}</h2>
@@ -72,7 +150,12 @@ export function ProductFeatureBenefits({ brand, content }: ProductFeatureBenefit
         className={styles.scroller}
         ref={scrollerRef}
         onScroll={handleScroll}
+        onPointerCancel={finishPointerGesture}
+        onPointerDown={handlePointerDown}
+        onPointerMove={handlePointerMove}
+        onPointerUp={finishPointerGesture}
         onWheel={handleWheel}
+        data-dragging={isDragging ? "true" : "false"}
         aria-label={content.title}
       >
         {content.items.map((item, index) => (
@@ -212,6 +295,10 @@ function getCardTargetLeft(scroller: HTMLElement, card: HTMLElement) {
   const firstCard = scroller.children.item(0) as HTMLElement | null;
 
   return Math.max(0, card.offsetLeft - (firstCard?.offsetLeft ?? 0));
+}
+
+function isInteractiveElement(target: EventTarget) {
+  return target instanceof Element && target.closest("button, a, input, select, textarea") !== null;
 }
 
 function PlayIcon() {

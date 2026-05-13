@@ -42,7 +42,7 @@
   scroll-padding-right: 16px;
   scroll-snap-type: x mandatory;
   scrollbar-width: none;
-  touch-action: pan-x pan-y;
+  touch-action: pan-y;
   user-select: none;
   -webkit-overflow-scrolling: touch;
 }
