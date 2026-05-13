@@ -1,5 +1,5 @@
-import { useCallback, useRef, useState } from "react";
-import { motion, useReducedMotion } from "motion/react";
+import { useCallback, useRef, useState, type CSSProperties } from "react";
+import { motion, useReducedMotion, useScroll, useTransform } from "motion/react";
 import type { BrandId } from "../../brands/brands";
 import type { ProductStoryShopContent } from "../../data/products";
 import styles from "./ProductStoryShop.module.css";
@@ -10,9 +10,22 @@ type ProductStoryShopProps = {
 };
 
 export function ProductStoryShop({ brand, content }: ProductStoryShopProps) {
+  const sectionRef = useRef<HTMLElement | null>(null);
   const railRef = useRef<HTMLDivElement | null>(null);
   const [activeIndex, setActiveIndex] = useState(0);
   const shouldReduceMotion = useReducedMotion();
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start 24%", "center 16%"],
+  });
+  const leadReveal = useTransform(scrollYProgress, [0.02, 0.44], ["0%", "100%"]);
+  const bodyReveal = useTransform(scrollYProgress, [0.34, 0.82], ["0%", "100%"]);
+  const leadRevealStyle = {
+    "--story-reveal": shouldReduceMotion ? "100%" : leadReveal,
+  } as CSSProperties;
+  const bodyRevealStyle = {
+    "--story-reveal": shouldReduceMotion ? "100%" : bodyReveal,
+  } as CSSProperties;
 
   const scrollToIndex = useCallback((index: number) => {
     const rail = railRef.current;
@@ -79,7 +92,7 @@ export function ProductStoryShop({ brand, content }: ProductStoryShopProps) {
   );
 
   return (
-    <section className={styles.section} data-brand={brand} data-node-id={content.nodeId}>
+    <section className={styles.section} data-brand={brand} data-node-id={content.nodeId} ref={sectionRef}>
       {content.decorationSrc ? (
         <img className={styles.decoration} src={content.decorationSrc} alt={content.decorationAlt ?? ""} aria-hidden="true" />
       ) : null}
@@ -96,11 +109,13 @@ export function ProductStoryShop({ brand, content }: ProductStoryShopProps) {
         </div>
 
         <div className={styles.storyCopy}>
-          <p className={styles.lead}>
-            <span>{content.lead.strong}</span>
-            <span>{content.lead.muted}</span>
-          </p>
-          <p className={styles.body}>{content.body}</p>
+          <motion.p className={`${styles.lead} ${styles.revealText}`} style={leadRevealStyle}>
+            {content.lead.strong}
+            {content.lead.muted}
+          </motion.p>
+          <motion.p className={`${styles.body} ${styles.revealText}`} style={bodyRevealStyle}>
+            {content.body}
+          </motion.p>
         </div>
 
         <a className={styles.storyLink} href="#stories">

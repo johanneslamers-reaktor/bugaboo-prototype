@@ -1,14 +1,23 @@
 .section {
+  --story-active-color: #ffffff;
+  --story-bg: #121212;
+  --story-muted-color: rgb(255 255 255 / 38%);
+
   background: #121212;
   box-sizing: border-box;
   color: #ffffff;
-  overflow: hidden;
+  overflow-x: clip;
+  overflow-y: visible;
   padding: 27px 0 38px;
   position: relative;
   width: 100%;
 }
 
 .section[data-brand="joolz"] {
+  --story-active-color: var(--joolz-deep-blue);
+  --story-bg: #ffffff;
+  --story-muted-color: rgb(19 15 49 / 34%);
+
   background: #ffffff;
   color: var(--joolz-deep-blue);
   padding: 48px 0 58px;
@@ -36,8 +45,12 @@
 }
 
 .copy {
+  background: var(--story-bg);
   box-sizing: border-box;
   padding: 0 18px;
+  position: sticky;
+  top: 0;
+  z-index: 3;
 }
 
 .section[data-brand="joolz"] .copy {
@@ -187,18 +200,6 @@
   line-height: 1.15;
 }
 
-.lead span:first-child {
-  color: currentColor;
-}
-
-.lead span:last-child {
-  color: #717171;
-}
-
-.section[data-brand="joolz"] .lead span:last-child {
-  color: rgb(19 15 49 / 40%);
-}
-
 .body {
   color: rgb(255 255 255 / 40%);
   font-family: var(--font-aeonik);
@@ -212,6 +213,22 @@
   font-family: var(--font-value-sans);
   font-size: 20px;
   line-height: 1.15;
+}
+
+.revealText {
+  --story-reveal: 0%;
+
+  background: linear-gradient(
+    180deg,
+    var(--story-active-color) 0%,
+    var(--story-active-color) var(--story-reveal),
+    var(--story-muted-color) var(--story-reveal),
+    var(--story-muted-color) 100%
+  );
+  background-clip: text;
+  color: transparent;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .storyLink {
