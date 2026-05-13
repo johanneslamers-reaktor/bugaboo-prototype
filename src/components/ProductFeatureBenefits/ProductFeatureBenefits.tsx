@@ -77,6 +77,12 @@ export function ProductFeatureBenefits({ brand, content }: ProductFeatureBenefit
   const handlePointerDown = useCallback((event: PointerEvent<HTMLDivElement>) => {
     const scroller = scrollerRef.current;
 
+    // Native scroll-snap handles touch beautifully on its own - never intercept.
+    // Only mouse drag goes through manual pointer override.
+    if (event.pointerType !== "mouse") {
+      return;
+    }
+
     if (!scroller || event.button !== 0 || isInteractiveElement(event.target)) {
       return;
     }

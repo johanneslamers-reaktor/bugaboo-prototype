@@ -9,13 +9,12 @@ import {
 } from "motion/react";
 import type { BrandId } from "../../brands/brands";
 import type { CategoryCarouselContent } from "../../data/homepage";
+import { useCarousel } from "../../hooks/useCarousel";
 import { CategoryCard } from "./CategoryCard";
 import styles from "./CategoryCarousel.module.css";
 
 const CARD_WIDTH = 270;
 const AUTOPLAY_DURATION = 4.25;
-const BUFFER_CYCLES = 3;
-const CENTER_CYCLE = 1;
 
 type CategoryCarouselProps = {
   brand: BrandId;
@@ -24,41 +23,19 @@ type CategoryCarouselProps = {
 
 export function CategoryCarousel({ brand, content }: CategoryCarouselProps) {
   const shouldReduceMotion = useReducedMotion();
-  const itemCount = content.items.length;
-  const rawX = useMotionValue(0);
+  const trackStart = brand === "joolz" ? 22 : 18;
+  const { trackProps, buffer, centerCycle, nextPage, prevPage, reset } = useCarousel({
+    count: content.items.length,
+    itemSize: CARD_WIDTH,
+    loop: true,
+    trackStart,
+  });
+
   const autoplayProgress = useMotionValue(0);
-  const dragOriginRef = useRef(0);
-  const animationRef = useRef<AnimationPlaybackControls | null>(null);
   const autoplayRef = useRef<AnimationPlaybackControls | null>(null);
   const hasInteractedRef = useRef(false);
   const [hasInteracted, setHasInteracted] = useState(false);
   const [autoplayCycle, setAutoplayCycle] = useState(0);
-  const cycleWidth = itemCount * CARD_WIDTH;
-  const trackStart = brand === "joolz" ? 22 : 18;
-  const initialX = trackStart - cycleWidth * CENTER_CYCLE;
-  const bufferedItems = Array.from({ length: BUFFER_CYCLES }, (_, cycle) =>
-    content.items.map((item) => ({ cycle, item })),
-  ).flat();
-
-  const normalizeX = useCallback((value: number) => {
-    let nextValue = value;
-    const min = trackStart - cycleWidth * (BUFFER_CYCLES - 1);
-    const max = trackStart;
-
-    while (nextValue <= min) {
-      nextValue += cycleWidth;
-    }
-
-    while (nextValue > max) {
-      nextValue -= cycleWidth;
-    }
-
-    return nextValue;
-  }, [cycleWidth, trackStart]);
-
-  const snapToCard = useCallback((value: number) => (
-    trackStart + Math.round((value - trackStart) / CARD_WIDTH) * CARD_WIDTH
-  ), [trackStart]);
 
   const stopAutoplay = useCallback(() => {
     if (hasInteractedRef.current) {
@@ -71,51 +48,18 @@ export function CategoryCarousel({ brand, content }: CategoryCarouselProps) {
     autoplayProgress.set(0);
   }, [autoplayProgress]);
 
-  const animateTo = useCallback((target: number, source: "user" | "autoplay" = "user") => {
-    animationRef.current?.stop();
-    const snappedTarget = snapToCard(target);
-
-    if (shouldReduceMotion) {
-      rawX.set(normalizeX(snappedTarget));
-      if (source === "autoplay" && !hasInteractedRef.current) {
-        setAutoplayCycle((current) => current + 1);
-      }
-      return;
-    }
-
-    animationRef.current = animate(rawX, snappedTarget, {
-      duration: 0.52,
-      ease: [0.22, 1, 0.36, 1],
-      onComplete: () => {
-        rawX.set(normalizeX(rawX.get()));
-        animationRef.current = null;
-
-        if (source === "autoplay" && !hasInteractedRef.current) {
-          setAutoplayCycle((current) => current + 1);
-        }
-      },
-    });
-  }, [normalizeX, rawX, shouldReduceMotion, snapToCard]);
-
-  const move = useCallback((direction: 1 | -1, source: "user" | "autoplay" = "user") => {
-    const snappedX = snapToCard(rawX.get());
-    animateTo(snappedX - direction * CARD_WIDTH, source);
-  }, [animateTo, rawX, snapToCard]);
-
   useEffect(() => {
-    animationRef.current?.stop();
+    reset();
     autoplayRef.current?.stop();
-    rawX.set(initialX);
     autoplayProgress.set(0);
     hasInteractedRef.current = false;
     setHasInteracted(false);
     setAutoplayCycle(0);
 
     return () => {
-      animationRef.current?.stop();
       autoplayRef.current?.stop();
     };
-  }, [autoplayProgress, brand, initialX, rawX]);
+  }, [autoplayProgress, brand, reset]);
 
   useEffect(() => {
     autoplayRef.current?.stop();
@@ -130,41 +74,14 @@ export function CategoryCarousel({ brand, content }: CategoryCarouselProps) {
       ease: "linear",
       onComplete: () => {
         if (!hasInteractedRef.current) {
-          move(1, "autoplay");
+          nextPage();
+          setAutoplayCycle((cycle) => cycle + 1);
         }
       },
     });
 
     return () => autoplayRef.current?.stop();
-  }, [autoplayCycle, autoplayProgress, brand, hasInteracted, move, shouldReduceMotion]);
-
-  const settleDrag = (offset: number, velocity: number) => {
-    const current = rawX.get();
-
-    if (offset < -48 || velocity < -450) {
-      animateTo(current - CARD_WIDTH);
-      return;
-    }
-
-    if (offset > 48 || velocity > 450) {
-      animateTo(current + CARD_WIDTH);
-      return;
-    }
-
-    animateTo(current);
-  };
-
-  const updateDragPosition = (offset: number) => {
-    const next = dragOriginRef.current + offset;
-    const normalized = normalizeX(next);
-    const adjustment = normalized - next;
-
-    if (Math.abs(adjustment) > 0.5) {
-      dragOriginRef.current += adjustment;
-    }
-
-    rawX.set(normalized);
-  };
+  }, [autoplayCycle, autoplayProgress, brand, hasInteracted, nextPage, shouldReduceMotion]);
 
   return (
     <section
@@ -181,26 +98,19 @@ export function CategoryCarousel({ brand, content }: CategoryCarouselProps) {
       </h2>
 
       <div className={styles.viewport}>
-        <motion.div
-          className={styles.track}
-          style={{ x: rawX }}
-          onPanStart={() => {
-            stopAutoplay();
-            animationRef.current?.stop();
-            dragOriginRef.current = rawX.get();
-          }}
-          onPan={(_, info) => updateDragPosition(info.offset.x)}
-          onPanEnd={(_, info) => settleDrag(info.offset.x, info.velocity.x)}
-        >
-          {bufferedItems.map(({ cycle, item }) => (
-            <div
-              className={styles.cardSlot}
-              aria-hidden={cycle !== CENTER_CYCLE}
-              key={`${cycle}-${item.id}`}
-            >
-              <CategoryCard brand={brand} item={item} />
-            </div>
-          ))}
+        <motion.div className={styles.track} {...trackProps}>
+          {buffer?.map(({ cycle, index, key }) => {
+            const item = content.items[index];
+            return (
+              <div
+                className={styles.cardSlot}
+                aria-hidden={cycle !== centerCycle}
+                key={key}
+              >
+                <CategoryCard brand={brand} item={item} />
+              </div>
+            );
+          })}
         </motion.div>
       </div>
 
@@ -214,7 +124,10 @@ export function CategoryCarousel({ brand, content }: CategoryCarouselProps) {
             className={`${styles.arrowButton} ${styles.arrowPrevious}`}
             type="button"
             aria-label="Previous category"
-            onClick={() => move(-1, "user")}
+            onClick={() => {
+              stopAutoplay();
+              prevPage();
+            }}
           >
             <ChevronIcon direction="left" />
           </button>
@@ -222,7 +135,10 @@ export function CategoryCarousel({ brand, content }: CategoryCarouselProps) {
             className={`${styles.arrowButton} ${styles.arrowNext}`}
             type="button"
             aria-label="Next category"
-            onClick={() => move(1, "user")}
+            onClick={() => {
+              stopAutoplay();
+              nextPage();
+            }}
           >
             <AutoplayRing progress={autoplayProgress} isActive={!hasInteracted && !shouldReduceMotion} />
             <ChevronIcon direction="right" />

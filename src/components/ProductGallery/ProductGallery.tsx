@@ -4,17 +4,14 @@ import type {
 } from "react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import {
-  animate,
-  type AnimationPlaybackControls,
   motion,
-  type PanInfo,
-  useMotionValue,
   useReducedMotion,
   useScroll,
   useTransform,
 } from "motion/react";
 import type { BrandId } from "../../brands/brands";
 import type { ProductColorway, ProductGalleryMedia } from "../../data/products";
+import { useCarousel } from "../../hooks/useCarousel";
 import styles from "./ProductGallery.module.css";
 
 const CLICK_ZOOM_SCALE = 2.25;
@@ -53,9 +50,6 @@ export function ProductGallery({ brand, colorway, productTitle }: ProductGallery
   const shouldReduceMotion = useReducedMotion();
   const galleryRef = useRef<HTMLElement | null>(null);
   const viewportRef = useRef<HTMLDivElement | null>(null);
-  const activeIndexRef = useRef(0);
-  const animationRef = useRef<AnimationPlaybackControls | null>(null);
-  const rawX = useMotionValue(0);
   const { scrollYProgress } = useScroll({
     target: galleryRef,
     offset: ["start start", "end start"],
@@ -66,69 +60,33 @@ export function ProductGallery({ brand, colorway, productTitle }: ProductGallery
     shouldReduceMotion ? ["0%", "0%", "0%"] : ["0%", "-50%", "-50%"],
   );
   const [viewportWidth, setViewportWidth] = useState(402);
-  const [activeIndex, setActiveIndex] = useState(0);
   const [zoomedMediaId, setZoomedMediaId] = useState<string | null>(null);
   const [isZoomGestureActive, setIsZoomGestureActive] = useState(false);
   const maxIndex = Math.max(colorway.media.length - 1, 0);
-  const minX = -maxIndex * viewportWidth;
+
+  const { trackProps, currentPage: activeIndex, gotoPage, reset } = useCarousel({
+    count: colorway.media.length,
+    itemSize: viewportWidth,
+    loop: false,
+  });
+
   const activeMediaId = colorway.media[activeIndex]?.id;
   const isActiveSlideZoomed = zoomedMediaId === activeMediaId;
   const canDragCarousel = !isActiveSlideZoomed && !isZoomGestureActive;
 
-  const clampIndex = useCallback((index: number) => (
-    Math.max(0, Math.min(maxIndex, index))
-  ), [maxIndex]);
-
-  const animateToIndex = useCallback((index: number) => {
-    const nextIndex = clampIndex(index);
-    const target = -nextIndex * viewportWidth;
-    const isChangingSlide = nextIndex !== activeIndexRef.current;
-
-    animationRef.current?.stop();
-    activeIndexRef.current = nextIndex;
-    setActiveIndex(nextIndex);
-
-    if (isChangingSlide) {
+  // Reset zoom when active slide changes (driven by hook's currentPage)
+  const prevIndexRef = useRef(activeIndex);
+  useEffect(() => {
+    if (prevIndexRef.current !== activeIndex) {
       setZoomedMediaId(null);
       setIsZoomGestureActive(false);
+      prevIndexRef.current = activeIndex;
     }
-
-    if (shouldReduceMotion) {
-      rawX.set(target);
-      return;
-    }
-
-    animationRef.current = animate(rawX, target, {
-      duration: 0.48,
-      ease: [0.22, 1, 0.36, 1],
-      onComplete: () => {
-        animationRef.current = null;
-      },
-    });
-  }, [clampIndex, rawX, shouldReduceMotion, viewportWidth]);
-
-  const settleDrag = (_: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => {
-    const dragThreshold = viewportWidth * 0.16;
-    const velocityThreshold = 260;
-    let nextIndex = activeIndexRef.current;
-
-    if (info.offset.x <= -dragThreshold || info.velocity.x <= -velocityThreshold) {
-      nextIndex += 1;
-    } else if (info.offset.x >= dragThreshold || info.velocity.x >= velocityThreshold) {
-      nextIndex -= 1;
-    } else {
-      nextIndex = Math.round(Math.abs(rawX.get()) / viewportWidth);
-    }
-
-    animateToIndex(nextIndex);
-  };
+  }, [activeIndex]);
 
   useEffect(() => {
     const viewport = viewportRef.current;
-
-    if (!viewport) {
-      return;
-    }
+    if (!viewport) return;
 
     const updateWidth = () => {
       setViewportWidth(viewport.getBoundingClientRect().width);
@@ -142,19 +100,10 @@ export function ProductGallery({ brand, colorway, productTitle }: ProductGallery
   }, []);
 
   useEffect(() => {
-    animationRef.current?.stop();
-    activeIndexRef.current = 0;
-    setActiveIndex(0);
+    reset();
     setZoomedMediaId(null);
     setIsZoomGestureActive(false);
-    rawX.set(0);
-
-    return () => animationRef.current?.stop();
-  }, [colorway.id, rawX]);
-
-  useEffect(() => {
-    rawX.set(-activeIndexRef.current * viewportWidth);
-  }, [rawX, viewportWidth]);
+  }, [colorway.id, reset]);
 
   return (
     <section
@@ -173,14 +122,8 @@ export function ProductGallery({ brand, colorway, productTitle }: ProductGallery
           <motion.div
             className={styles.track}
             data-zoomed={isActiveSlideZoomed ? "true" : "false"}
-            style={{ x: rawX }}
+            {...trackProps}
             drag={canDragCarousel ? "x" : false}
-            dragConstraints={{ left: minX, right: 0 }}
-            dragDirectionLock
-            dragElastic={0.14}
-            dragMomentum={false}
-            onDragStart={() => animationRef.current?.stop()}
-            onDragEnd={settleDrag}
           >
             {colorway.media.map((item, index) => (
               <figure className={styles.slide} data-fit={item.fit} key={item.id}>
@@ -202,7 +145,7 @@ export function ProductGallery({ brand, colorway, productTitle }: ProductGallery
             type="button"
             aria-label="Previous image"
             disabled={activeIndex === 0}
-            onClick={() => animateToIndex(activeIndex - 1)}
+            onClick={() => gotoPage(activeIndex - 1)}
           >
             <ChevronIcon direction="left" />
           </button>
@@ -211,7 +154,7 @@ export function ProductGallery({ brand, colorway, productTitle }: ProductGallery
             type="button"
             aria-label="Next image"
             disabled={activeIndex === maxIndex}
-            onClick={() => animateToIndex(activeIndex + 1)}
+            onClick={() => gotoPage(activeIndex + 1)}
           >
             <ChevronIcon direction="right" />
           </button>
