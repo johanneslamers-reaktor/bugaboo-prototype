@@ -225,21 +225,24 @@ export type ProductStoryShopContent = {
   };
   body: string;
   ctaLabel: string;
-  images: {
+  inspirationImage: {
     id: string;
     src: string;
     alt: string;
     objectPosition?: string;
-  }[];
-  setup: {
-    label: string;
-    title: string;
-    subtitle: string;
-    imageSrc: string;
-    imageAlt: string;
   };
+  products: ProductStoryShopCard[];
   decorationSrc?: string;
   decorationAlt?: string;
+};
+
+export type ProductStoryShopCard = {
+  id: string;
+  label: string;
+  title: string;
+  subtitle: string;
+  imageSrc: string;
+  imageAlt: string;
 };
 
 export type ProductAccordionItem = {
@@ -603,27 +606,38 @@ export const productCatalog: Record<BrandId, ProductDetail[]> = {
         body:
           "The Bugaboo Fox 5 Renew made it easy. All-terrain, smooth to steer, and comfortable from the start, it moves effortlessly from city streets to park paths. It gave me the confidence to go further, without overthinking it.",
         ctaLabel: "Read the full story",
-        images: [
+        inspirationImage: {
+          id: "walk",
+          src: "/assets/pdp/story-shop/bugaboo/story-01.png",
+          alt: "Luca walking with a Bugaboo stroller outdoors",
+          objectPosition: "center",
+        },
+        products: [
           {
-            id: "walk",
-            src: "/assets/pdp/story-shop/bugaboo/story-01.png",
-            alt: "Luca walking with a Bugaboo stroller outdoors",
-            objectPosition: "center",
+            id: "luca-setup",
+            label: "See Luca's setup",
+            title: "Ultimate newborn bundle",
+            subtitle: "Forrest Green",
+            imageSrc: "/assets/pdp/story-shop/bugaboo/setup.png",
+            imageAlt: "Bugaboo Fox 5 Renew setup",
           },
           {
-            id: "portrait",
-            src: "/assets/pdp/story-shop/bugaboo/story-02.png",
-            alt: "Parent and child outdoors with Bugaboo stroller",
-            objectPosition: "center",
+            id: "fox-5-renew",
+            label: "Featured product",
+            title: "Bugaboo Fox 5 Renew",
+            subtitle: "Heritage Black",
+            imageSrc: "/assets/pdp/bugaboo-fox/colorways/heritage-black.png",
+            imageAlt: "Bugaboo Fox 5 Renew stroller",
+          },
+          {
+            id: "backpack",
+            label: "Add to the setup",
+            title: "Bugaboo backpack",
+            subtitle: "Dark Indigo",
+            imageSrc: "/assets/pdp/cross-sell/bugaboo/backpack.png",
+            imageAlt: "Bugaboo backpack",
           },
         ],
-        setup: {
-          label: "See Luca's setup",
-          title: "Ultimate newborn bundle",
-          subtitle: "Forrest Green",
-          imageSrc: "/assets/pdp/story-shop/bugaboo/setup.png",
-          imageAlt: "Bugaboo Fox 5 Renew setup",
-        },
       },
       accordions: [
         {
@@ -1140,27 +1154,38 @@ export const productCatalog: Record<BrandId, ProductDetail[]> = {
         ctaLabel: "Read the full story",
         decorationSrc: "/assets/pdp/story-shop/joolz/smile-bg.svg",
         decorationAlt: "",
-        images: [
+        inspirationImage: {
+          id: "city",
+          src: "/assets/pdp/story-shop/joolz/story-01.png",
+          alt: "Mila walking through the city with a Joolz stroller",
+          objectPosition: "center",
+        },
+        products: [
           {
-            id: "city",
-            src: "/assets/pdp/story-shop/joolz/story-01.png",
-            alt: "Mila walking through the city with a Joolz stroller",
-            objectPosition: "center",
+            id: "mila-setup",
+            label: "See Mila's setup",
+            title: "Forrest Green",
+            subtitle: "Rain cover",
+            imageSrc: "/assets/pdp/story-shop/joolz/setup.png",
+            imageAlt: "Joolz Aer2 setup",
           },
           {
-            id: "street",
-            src: "/assets/pdp/story-shop/joolz/story-02.png",
-            alt: "Joolz stroller in the city",
-            objectPosition: "center",
+            id: "aer2-travel-bag",
+            label: "Add to the setup",
+            title: "Aer2 travel bag",
+            subtitle: "Forest Green",
+            imageSrc: "/assets/pdp/cross-sell/joolz/travel-bag.png",
+            imageAlt: "Joolz Aer2 travel bag",
+          },
+          {
+            id: "sun-canopy",
+            label: "For every day",
+            title: "Sun canopy",
+            subtitle: "Dark Cherry Red",
+            imageSrc: "/assets/pdp/cross-sell/joolz/sun-canopy.png",
+            imageAlt: "Joolz sun canopy",
           },
         ],
-        setup: {
-          label: "See Mila's setup",
-          title: "Forrest Green",
-          subtitle: "Rain cover",
-          imageSrc: "/assets/pdp/story-shop/joolz/setup.png",
-          imageAlt: "Joolz Aer2 setup",
-        },
       },
       impact: {
         nodeId: "8677:5113",

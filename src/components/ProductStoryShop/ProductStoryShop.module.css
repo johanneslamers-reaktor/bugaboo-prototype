@@ -295,42 +295,21 @@
   margin-top: 157px;
 }
 
-.mediaRail {
-  display: flex;
-  gap: 4px;
-  overflow-x: auto;
-  padding: 0 17px;
-  scroll-padding-inline: 17px;
-  scroll-snap-type: x mandatory;
-  scrollbar-width: none;
-  width: 100%;
-}
-
-.section[data-brand="joolz"] .mediaRail {
-  gap: 16px;
-  padding: 0 20px;
-  scroll-padding-inline: 20px;
-}
-
-.mediaRail::-webkit-scrollbar {
-  display: none;
-}
-
-.mediaCard {
+.inspiration {
   aspect-ratio: 1;
-  flex: 0 0 369px;
-  margin: 0;
+  margin: 0 17px;
   overflow: hidden;
   position: relative;
-  scroll-snap-align: start;
+  width: calc(100% - 34px);
 }
 
-.section[data-brand="joolz"] .mediaCard {
+.section[data-brand="joolz"] .inspiration {
   border-radius: 12px;
-  flex-basis: 342px;
+  margin: 0 20px;
+  width: calc(100% - 40px);
 }
 
-.mediaCard img {
+.inspiration img {
   display: block;
   height: 100%;
   object-fit: cover;
@@ -338,6 +317,29 @@
   user-select: none;
   width: 100%;
   -webkit-user-drag: none;
+}
+
+.productRail {
+  display: flex;
+  gap: 12px;
+  margin-top: 20px;
+  overflow-x: auto;
+  padding: 0 16px;
+  scroll-padding-inline: 16px;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  width: 100%;
+}
+
+.section[data-brand="joolz"] .productRail {
+  gap: 12px;
+  margin-top: 24px;
+  padding: 0 20px;
+  scroll-padding-inline: 20px;
+}
+
+.productRail::-webkit-scrollbar {
+  display: none;
 }
 
 .controls {
@@ -368,7 +370,7 @@
 }
 
 .control:focus-visible,
-.setup:focus-visible {
+.productCard:focus-visible {
   outline: 1.5px solid currentColor;
   outline-offset: 4px;
 }
@@ -406,7 +408,7 @@
   transform: rotate(45deg);
 }
 
-.setup {
+.productCard {
   align-items: center;
   appearance: none;
   backdrop-filter: blur(24px);
@@ -417,25 +419,27 @@
   color: #ffffff;
   cursor: pointer;
   display: grid;
+  flex: 0 0 368px;
   grid-template-columns: 72px 1fr 24px;
   height: 89px;
-  margin: 20px 16px 0;
+  margin: 0;
   padding: 8px;
   position: relative;
+  scroll-snap-align: start;
   text-align: left;
-  width: calc(100% - 32px);
+  width: 368px;
 }
 
-.section[data-brand="joolz"] .setup {
+.section[data-brand="joolz"] .productCard {
   background: rgb(19 15 49 / 7%);
   border-radius: 8px;
   color: var(--joolz-deep-blue);
+  flex-basis: 354px;
   grid-template-columns: 72px 1fr 42px;
-  margin: 24px 20px 0;
-  width: calc(100% - 40px);
+  width: 354px;
 }
 
-.setupImage {
+.productImage {
   align-items: center;
   background: #f2f1ef;
   display: flex;
@@ -445,12 +449,12 @@
   width: 72px;
 }
 
-.section[data-brand="joolz"] .setupImage {
+.section[data-brand="joolz"] .productImage {
   background: #fafafa;
   border-radius: 4px;
 }
 
-.setupImage img {
+.productImage img {
   display: block;
   height: 84%;
   object-fit: contain;
@@ -460,12 +464,12 @@
   -webkit-user-drag: none;
 }
 
-.section[data-brand="joolz"] .setupImage img {
+.section[data-brand="joolz"] .productImage img {
   height: 98%;
   width: 72%;
 }
 
-.setupCopy {
+.productCopy {
   display: flex;
   flex-direction: column;
   font-family: var(--font-aeonik);
@@ -475,33 +479,33 @@
   padding-left: 18px;
 }
 
-.section[data-brand="joolz"] .setupCopy {
+.section[data-brand="joolz"] .productCopy {
   font-family: var(--font-value-sans);
   padding-left: 19px;
 }
 
-.setupCopy strong {
+.productCopy strong {
   color: currentColor;
   font-weight: 400;
 }
 
-.section[data-brand="joolz"] .setupCopy strong {
+.section[data-brand="joolz"] .productCopy strong {
   font-family: var(--font-value-sans-joolz);
   font-weight: 700;
 }
 
-.setupCopy span {
+.productCopy span {
   color: rgb(255 255 255 / 50%);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
-.section[data-brand="joolz"] .setupCopy span {
+.section[data-brand="joolz"] .productCopy span {
   color: var(--joolz-deep-blue);
 }
 
-.setupIcon {
+.productIcon {
   border-color: currentColor;
   border-style: solid;
   border-width: 1.5px 1.5px 0 0;
@@ -513,7 +517,7 @@
   width: 8px;
 }
 
-.section[data-brand="joolz"] .setupIcon {
+.section[data-brand="joolz"] .productIcon {
   align-items: center;
   background: #fdfdfd;
   border: 0;
@@ -526,31 +530,33 @@
   width: 42px;
 }
 
-.section[data-brand="joolz"] .setupIcon::before,
-.section[data-brand="joolz"] .setupIcon::after {
+.section[data-brand="joolz"] .productIcon::before,
+.section[data-brand="joolz"] .productIcon::after {
   background: var(--joolz-deep-blue);
   border-radius: 999px;
   content: "";
   position: absolute;
 }
 
-.section[data-brand="joolz"] .setupIcon::before {
+.section[data-brand="joolz"] .productIcon::before {
   height: 2px;
   width: 9px;
 }
 
-.section[data-brand="joolz"] .setupIcon::after {
+.section[data-brand="joolz"] .productIcon::after {
   height: 9px;
   width: 2px;
 }
 
 @media (max-width: 374px) {
-  .mediaCard {
-    flex-basis: calc(100vw - 34px);
+  .productCard {
+    flex-basis: calc(100vw - 32px);
+    width: calc(100vw - 32px);
   }
 
-  .section[data-brand="joolz"] .mediaCard {
+  .section[data-brand="joolz"] .productCard {
     flex-basis: calc(100vw - 40px);
+    width: calc(100vw - 40px);
   }
 
   .lead {

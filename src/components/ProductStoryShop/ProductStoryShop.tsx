@@ -21,7 +21,7 @@ export function ProductStoryShop({ brand, content }: ProductStoryShopProps) {
       return;
     }
 
-    const nextIndex = Math.max(0, Math.min(content.images.length - 1, index));
+    const nextIndex = Math.max(0, Math.min(content.products.length - 1, index));
     const card = rail.children.item(nextIndex) as HTMLElement | null;
 
     if (!card) {
@@ -33,7 +33,7 @@ export function ProductStoryShop({ brand, content }: ProductStoryShopProps) {
       left: card.offsetLeft - rail.offsetLeft,
     });
     setActiveIndex(nextIndex);
-  }, [content.images.length, shouldReduceMotion]);
+  }, [content.products.length, shouldReduceMotion]);
 
   const handleScroll = useCallback(() => {
     const rail = railRef.current;
@@ -54,11 +54,11 @@ export function ProductStoryShop({ brand, content }: ProductStoryShopProps) {
   }, []);
 
   const controls = (
-    <div className={styles.controls} aria-label="Story images">
+    <div className={styles.controls} aria-label="Shoppable products">
       <motion.button
         className={styles.control}
         type="button"
-        aria-label="Previous story image"
+        aria-label="Previous product"
         disabled={activeIndex === 0}
         onClick={() => scrollToIndex(activeIndex - 1)}
         whileTap={shouldReduceMotion ? undefined : { scale: 0.94 }}
@@ -68,8 +68,8 @@ export function ProductStoryShop({ brand, content }: ProductStoryShopProps) {
       <motion.button
         className={styles.control}
         type="button"
-        aria-label="Next story image"
-        disabled={activeIndex === content.images.length - 1}
+        aria-label="Next product"
+        disabled={activeIndex === content.products.length - 1}
         onClick={() => scrollToIndex(activeIndex + 1)}
         whileTap={shouldReduceMotion ? undefined : { scale: 0.94 }}
       >
@@ -110,48 +110,45 @@ export function ProductStoryShop({ brand, content }: ProductStoryShopProps) {
       </div>
 
       <div className={styles.mediaArea}>
-        <div className={styles.mediaRail} ref={railRef} onScroll={handleScroll} aria-label="Parent story image carousel">
-          {content.images.map((image, index) => (
-            <motion.figure
-              className={styles.mediaCard}
-              data-active={index === activeIndex ? "true" : "false"}
-              key={image.id}
-              initial={shouldReduceMotion ? false : { opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.18 }}
-              transition={{ duration: 0.34, delay: index * 0.04, ease: [0.22, 1, 0.36, 1] }}
+        <motion.figure
+          className={styles.inspiration}
+          initial={shouldReduceMotion ? false : { opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.18 }}
+          transition={{ duration: 0.34, ease: [0.22, 1, 0.36, 1] }}
+        >
+          <img
+            src={content.inspirationImage.src}
+            alt={content.inspirationImage.alt}
+            loading="lazy"
+            decoding="async"
+            draggable={false}
+            style={{ objectPosition: content.inspirationImage.objectPosition }}
+          />
+        </motion.figure>
+
+        <div className={styles.productRail} ref={railRef} onScroll={handleScroll} aria-label="Shoppable product carousel">
+          {content.products.map((product) => (
+            <motion.button
+              className={styles.productCard}
+              type="button"
+              key={product.id}
+              whileTap={shouldReduceMotion ? undefined : { scale: 0.985 }}
             >
-              <img
-                src={image.src}
-                alt={image.alt}
-                loading={index === 0 ? "eager" : "lazy"}
-                decoding="async"
-                draggable={false}
-                style={{ objectPosition: image.objectPosition }}
-              />
-            </motion.figure>
+              <span className={styles.productImage}>
+                <img src={product.imageSrc} alt={product.imageAlt} loading="lazy" decoding="async" draggable={false} />
+              </span>
+              <span className={styles.productCopy}>
+                <strong>{product.label}</strong>
+                <span>{product.title}</span>
+                <span>{product.subtitle}</span>
+              </span>
+              <span className={styles.productIcon} aria-hidden="true" />
+            </motion.button>
           ))}
         </div>
 
-        {brand === "bugaboo" ? controls : null}
-
-        <motion.button
-          className={styles.setup}
-          type="button"
-          whileTap={shouldReduceMotion ? undefined : { scale: 0.985 }}
-        >
-          <span className={styles.setupImage}>
-            <img src={content.setup.imageSrc} alt={content.setup.imageAlt} loading="lazy" decoding="async" draggable={false} />
-          </span>
-          <span className={styles.setupCopy}>
-            <strong>{content.setup.label}</strong>
-            <span>{content.setup.title}</span>
-            <span>{content.setup.subtitle}</span>
-          </span>
-          <span className={styles.setupIcon} aria-hidden="true" />
-        </motion.button>
-
-        {brand === "joolz" ? controls : null}
+        {controls}
       </div>
     </section>
   );
