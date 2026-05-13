@@ -1,0 +1,220 @@
+.gallery {
+  background: #f5f5f5;
+  color: #111111;
+  height: 140svh;
+  position: relative;
+  width: 100%;
+  z-index: 0;
+}
+
+.viewport {
+  background: #f5f5f5;
+  height: 70svh;
+  overflow: hidden;
+  position: sticky;
+  top: 0;
+  width: 100%;
+}
+
+.parallaxLayer {
+  height: 100%;
+  width: 100%;
+  will-change: transform;
+}
+
+.track {
+  cursor: grab;
+  display: flex;
+  height: 100%;
+  touch-action: pan-y;
+  user-select: none;
+  width: max-content;
+  will-change: transform;
+}
+
+.track:active {
+  cursor: grabbing;
+}
+
+.track[data-zoomed="true"],
+.track[data-zoomed="true"]:active {
+  cursor: default;
+}
+
+.slide {
+  background: #f5f5f5;
+  flex: 0 0 var(--gallery-width);
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+  position: relative;
+  width: var(--gallery-width);
+}
+
+.image {
+  display: block;
+  pointer-events: none;
+  position: absolute;
+  user-select: none;
+  will-change: transform;
+  -webkit-user-drag: none;
+}
+
+.video {
+  display: block;
+  pointer-events: none;
+  position: absolute;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.slide[data-fit="product"] .image {
+  height: 64.85%;
+  left: 6.99%;
+  object-fit: contain;
+  top: 23.72%;
+  width: 85.83%;
+}
+
+.slide[data-fit="cover"] .image {
+  height: 100%;
+  inset: 0;
+  object-fit: cover;
+  width: 100%;
+}
+
+.slide[data-fit="width"] .image {
+  height: 100%;
+  inset: 0;
+  object-fit: contain;
+  width: 100%;
+}
+
+.slide[data-fit="product"] .video {
+  height: 64.85%;
+  left: 6.99%;
+  object-fit: contain;
+  top: 23.72%;
+  width: 85.83%;
+}
+
+.slide[data-fit="cover"] .video {
+  height: 100%;
+  inset: 0;
+  object-fit: cover;
+  width: 100%;
+}
+
+.slide[data-fit="width"] .video {
+  height: 100%;
+  inset: 0;
+  object-fit: contain;
+  width: 100%;
+}
+
+.zoomSurface {
+  appearance: none;
+  background: transparent;
+  border: 0;
+  cursor: zoom-in;
+  display: block;
+  height: 100%;
+  inset: 0;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  touch-action: pan-y;
+  width: 100%;
+}
+
+.zoomSurface[data-zoomed="true"] {
+  cursor: grab;
+  touch-action: none;
+}
+
+.zoomSurface[data-zoomed="true"]:active {
+  cursor: grabbing;
+}
+
+.zoomSurface:focus-visible {
+  outline: 1.5px solid currentColor;
+  outline-offset: -6px;
+}
+
+.controls {
+  align-items: center;
+  bottom: 24px;
+  display: flex;
+  gap: 8px;
+  position: absolute;
+  right: 8px;
+  z-index: 2;
+}
+
+.arrowButton {
+  align-items: center;
+  appearance: none;
+  background: transparent;
+  border: 0;
+  color: rgb(17 17 17 / 52%);
+  display: flex;
+  height: 32px;
+  justify-content: center;
+  padding: 0;
+  transition: color 160ms ease, opacity 160ms ease;
+  width: 32px;
+}
+
+.arrowButton:disabled {
+  color: rgb(17 17 17 / 24%);
+}
+
+.arrowButton:not(:disabled):active {
+  color: rgb(17 17 17 / 82%);
+}
+
+.arrowButton:focus-visible {
+  outline: 1.5px solid currentColor;
+  outline-offset: 2px;
+}
+
+.chevronIcon {
+  display: block;
+  fill: none;
+  height: 32px;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.6;
+  width: 32px;
+}
+
+.progress {
+  bottom: 0;
+  height: 1px;
+  left: 0;
+  position: absolute;
+  width: 100%;
+  z-index: 2;
+}
+
+.progressTrack,
+.progressIndicator {
+  bottom: 0;
+  display: block;
+  height: 1px;
+  left: 0;
+  position: absolute;
+}
+
+.progressTrack {
+  background: rgb(17 17 17 / 20%);
+  width: 100%;
+}
+
+.progressIndicator {
+  background: #111111;
+  transform: translateX(calc(var(--active-index) * 100%));
+  transition: transform 360ms cubic-bezier(0.22, 1, 0.36, 1);
+  width: calc(100% / var(--slide-count));
+}

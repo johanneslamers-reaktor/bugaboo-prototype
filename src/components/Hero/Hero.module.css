@@ -1,0 +1,206 @@
+.hero {
+  color: #ffffff;
+  isolation: isolate;
+  min-height: 75svh;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+}
+
+.media,
+.video,
+.fallbackMedia {
+  height: 100%;
+  inset: 0;
+  position: absolute;
+  width: 100%;
+}
+
+.media {
+  z-index: -2;
+}
+
+.video,
+.fallbackMedia {
+  object-fit: cover;
+}
+
+.fallbackMedia {
+  background:
+    radial-gradient(circle at 36% 14%, rgba(133, 165, 96, 0.58), transparent 32%),
+    radial-gradient(circle at 94% 9%, rgba(23, 32, 33, 0.8), transparent 34%),
+    linear-gradient(158deg, #314f27 0%, #101d1c 46%, #050a0b 100%);
+}
+
+.hero[data-brand="joolz"] .fallbackMedia {
+  background:
+    radial-gradient(circle at 18% 5%, rgba(217, 85, 95, 0.72), transparent 34%),
+    radial-gradient(circle at 71% 23%, rgba(232, 160, 102, 0.58), transparent 35%),
+    linear-gradient(155deg, #2b1715 0%, #694039 42%, #202225 100%);
+}
+
+.hero::after {
+  background:
+    linear-gradient(180deg, rgba(0, 0, 0, 0.3) 0%, transparent 26%),
+    linear-gradient(180deg, transparent 42%, rgba(0, 0, 0, 0.48) 100%);
+  content: "";
+  inset: 0;
+  pointer-events: none;
+  position: absolute;
+  z-index: -1;
+}
+
+.navigation {
+  left: 0;
+  position: absolute;
+  top: 50px;
+  width: 100%;
+  z-index: 2;
+}
+
+.copy {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  left: 50%;
+  position: absolute;
+  text-align: center;
+  transform: translateX(-50%);
+  width: min(313px, calc(100% - 48px));
+}
+
+.hero[data-brand="bugaboo"] .copy {
+  bottom: 166px;
+  gap: 16px;
+}
+
+.hero[data-brand="joolz"] .copy {
+  top: 39.5%;
+  transform: translate(-50%, -50%);
+}
+
+.heading {
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  font-family: var(--type-h1-font);
+  font-size: var(--type-h1-size);
+  font-weight: var(--type-h1-weight);
+  letter-spacing: var(--type-h1-letter-spacing);
+  line-height: var(--type-h1-line-height);
+  margin: 0;
+}
+
+.hero[data-brand="joolz"] .heading {
+  gap: 0;
+}
+
+.heading mark {
+  align-self: center;
+  background: #d9b8e8;
+  color: #130f31;
+  display: inline-block;
+  font-family: var(--type-hero-highlight-font);
+  font-size: var(--type-hero-highlight-size);
+  font-weight: var(--type-hero-highlight-weight);
+  letter-spacing: 0;
+  line-height: 0.96;
+  margin-top: 6px;
+  padding: 0 12px 5px;
+}
+
+.subtitle {
+  color: inherit;
+  font-family: var(--type-hero-subtitle-font);
+  font-size: var(--type-hero-subtitle-size);
+  font-weight: var(--type-hero-subtitle-weight);
+  line-height: var(--type-hero-subtitle-line-height);
+  margin: 0;
+  max-width: 265px;
+}
+
+.hero[data-brand="joolz"] .subtitle {
+  max-width: 313px;
+}
+
+.categoryNav {
+  align-items: center;
+  bottom: 71px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  left: 50%;
+  opacity: 0.8;
+  position: absolute;
+  transform: translateX(-50%);
+  width: max-content;
+}
+
+.hero[data-brand="joolz"] .categoryNav {
+  bottom: 163px;
+  flex-direction: row;
+  gap: 32px;
+}
+
+.categoryRow {
+  display: flex;
+  gap: 24px;
+}
+
+.hero[data-brand="joolz"] .categoryRow {
+  gap: 32px;
+}
+
+.categoryNav a {
+  color: inherit;
+  font-family: var(--type-nav-font);
+  font-size: var(--type-nav-size);
+  font-weight: var(--type-nav-weight);
+  letter-spacing: var(--type-nav-letter-spacing);
+  line-height: var(--type-nav-line-height);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.playbackButton {
+  align-items: center;
+  appearance: none;
+  background: rgba(255, 255, 255, 0.28);
+  border: 0;
+  border-radius: 999px;
+  bottom: 20px;
+  color: #ffffff;
+  display: flex;
+  height: 32px;
+  justify-content: center;
+  padding: 0;
+  position: absolute;
+  right: 20px;
+  width: 32px;
+}
+
+.hero[data-brand="joolz"] .playbackButton {
+  background: rgba(255, 255, 255, 0.86);
+  bottom: 24px;
+  color: #737373;
+  height: 40px;
+  right: 24px;
+  width: 40px;
+}
+
+.playbackButton:focus-visible {
+  outline: 1.5px solid currentColor;
+  outline-offset: 4px;
+}
+
+.playbackIcon {
+  display: block;
+  fill: none;
+  height: 18px;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.5;
+  width: 18px;
+}

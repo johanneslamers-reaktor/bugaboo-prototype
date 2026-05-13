@@ -1,0 +1,71 @@
+.card {
+  align-items: center;
+  background: #ffffff;
+  contain: layout paint style;
+  display: flex;
+  flex: 0 0 var(--category-card-width, 270px);
+  height: 356px;
+  justify-content: center;
+  padding: 20px 0;
+  width: var(--category-card-width, 270px);
+}
+
+.inner {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 200px;
+}
+
+.media {
+  flex: 0 0 260px;
+  height: 260px;
+  position: relative;
+  width: 260px;
+}
+
+.image {
+  display: block;
+  height: 100%;
+  object-fit: contain;
+  pointer-events: none;
+  user-select: none;
+  width: 100%;
+}
+
+.card[data-brand="joolz"] .image {
+  object-fit: cover;
+}
+
+.copy {
+  align-items: center;
+  color: #1a1a1a;
+  display: flex;
+  flex-direction: column;
+  font-family: var(--type-body-s-font);
+  font-size: var(--type-body-s-size);
+  font-weight: var(--type-body-s-weight);
+  letter-spacing: var(--type-body-s-letter-spacing);
+  line-height: var(--type-body-s-line-height);
+  text-align: center;
+}
+
+.card[data-brand="joolz"] .copy {
+  color: var(--joolz-deep-blue);
+}
+
+.title,
+.description {
+  margin: 0;
+}
+
+.title {
+  font: inherit;
+  white-space: nowrap;
+}
+
+.description {
+  max-width: 236px;
+  opacity: 0.5;
+}

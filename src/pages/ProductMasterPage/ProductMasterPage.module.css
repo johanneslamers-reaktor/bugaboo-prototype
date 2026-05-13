@@ -1,0 +1,31 @@
+.page {
+  --floating-cta-bottom-offset: max(18px, calc(12px + env(safe-area-inset-bottom, 0px)));
+  --floating-cta-reserved-space: calc(58px + var(--floating-cta-bottom-offset) + 24px);
+
+  background: #ffffff;
+  color: var(--brand-text);
+  min-height: 100svh;
+  position: relative;
+  width: 100%;
+}
+
+.page[data-brand="joolz"] {
+  --floating-cta-reserved-space: calc(88px + var(--floating-cta-bottom-offset) + 24px);
+}
+
+.navigation {
+  left: 50%;
+  position: absolute;
+  top: 0;
+  transform: translateX(-50%);
+  z-index: 4;
+}
+
+.productContent {
+  background: #ffffff;
+  margin-top: -70svh;
+  min-height: 100svh;
+  padding-bottom: var(--floating-cta-reserved-space);
+  position: relative;
+  z-index: 1;
+}

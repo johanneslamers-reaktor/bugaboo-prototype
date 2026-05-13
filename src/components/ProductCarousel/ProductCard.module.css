@@ -1,0 +1,260 @@
+.card {
+  background: #ffffff;
+  color: #1a1a1a;
+  display: flex;
+  flex-direction: column;
+  flex: 0 0 209px;
+  gap: 16px;
+  width: 209px;
+}
+
+.card[data-brand="joolz"] {
+  color: var(--joolz-deep-blue);
+  height: 361px;
+  gap: 16px;
+}
+
+.mediaBlock {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.mediaStage {
+  background: #ededed;
+  height: 275px;
+  overflow: hidden;
+  padding: 8px;
+  position: relative;
+  width: 100%;
+}
+
+.card[data-brand="joolz"] .mediaStage {
+  background: #f5f5f5;
+}
+
+.productImage {
+  display: block;
+  height: 100%;
+  inset: 0;
+  object-fit: contain;
+  padding: 14px 4px;
+  pointer-events: none;
+  position: absolute;
+  transform-origin: center;
+  width: 100%;
+  will-change: transform, opacity;
+}
+
+.card[data-brand="joolz"] .productImage {
+  padding: 10px 0;
+}
+
+.cardChrome {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: space-between;
+  min-width: 0;
+  position: relative;
+  z-index: 1;
+}
+
+.topRow {
+  align-items: flex-start;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.badge {
+  align-items: center;
+  background: #ffffff;
+  border-radius: 4px;
+  color: rgba(26, 26, 26, 0.5);
+  display: inline-flex;
+  font-family: var(--font-aeonik);
+  font-size: 10px;
+  font-weight: 400;
+  line-height: 1.5;
+  min-height: 19px;
+  padding: 2px 8px;
+  white-space: nowrap;
+}
+
+.card[data-brand="joolz"] .badge {
+  font-family: var(--font-value-sans);
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.45px;
+  line-height: 1.63;
+  text-transform: uppercase;
+}
+
+.actions {
+  align-items: flex-end;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.iconButton {
+  align-items: center;
+  appearance: none;
+  background: transparent;
+  border: 0;
+  color: currentColor;
+  cursor: pointer;
+  display: flex;
+  height: 16px;
+  justify-content: center;
+  padding: 0;
+  width: 16px;
+}
+
+.iconButton:focus-visible,
+.thumbnailButton:focus-visible {
+  outline: 1.5px solid currentColor;
+  outline-offset: 3px;
+}
+
+.icon {
+  display: block;
+  fill: none;
+  height: 16px;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.55;
+  width: 16px;
+}
+
+.iconButton[data-active="true"] .icon {
+  fill: currentColor;
+}
+
+.thumbnails {
+  align-items: flex-end;
+  display: flex;
+  gap: 4px;
+}
+
+.thumbnailButton {
+  align-items: center;
+  appearance: none;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  display: flex;
+  height: 24px;
+  justify-content: center;
+  overflow: hidden;
+  padding: 0;
+  transition: background-color 180ms ease;
+  width: 24px;
+}
+
+.thumbnailButton[data-active="true"] {
+  background: rgba(26, 26, 26, 0.15);
+}
+
+.thumbnailButton img {
+  display: block;
+  height: 22px;
+  object-fit: contain;
+  pointer-events: none;
+  width: 22px;
+}
+
+.progressTrack {
+  background: rgba(26, 26, 26, 0.18);
+  height: 2px;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+}
+
+.card[data-brand="joolz"] .progressTrack {
+  background: rgba(19, 15, 49, 0.16);
+  height: 4px;
+}
+
+.progressFill {
+  background: currentColor;
+  display: block;
+  height: 100%;
+  transform-origin: left center;
+  width: 100%;
+}
+
+.copy {
+  display: flex;
+  flex-direction: column;
+  font-family: var(--font-aeonik);
+  gap: 2px;
+  padding: 0 16px;
+  width: 100%;
+}
+
+.card[data-brand="joolz"] .copy {
+  font-family: var(--font-value-sans);
+  font-weight: 500;
+  padding: 0 8px;
+}
+
+.title {
+  color: currentColor;
+  font: inherit;
+  font-size: 14px;
+  letter-spacing: 0;
+  line-height: 1.3;
+  margin: 0;
+}
+
+.card[data-brand="joolz"] .title {
+  font-size: 14px;
+  letter-spacing: 0.14px;
+}
+
+.title sup {
+  font-size: 64.5%;
+  line-height: 0;
+  position: relative;
+  top: -0.35em;
+}
+
+.subtitle {
+  color: rgba(26, 26, 26, 0.5);
+  font-size: 12px;
+  line-height: 1.5;
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.card[data-brand="joolz"] .subtitle {
+  color: rgba(19, 15, 49, 0.5);
+  line-height: 1.3;
+}
+
+.priceRow {
+  align-items: baseline;
+  color: currentColor;
+  display: flex;
+  flex-wrap: wrap;
+  font-size: 12px;
+  gap: 8px;
+  line-height: 1.5;
+  min-height: 18px;
+}
+
+.card[data-brand="joolz"] .priceRow {
+  line-height: 1.3;
+}
+
+.compareAt {
+  opacity: 0.5;
+  text-decoration: line-through;
+  text-decoration-skip-ink: none;
+}

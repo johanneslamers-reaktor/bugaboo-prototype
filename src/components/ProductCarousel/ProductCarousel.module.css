@@ -1,0 +1,66 @@
+.carousel {
+  background: #ffffff;
+  color: #1a1a1a;
+  height: 515px;
+  overflow: hidden;
+  padding-top: 48px;
+  position: relative;
+  width: 100%;
+}
+
+.carousel[data-brand="joolz"] {
+  color: var(--joolz-deep-blue);
+  height: 457px;
+}
+
+.heading {
+  color: currentColor;
+  font-family: var(--font-aeonik);
+  font-size: 24px;
+  font-weight: 400;
+  letter-spacing: -0.48px;
+  line-height: 1.1;
+  margin: 0 16px 24px;
+}
+
+.carousel[data-brand="joolz"] .heading {
+  font-family: var(--font-value-sans-joolz);
+  font-size: 22px;
+  font-weight: 900;
+  letter-spacing: -0.22px;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.viewport {
+  height: 369px;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+}
+
+.carousel[data-brand="joolz"] .viewport {
+  height: 361px;
+}
+
+.track {
+  align-items: flex-start;
+  cursor: grab;
+  display: flex;
+  gap: 8px;
+  height: 100%;
+  position: relative;
+  touch-action: pan-y;
+  user-select: none;
+  width: max-content;
+  will-change: transform;
+}
+
+.track:active {
+  cursor: grabbing;
+}
+
+.cardSlot {
+  flex: 0 0 209px;
+  width: 209px;
+}

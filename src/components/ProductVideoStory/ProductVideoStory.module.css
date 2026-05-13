@@ -1,0 +1,194 @@
+.section {
+  background: #111111;
+  box-sizing: border-box;
+  color: #ffffff;
+  min-height: 874px;
+  overflow: hidden;
+  width: 100%;
+}
+
+.section[data-brand="joolz"] {
+  background: #d0b6d8;
+  min-height: 604px;
+  padding: 37px 24px 41px;
+}
+
+.frame {
+  height: 100%;
+  min-height: inherit;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+}
+
+.section[data-brand="joolz"] .frame {
+  border-radius: 12px;
+  height: 526px;
+  margin: 0 auto;
+  min-height: 0;
+  width: min(351px, 100%);
+}
+
+.media {
+  background: #111111;
+  display: block;
+  height: 100%;
+  inset: 0;
+  object-fit: cover;
+  pointer-events: none;
+  position: absolute;
+  user-select: none;
+  width: 100%;
+  -webkit-user-drag: none;
+}
+
+.section[data-brand="joolz"] .media {
+  background: #2e2238;
+  object-position: center;
+}
+
+.title {
+  color: #ffffff;
+  left: 50%;
+  margin: 0;
+  position: absolute;
+  text-align: center;
+  transform: translateX(-50%);
+  z-index: 1;
+}
+
+.section[data-brand="bugaboo"] .title {
+  display: flex;
+  flex-direction: column;
+  font-family: var(--font-aeonik);
+  font-size: 48px;
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: 1;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: min(365px, calc(100% - 36px));
+}
+
+.section[data-brand="joolz"] .title {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  top: 41%;
+  transform: translate(-50%, -50%);
+  width: min(318px, calc(100% - 28px));
+}
+
+.titleStrong {
+  background: #f8eed8;
+  color: var(--joolz-deep-blue);
+  display: inline-block;
+  font-family: var(--font-value-sans-joolz);
+  font-size: 35px;
+  font-weight: 700;
+  letter-spacing: 0;
+  line-height: 1.04;
+  padding: 0 8px 2px;
+}
+
+.titleAccent {
+  color: #ffffff;
+  display: block;
+  font-family: var(--font-goudy);
+  font-size: 35px;
+  font-style: normal;
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: 1.08;
+  margin-top: -1px;
+}
+
+.toggle {
+  align-items: center;
+  appearance: none;
+  background: rgb(255 255 255 / 82%);
+  border: 0;
+  border-radius: 999px;
+  bottom: 16px;
+  color: #5f5f5f;
+  cursor: pointer;
+  display: flex;
+  height: 48px;
+  justify-content: center;
+  padding: 0;
+  position: absolute;
+  right: 16px;
+  width: 48px;
+  z-index: 2;
+}
+
+.toggle[aria-hidden="true"] {
+  cursor: default;
+}
+
+.section[data-brand="joolz"] .toggle {
+  background: #ffffff;
+  bottom: 10px;
+  color: #6d6d6d;
+  right: 10px;
+}
+
+.toggle:focus-visible {
+  outline: 1.5px solid currentColor;
+  outline-offset: 4px;
+}
+
+.toggleIcon {
+  align-items: center;
+  display: flex;
+  height: 18px;
+  justify-content: center;
+  position: relative;
+  width: 18px;
+}
+
+.toggleIcon::before,
+.toggleIcon::after {
+  content: "";
+  position: absolute;
+}
+
+.toggleIcon[data-paused="false"]::before,
+.toggleIcon[data-paused="false"]::after {
+  background: currentColor;
+  border-radius: 999px;
+  height: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3px;
+}
+
+.toggleIcon[data-paused="false"]::before {
+  left: 5px;
+}
+
+.toggleIcon[data-paused="false"]::after {
+  right: 5px;
+}
+
+.toggleIcon[data-paused="true"]::before {
+  border-bottom: 7px solid transparent;
+  border-left: 11px solid currentColor;
+  border-top: 7px solid transparent;
+  height: 0;
+  left: 5px;
+  top: 2px;
+  width: 0;
+}
+
+@media (max-width: 374px) {
+  .section[data-brand="bugaboo"] .title {
+    font-size: 44px;
+  }
+
+  .titleStrong,
+  .titleAccent {
+    font-size: 32px;
+  }
+}

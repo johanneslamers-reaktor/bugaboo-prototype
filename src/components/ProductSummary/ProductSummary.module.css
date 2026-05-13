@@ -1,0 +1,401 @@
+.summary {
+  background: #ffffff;
+  box-sizing: border-box;
+  color: #000000;
+  padding: 0 16px 24px;
+}
+
+.productInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding-top: 24px;
+}
+
+.titleGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.brandRow {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.brandLabel,
+.productTitle,
+.productSubtitle,
+.price,
+.stockStatus,
+.description,
+.colorwayName {
+  margin: 0;
+}
+
+.brandLabel {
+  color: rgb(0 0 0 / 40%);
+  font-family: var(--brand-font-body);
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.3;
+}
+
+.wishlistButton {
+  align-items: center;
+  appearance: none;
+  background: transparent;
+  border: 0;
+  color: #000000;
+  display: flex;
+  height: 32px;
+  justify-content: center;
+  margin-right: -8px;
+  padding: 0;
+  transition: opacity 160ms ease, transform 160ms ease;
+  width: 32px;
+}
+
+.wishlistButton:active {
+  transform: scale(0.94);
+}
+
+.wishlistButton:focus-visible {
+  outline: 1.5px solid currentColor;
+  outline-offset: 1px;
+}
+
+.heartIcon {
+  display: block;
+  height: 16px;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.45;
+  width: 16px;
+}
+
+.productTitle {
+  color: #000000;
+  font-family: var(--brand-font-display);
+  font-size: 36px;
+  font-weight: 400;
+  letter-spacing: -0.72px;
+  line-height: 1.1;
+}
+
+.productTitle sup {
+  font-size: 0.65em;
+  line-height: 0;
+  position: relative;
+  top: -0.42em;
+}
+
+.productSubtitle {
+  display: none;
+}
+
+.commerceRow {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.price {
+  color: rgb(0 0 0 / 75%);
+  font-family: var(--brand-font-body);
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.3;
+}
+
+.statusRow {
+  align-items: center;
+  display: flex;
+  gap: 16px;
+}
+
+.ratingPill {
+  align-items: center;
+  background: #f6f6f6;
+  border-radius: 4px;
+  display: flex;
+  gap: 6px;
+  min-height: 24px;
+  padding: 4px 6px;
+}
+
+.starIcon {
+  display: block;
+  fill: #000000;
+  height: 12px;
+  width: 12px;
+}
+
+.ratingValue {
+  color: #0f0f02;
+  font-family: var(--brand-font-body);
+  font-size: 12px;
+  font-feature-settings: "lnum" 1, "pnum" 1;
+  font-weight: 400;
+  line-height: 16px;
+}
+
+.ratingDivider {
+  background: rgb(0 0 0 / 18%);
+  display: block;
+  height: 12px;
+  width: 1px;
+}
+
+.reviewCount {
+  color: #737373;
+  font-family: var(--brand-font-body);
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 20px;
+}
+
+.stockStatus {
+  color: #000000;
+  font-family: var(--brand-font-body);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.3;
+}
+
+.description {
+  color: #737373;
+  font-family: var(--brand-font-body);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.3;
+}
+
+.colorwayBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-left: -16px;
+  margin-right: -16px;
+  margin-top: 40px;
+  overflow: hidden;
+}
+
+.colorwayScroller {
+  display: flex;
+  gap: 4px;
+  overflow-x: auto;
+  padding-left: 16px;
+  padding-right: 16px;
+  scroll-padding-left: 16px;
+  scroll-padding-right: 16px;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.colorwayScroller::-webkit-scrollbar {
+  display: none;
+}
+
+.colorwayOption {
+  align-items: center;
+  appearance: none;
+  background: #f6f6f6;
+  border: 0;
+  border-bottom: 1.73px solid transparent;
+  display: flex;
+  flex: 0 0 64px;
+  height: 64px;
+  justify-content: center;
+  overflow: hidden;
+  padding: 0;
+  transition: border-color 160ms ease, background-color 160ms ease;
+  width: 64px;
+}
+
+.colorwayOption[data-active="true"] {
+  border-bottom-color: #1a1a1a;
+}
+
+.colorwayOption:focus-visible {
+  outline: 1.5px solid currentColor;
+  outline-offset: -3px;
+}
+
+.colorwayOption img {
+  display: block;
+  height: 54.566px;
+  object-fit: contain;
+  pointer-events: none;
+  user-select: none;
+  width: 51.023px;
+  -webkit-user-drag: none;
+}
+
+.swatchFallback {
+  border-radius: 999px;
+  display: block;
+  height: 40px;
+  width: 40px;
+}
+
+.colorwayName {
+  color: rgb(0 0 0 / 65%);
+  font-family: var(--brand-font-body);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.3;
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
+.summary[data-brand="joolz"] {
+  color: var(--brand-text);
+  padding-top: 0;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.summary[data-brand="joolz"] .productInfo {
+  gap: 16px;
+  padding-top: 24px;
+}
+
+.summary[data-brand="joolz"] .titleGroup {
+  gap: 4px;
+}
+
+.summary[data-brand="joolz"] .brandRow {
+  display: none;
+}
+
+.summary[data-brand="joolz"] .productTitle {
+  color: var(--brand-text);
+  font-family: var(--font-value-sans-joolz);
+  font-size: 27.508px;
+  font-weight: 700;
+  letter-spacing: -0.275px;
+  line-height: 1.2;
+}
+
+.summary[data-brand="joolz"] .productTitle sup {
+  font-size: 17.742px;
+  top: -0.38em;
+}
+
+.summary[data-brand="joolz"] .productSubtitle {
+  color: var(--brand-text);
+  display: block;
+  font-family: var(--font-goudy);
+  font-size: 28px;
+  font-feature-settings: "lnum" 1, "pnum" 1;
+  font-weight: 400;
+  letter-spacing: -1.12px;
+  line-height: 1.15;
+  min-width: 100%;
+  white-space: nowrap;
+}
+
+.summary[data-brand="joolz"] .commerceRow {
+  align-items: center;
+  flex-direction: row;
+  gap: 18px;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.summary[data-brand="joolz"] .statusRow {
+  gap: 16px;
+  justify-content: flex-end;
+}
+
+.summary[data-brand="joolz"] .ratingPill {
+  order: 2;
+}
+
+.summary[data-brand="joolz"] .stockStatus {
+  order: 1;
+}
+
+.summary[data-brand="joolz"] .starIcon {
+  fill: #ffcb30;
+}
+
+.summary[data-brand="joolz"] .ratingValue {
+  color: var(--brand-text);
+  font-family: var(--font-value-sans);
+  font-weight: 700;
+}
+
+.summary[data-brand="joolz"] .reviewCount {
+  color: var(--brand-text);
+  font-family: var(--font-value-sans);
+}
+
+.summary[data-brand="joolz"] .brandLabel,
+.summary[data-brand="joolz"] .price,
+.summary[data-brand="joolz"] .stockStatus,
+.summary[data-brand="joolz"] .description,
+.summary[data-brand="joolz"] .colorwayName,
+.summary[data-brand="joolz"] .wishlistButton {
+  color: var(--brand-text);
+}
+
+.summary[data-brand="joolz"] .price,
+.summary[data-brand="joolz"] .stockStatus,
+.summary[data-brand="joolz"] .description {
+  font-family: var(--font-value-sans);
+  font-weight: 500;
+}
+
+.summary[data-brand="joolz"] .description {
+  color: rgb(19 15 49 / 75%);
+}
+
+.summary[data-brand="joolz"] .colorwayBlock {
+  gap: 8px;
+  margin-left: -20px;
+  margin-right: -20px;
+  margin-top: 40px;
+}
+
+.summary[data-brand="joolz"] .colorwayName {
+  color: rgb(19 15 49 / 40%);
+  font-family: var(--font-value-sans);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.3;
+  order: -1;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.summary[data-brand="joolz"] .colorwayScroller {
+  padding-left: 20px;
+  padding-right: 20px;
+  scroll-padding-left: 20px;
+  scroll-padding-right: 20px;
+}
+
+.summary[data-brand="joolz"] .colorwayOption {
+  align-items: flex-start;
+  border-bottom: 0;
+  border-radius: 4px;
+  flex-basis: 72px;
+  height: 72px;
+  padding: 4.865px 6.811px 5.838px 7.784px;
+  width: 72px;
+}
+
+.summary[data-brand="joolz"] .colorwayOption[data-active="true"] {
+  border-bottom-color: transparent;
+}
+
+.summary[data-brand="joolz"] .colorwayOption img {
+  height: 61.387px;
+  width: 57.401px;
+}

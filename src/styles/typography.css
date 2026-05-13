@@ -1,0 +1,165 @@
+@font-face {
+  font-family: "Aeonik Pro";
+  font-display: swap;
+  font-style: normal;
+  font-weight: 300;
+  src: url("/assets/fonts/aeonik/AeonikPro-Light.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "Aeonik Pro";
+  font-display: swap;
+  font-style: italic;
+  font-weight: 300;
+  src: url("/assets/fonts/aeonik/AeonikPro-LightItalic.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "Aeonik Pro";
+  font-display: swap;
+  font-style: normal;
+  font-weight: 400;
+  src: url("/assets/fonts/aeonik/AeonikPro-Regular.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "Aeonik Pro";
+  font-display: swap;
+  font-style: italic;
+  font-weight: 400;
+  src: url("/assets/fonts/aeonik/AeonikPro-RegularItalic.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "Aeonik Pro";
+  font-display: swap;
+  font-style: normal;
+  font-weight: 500;
+  src: url("/assets/fonts/aeonik/AeonikPro-Medium.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "Aeonik Pro";
+  font-display: swap;
+  font-style: italic;
+  font-weight: 500;
+  src: url("/assets/fonts/aeonik/AeonikPro-MediumItalic.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "Aeonik Pro";
+  font-display: swap;
+  font-style: normal;
+  font-weight: 700;
+  src: url("/assets/fonts/aeonik/AeonikPro-Bold.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "Aeonik Pro";
+  font-display: swap;
+  font-style: italic;
+  font-weight: 700;
+  src: url("/assets/fonts/aeonik/AeonikPro-BoldItalic.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "Value Sans Pro";
+  font-display: swap;
+  font-style: normal;
+  font-weight: 400;
+  src: url("/assets/fonts/value-sans-pro/value-sans-regular-pro.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "Value Sans Pro";
+  font-display: swap;
+  font-style: italic;
+  font-weight: 400;
+  src: url("/assets/fonts/value-sans-pro/value-sans-regular-italic-pro.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "Value Sans Pro";
+  font-display: swap;
+  font-style: normal;
+  font-weight: 500;
+  src: url("/assets/fonts/value-sans-pro/value-sans-medium-pro.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "Value Sans Pro";
+  font-display: swap;
+  font-style: italic;
+  font-weight: 500;
+  src: url("/assets/fonts/value-sans-pro/value-sans-medium-italic-pro.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "Value Sans Pro";
+  font-display: swap;
+  font-style: normal;
+  font-weight: 700;
+  src: url("/assets/fonts/value-sans-pro/value-sans-bold-pro.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "Value Sans Pro";
+  font-display: swap;
+  font-style: italic;
+  font-weight: 700;
+  src: url("/assets/fonts/value-sans-pro/value-sans-bold-italic-pro.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "Value Sans Pro";
+  font-display: swap;
+  font-style: normal;
+  font-weight: 900;
+  src: url("/assets/fonts/value-sans-pro/value-sans-black-pro.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "Value Sans Pro";
+  font-display: swap;
+  font-style: italic;
+  font-weight: 900;
+  src: url("/assets/fonts/value-sans-pro/value-sans-black-italic-pro.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "Value Sans Pro Joolz";
+  font-display: swap;
+  font-style: normal;
+  font-weight: 700;
+  src: url("/assets/fonts/value-sans-pro-joolz/ValueSansProJoolz-Bold.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "Goudy Old Style";
+  font-display: swap;
+  font-style: normal;
+  font-weight: 400;
+  src: url("/assets/fonts/goudy-old-style/URW%20Type%20Foundry%20-%20GoudyOldSty-Reg.otf")
+    format("opentype");
+}
+
+@font-face {
+  font-family: "Goudy Old Style";
+  font-display: swap;
+  font-style: normal;
+  font-weight: 700;
+  src: url("/assets/fonts/goudy-old-style/URW%20Type%20Foundry%20-%20GoudyOldSty-Bol.otf")
+    format("opentype");
+}
+
+:root {
+  --font-aeonik: "Aeonik Pro", ui-sans-serif, system-ui, sans-serif;
+  --font-value-sans: "Value Sans Pro", ui-sans-serif, system-ui, sans-serif;
+  --font-value-sans-joolz: "Value Sans Pro Joolz", "Value Sans Pro", ui-sans-serif, system-ui, sans-serif;
+  --font-goudy: "Goudy Old Style", Georgia, serif;
+  --font-system-sans: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+html {
+  font-synthesis: none;
+}

@@ -1,0 +1,1 @@
+export { ProductUsp } from "./ProductUsp";

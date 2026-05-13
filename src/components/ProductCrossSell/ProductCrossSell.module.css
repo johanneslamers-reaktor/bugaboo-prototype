@@ -1,0 +1,412 @@
+.section {
+  background: #ffffff;
+  box-sizing: border-box;
+  color: #1a1a1a;
+  overflow: hidden;
+  padding: 48px 0 56px;
+  width: 100%;
+}
+
+.section[data-brand="joolz"] {
+  color: var(--joolz-deep-blue);
+  padding-bottom: 58px;
+}
+
+.heading {
+  color: currentColor;
+  font-family: var(--font-aeonik);
+  font-size: 28px;
+  font-weight: 400;
+  letter-spacing: -0.56px;
+  line-height: 1.2;
+  margin: 0 16px 24px;
+}
+
+.section[data-brand="joolz"] .heading {
+  font-family: var(--font-value-sans-joolz);
+  font-weight: 700;
+  letter-spacing: 0;
+  line-height: normal;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.scroller {
+  cursor: grab;
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  padding: 0 16px;
+  scroll-padding-left: 16px;
+  scroll-padding-right: 16px;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  touch-action: pan-y;
+  user-select: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.section[data-brand="joolz"] .scroller {
+  padding-left: 20px;
+  padding-right: 20px;
+  scroll-padding-left: 20px;
+  scroll-padding-right: 20px;
+}
+
+.scroller[data-dragging="true"] {
+  cursor: grabbing;
+  scroll-snap-type: none;
+}
+
+.scroller::-webkit-scrollbar {
+  display: none;
+}
+
+.card {
+  background: #ffffff;
+  flex: 0 0 209px;
+  scroll-snap-align: start;
+  width: 209px;
+}
+
+.mediaBlock {
+  width: 100%;
+}
+
+.media {
+  align-items: center;
+  background: #f2f1ef;
+  box-sizing: border-box;
+  display: flex;
+  height: 275px;
+  justify-content: center;
+  overflow: hidden;
+  padding: 8px;
+  position: relative;
+  width: 209px;
+}
+
+.card[data-brand="joolz"] .media {
+  background: #f5f5f5;
+}
+
+.media img {
+  display: block;
+  height: 100%;
+  max-height: 100%;
+  max-width: 100%;
+  object-fit: contain;
+  pointer-events: none;
+  user-select: none;
+  width: 100%;
+  -webkit-user-drag: none;
+}
+
+.card[data-brand="joolz"] .media img {
+  height: 86%;
+  width: 86%;
+}
+
+.wishlist {
+  align-items: center;
+  appearance: none;
+  background: transparent;
+  border: 0;
+  color: #111111;
+  display: flex;
+  height: 24px;
+  justify-content: center;
+  padding: 0;
+  position: absolute;
+  right: 8px;
+  top: 8px;
+  width: 24px;
+  z-index: 1;
+}
+
+.card[data-brand="joolz"] .wishlist {
+  background: #ffffff;
+  border-radius: 4px;
+  color: var(--joolz-deep-blue);
+  height: 24px;
+  right: 10px;
+  top: 10px;
+  width: 24px;
+}
+
+.wishlist:focus-visible,
+.addButton:focus-visible,
+.inlineAdd:focus-visible {
+  outline: 1.5px solid currentColor;
+  outline-offset: 3px;
+}
+
+.wishlist[data-active="true"] {
+  color: #111111;
+}
+
+.badge {
+  background: #ffffff;
+  border-radius: 4px;
+  color: rgb(26 26 26 / 50%);
+  font-family: var(--font-aeonik);
+  font-size: 12px;
+  font-weight: 400;
+  left: 8px;
+  line-height: 1.5;
+  padding: 2px 8px;
+  position: absolute;
+  top: 8px;
+  z-index: 1;
+}
+
+.imageProgress {
+  background: #cfcfd5;
+  height: 2px;
+  overflow: hidden;
+  width: 209px;
+}
+
+.card[data-brand="joolz"] .imageProgress {
+  background: #cdcbd6;
+  height: 4px;
+}
+
+.imageProgress span {
+  background: #0f0f02;
+  display: block;
+  height: 100%;
+  width: 42%;
+}
+
+.card[data-brand="joolz"] .imageProgress span {
+  background: var(--joolz-deep-blue);
+}
+
+.copy {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 14px 8px 0;
+}
+
+.card[data-brand="joolz"] .copy {
+  color: var(--joolz-deep-blue);
+  gap: 2px;
+  padding-top: 16px;
+}
+
+.titleRow {
+  align-items: center;
+  display: flex;
+  gap: 8px;
+  justify-content: space-between;
+  min-width: 0;
+}
+
+.titleRow h3 {
+  color: currentColor;
+  font-family: var(--font-aeonik);
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.3;
+  margin: 0;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.card[data-brand="joolz"] .titleRow h3 {
+  font-family: var(--font-value-sans);
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.14px;
+}
+
+.rating {
+  align-items: center;
+  color: #0f0f02;
+  display: inline-flex;
+  flex: 0 0 auto;
+  font-family: var(--font-aeonik);
+  font-size: 12px;
+  gap: 6px;
+  line-height: 16px;
+}
+
+.starIcon {
+  display: block;
+  fill: currentColor;
+  height: 12px;
+  width: 12px;
+}
+
+.subtitle,
+.stockLine {
+  color: rgb(26 26 26 / 50%);
+  font-family: var(--font-aeonik);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.3;
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.card[data-brand="joolz"] .subtitle,
+.card[data-brand="joolz"] .stockLine {
+  color: rgb(19 15 49 / 50%);
+  font-family: var(--font-value-sans);
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.price {
+  align-items: center;
+  color: #1a1a1a;
+  display: flex;
+  font-family: var(--font-aeonik);
+  font-size: 16px;
+  font-weight: 400;
+  gap: 4px;
+  line-height: 1.5;
+  margin: 0;
+  white-space: nowrap;
+}
+
+.price strong {
+  font: inherit;
+}
+
+.price span {
+  color: #93938d;
+  text-decoration: line-through;
+}
+
+.card[data-brand="joolz"] .price {
+  color: var(--joolz-deep-blue);
+  font-family: var(--font-value-sans);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.3;
+}
+
+.swatches {
+  align-items: center;
+  display: flex;
+  gap: 4px;
+  padding-top: 8px;
+}
+
+.card[data-brand="joolz"] .swatches {
+  gap: 6px;
+  order: 4;
+  padding-top: 14px;
+}
+
+.swatch {
+  --swatch-color: #111111;
+  background: var(--swatch-color);
+  border-radius: 999px;
+  box-sizing: border-box;
+  display: block;
+  height: 16px;
+  position: relative;
+  width: 16px;
+}
+
+.swatch[data-brand="bugaboo"] {
+  height: 20px;
+  width: 20px;
+}
+
+.swatch[data-brand="bugaboo"][data-active="true"]::before {
+  border: 1px solid #0f0f02;
+  border-radius: inherit;
+  content: "";
+  inset: -2px;
+  position: absolute;
+}
+
+.swatch[data-brand="joolz"] {
+  border-radius: 4px;
+  height: 12px;
+  width: 12px;
+}
+
+.swatch[data-brand="joolz"][data-active="true"] {
+  box-shadow: 0 0 0 6px #ffffff, 0 0 0 7px var(--joolz-deep-blue);
+  margin: 6px;
+}
+
+.moreColors {
+  color: #3b3a48;
+  font-family: var(--font-aeonik);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.commerceRow {
+  align-items: center;
+  display: flex;
+  gap: 8px;
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.divider {
+  background: #d2d2d2;
+  display: block;
+  flex: 0 0 16px;
+  height: 1px;
+  transform: rotate(90deg);
+}
+
+.inlineAdd {
+  appearance: none;
+  background: transparent;
+  border: 0;
+  color: var(--joolz-deep-blue);
+  flex: 0 0 auto;
+  font-family: var(--font-value-sans);
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.3;
+  padding: 0;
+  white-space: nowrap;
+}
+
+.addButton {
+  align-items: center;
+  appearance: none;
+  background: #ffffff;
+  border: 1px solid rgb(0 0 0 / 50%);
+  border-radius: 999px;
+  color: #0f0f02;
+  display: inline-flex;
+  font-family: var(--font-aeonik);
+  font-size: 12px;
+  font-weight: 400;
+  gap: 8px;
+  justify-content: center;
+  line-height: 1.3;
+  margin-top: 14px;
+  padding: 8px 16px;
+  width: fit-content;
+}
+
+.icon {
+  display: block;
+  fill: none;
+  height: 16px;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.6;
+  width: 16px;
+}

@@ -1,0 +1,1 @@
+export { BrandUsp } from "./BrandUsp";

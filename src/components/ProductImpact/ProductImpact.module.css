@@ -1,0 +1,198 @@
+.impact {
+  background: #ffffff;
+  box-sizing: border-box;
+  color: #000000;
+  display: flex;
+  flex-direction: column;
+  gap: 43px;
+  padding: 0 16px 48px;
+  width: 100%;
+}
+
+.hero {
+  align-items: flex-start;
+  display: flex;
+  gap: 8px;
+  min-height: 116px;
+  width: 100%;
+}
+
+.heroMedia {
+  flex: 0 0 116px;
+  height: 116px;
+  margin: 0;
+  overflow: hidden;
+  position: relative;
+  width: 116px;
+}
+
+.heroMedia img {
+  display: block;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+  user-select: none;
+  width: 100%;
+}
+
+.heroCopy {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  gap: 5px;
+  min-width: 0;
+}
+
+.heroCopy h2,
+.heroCopy p,
+.list {
+  margin: 0;
+}
+
+.heroCopy h2 {
+  color: #000000;
+  font-family: var(--brand-font-body);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.3;
+}
+
+.heroCopy p {
+  color: #737373;
+  font-family: var(--brand-font-body);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  list-style: none;
+  padding: 0;
+}
+
+.item {
+  align-items: center;
+  display: flex;
+  gap: 16px;
+  min-height: 48px;
+}
+
+.item + .item {
+  border-top: 1px solid rgb(0 0 0 / 20%);
+  margin-top: 16px;
+  padding-top: 20px;
+}
+
+.iconFrame {
+  align-items: center;
+  display: flex;
+  flex: 0 0 48px;
+  height: 48px;
+  justify-content: center;
+  opacity: 1;
+  width: 48px;
+}
+
+.icon {
+  display: block;
+  fill: none;
+  height: 48px;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.1;
+  width: 48px;
+}
+
+.iconImage {
+  display: block;
+  height: 48px;
+  object-fit: contain;
+  pointer-events: none;
+  user-select: none;
+  width: 48px;
+}
+
+.itemLabel {
+  color: rgb(0 0 0 / 75%);
+  flex: 1 1 auto;
+  font-family: var(--brand-font-body);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.3;
+  min-width: 0;
+}
+
+.impact[data-brand="joolz"] {
+  color: var(--brand-text);
+  gap: 20px;
+  padding: 0 16px 48px 20px;
+}
+
+.impact[data-brand="joolz"] .hero {
+  align-items: center;
+  gap: 20px;
+  min-height: 116px;
+}
+
+.impact[data-brand="joolz"] .heroMedia {
+  border-radius: 8px;
+}
+
+.impact[data-brand="joolz"] .heroCopy {
+  gap: 5px;
+  white-space: nowrap;
+}
+
+.impact[data-brand="joolz"] .heroCopy h2 {
+  color: rgb(19 15 49 / 75%);
+  font-family: var(--font-value-sans);
+  font-weight: 900;
+}
+
+.impact[data-brand="joolz"] .heroCopy p {
+  color: rgb(19 15 49 / 40%);
+  font-family: var(--font-value-sans);
+  font-weight: 500;
+  line-height: 1.3;
+}
+
+.impact[data-brand="joolz"] .list {
+  gap: 8px;
+}
+
+.impact[data-brand="joolz"] .item {
+  border-top: 1px solid #eeeeee;
+  gap: 8px;
+  min-height: 82px;
+  padding-top: 12px;
+}
+
+.impact[data-brand="joolz"] .item + .item {
+  margin-top: 0;
+}
+
+.impact[data-brand="joolz"] .item:last-child {
+  padding-bottom: 12px;
+}
+
+.impact[data-brand="joolz"] .iconFrame {
+  background: var(--joolz-ivory);
+  flex-basis: 70px;
+  height: 70px;
+  opacity: 1;
+  width: 70px;
+}
+
+.impact[data-brand="joolz"] .iconImage {
+  height: 52px;
+  width: 52px;
+}
+
+.impact[data-brand="joolz"] .itemLabel {
+  color: rgb(19 15 49 / 75%);
+  font-family: var(--font-value-sans);
+  font-weight: 500;
+}

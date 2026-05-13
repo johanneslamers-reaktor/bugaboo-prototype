@@ -1,0 +1,1 @@
+export { ProductAccordion } from "./ProductAccordion";

@@ -1,0 +1,130 @@
+.navigation {
+  color: var(--nav-color, #ffffff);
+  display: grid;
+  grid-template-columns: 58px 1fr 58px;
+  align-items: center;
+  width: min(100%, 402px);
+  height: 56px;
+  padding: 16px;
+  position: relative;
+}
+
+.navigation[data-tone="dark"] {
+  --nav-color: #0f0f02;
+}
+
+.side {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.side:last-child {
+  justify-content: flex-end;
+}
+
+.iconButton {
+  appearance: none;
+  background: transparent;
+  border: 0;
+  border-radius: 999px;
+  color: inherit;
+  display: grid;
+  height: 24px;
+  margin: 0;
+  padding: 0;
+  place-items: center;
+  width: 24px;
+}
+
+.iconButton:focus-visible {
+  outline: 1.5px solid currentColor;
+  outline-offset: 4px;
+}
+
+.logoButton {
+  appearance: none;
+  align-items: center;
+  background: transparent;
+  border: 0;
+  color: inherit;
+  display: flex;
+  justify-content: center;
+  margin: 0;
+  min-width: 0;
+  padding: 0;
+}
+
+.logoButton:focus-visible {
+  outline: 1.5px solid currentColor;
+  outline-offset: 6px;
+}
+
+.logoFrame {
+  display: block;
+  overflow: hidden;
+  position: relative;
+}
+
+.logoAsset {
+  display: block;
+  max-width: none;
+  position: absolute;
+}
+
+.navigation[data-tone="dark"] .logoAsset {
+  filter: brightness(0);
+}
+
+.navigation[data-brand="bugaboo"] .logoFrame {
+  height: 21px;
+  width: 110px;
+}
+
+.navigation[data-brand="bugaboo"] .logoAsset {
+  height: 21px;
+  left: 0;
+  top: 0;
+  width: 110px;
+}
+
+.navigation[data-brand="joolz"] .logoFrame {
+  height: 18px;
+  width: 84.475px;
+}
+
+.navigation[data-brand="joolz"] .logoAsset {
+  height: 35.993px;
+  left: -8.98px;
+  top: -9px;
+  width: 102.47px;
+}
+
+.icon,
+.searchIcon,
+.basketIcon {
+  display: block;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.icon {
+  height: 24px;
+  stroke-width: 1.2;
+  width: 24px;
+}
+
+.searchIcon {
+  height: 17px;
+  stroke-width: 1.45;
+  width: 17px;
+}
+
+.basketIcon {
+  height: 18px;
+  stroke-width: 1.35;
+  width: 20px;
+}

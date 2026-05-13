@@ -1,0 +1,1 @@
+export { ProductImpact } from "./ProductImpact";
