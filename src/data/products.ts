@@ -488,7 +488,7 @@ export const productCatalog: Record<BrandId, ProductDetail[]> = {
             saveLabel: "You save € 274,95",
             brandLabel: "Bugaboo",
             title: "Fox 5 Renew Travel System Bundle",
-            heroImageSrc: "/assets/pdp/bundles/bugaboo/travel-system-hero.png",
+            heroImageSrc: "/assets/pdp/bundles/bugaboo/travel-system-hero.jpg",
             heroImageAlt: "Bugaboo Fox 5 Renew travel system bundle outdoors",
             thumbnailSrc: "/assets/pdp/bundles/bugaboo/thumb.png",
             thumbnailAlt: "Bugaboo Fox 5 Renew bundle thumbnail",
@@ -529,7 +529,7 @@ export const productCatalog: Record<BrandId, ProductDetail[]> = {
             saveLabel: "You save € 274,95",
             brandLabel: "Bugaboo",
             title: "Fox 5 Renew Ultimate Newborn Bundle",
-            heroImageSrc: "/assets/pdp/bundles/bugaboo/ultimate-newborn/hero.png",
+            heroImageSrc: "/assets/pdp/bundles/bugaboo/ultimate-newborn/hero.jpg",
             heroImageAlt: "Mother holding Bugaboo Fox 5 Renew newborn bassinet outdoors",
             thumbnailSrc: "/assets/pdp/bundles/bugaboo/ultimate-newborn/thumb.png",
             thumbnailAlt: "Fox 5 Renew bassinet thumbnail",
@@ -575,7 +575,7 @@ export const productCatalog: Record<BrandId, ProductDetail[]> = {
             title: "Effortless one-hand control",
             description: "Explore further with ease. Extra-large puncture-proof wheels and advanced suspension absorb bumps and uneven ground.",
             media: {
-              src: "/assets/pdp/feature-benefits/bugaboo/one-hand-control.png",
+              src: "/assets/pdp/feature-benefits/bugaboo/one-hand-control.jpg",
               alt: "Bugaboo Fox 5 Renew stroller being pushed along a coastal path",
               objectPosition: "50% 50%",
             },
@@ -596,7 +596,7 @@ export const productCatalog: Record<BrandId, ProductDetail[]> = {
                 y: 35.1,
                 title: "Materials for the future",
                 body: "The stroller is sustainably crafted with recycled fabrics, bio-based material, and recycled aluminum.",
-                imageSrc: "/assets/pdp/feature-benefits/bugaboo/materials-thumb.png",
+                imageSrc: "/assets/pdp/feature-benefits/bugaboo/materials-thumb.jpg",
                 imageAlt: "Bugaboo recycled fabric texture",
               },
             ],
@@ -718,14 +718,14 @@ export const productCatalog: Record<BrandId, ProductDetail[]> = {
         ],
         reel: {
           label: "Play the reel",
-          thumbnailSrc: "/assets/pdp/product-usp/bugaboo/reel-thumb.png",
+          thumbnailSrc: "/assets/pdp/product-usp/bugaboo/reel-thumb.jpg",
           thumbnailAlt: "Bugaboo reel preview",
           videoSrc: "/assets/brand-usp/bugaboo-reel.mp4",
         },
       },
       videoStory: {
         nodeId: "8618:2358",
-        posterSrc: "/assets/pdp/video-story/bugaboo/poster.png",
+        posterSrc: "/assets/pdp/video-story/bugaboo/poster.jpg",
         posterAlt: "Bugaboo Fox 5 Renew wheels on textured pavement",
         title: {
           kind: "plain",
@@ -756,7 +756,7 @@ export const productCatalog: Record<BrandId, ProductDetail[]> = {
         ctaLabel: "Read the full story",
         inspirationImage: {
           id: "walk",
-          src: "/assets/pdp/story-shop/bugaboo/story-01.png",
+          src: "/assets/pdp/story-shop/bugaboo/story-01.jpg",
           alt: "Luca walking with a Bugaboo stroller outdoors",
           objectPosition: "center",
         },
@@ -792,7 +792,7 @@ export const productCatalog: Record<BrandId, ProductDetail[]> = {
         eyebrow: "Rooted in responsibility",
         title: "Made to last, made right",
         topImage: {
-          src: "/assets/pdp/sustainability/bugaboo/detail.png",
+          src: "/assets/pdp/sustainability/bugaboo/detail.jpg",
           alt: "Bugaboo Fox 5 folding mechanism detail on natural wood",
         },
         subheading: "Bio-based materials",
@@ -805,9 +805,9 @@ export const productCatalog: Record<BrandId, ProductDetail[]> = {
         gallery: [
           {
             id: "harness",
-            src: "/assets/pdp/sustainability/bugaboo/thumb-1.png",
+            src: "/assets/pdp/sustainability/bugaboo/thumb-1.jpg",
             alt: "Bugaboo Fox 5 harness detail",
-            thumbnailSrc: "/assets/pdp/sustainability/bugaboo/thumb-1.png",
+            thumbnailSrc: "/assets/pdp/sustainability/bugaboo/thumb-1.jpg",
             thumbnailAlt: "Harness detail",
             hotspots: [
               {
@@ -816,32 +816,32 @@ export const productCatalog: Record<BrandId, ProductDetail[]> = {
                 y: 26.2,
                 title: "Fold and maneuver with one hand",
                 body: "Extra-large puncture-proof wheels and advanced suspension absorb bumps and uneven ground.",
-                iconSrc: "/assets/pdp/sustainability/bugaboo/featured-thumb.png",
+                iconSrc: "/assets/pdp/sustainability/bugaboo/featured-thumb.jpg",
                 iconAlt: "Folding mechanism close-up",
               },
             ],
           },
           {
             id: "wheels",
-            src: "/assets/pdp/sustainability/bugaboo/thumb-2.png",
+            src: "/assets/pdp/sustainability/bugaboo/thumb-2.jpg",
             alt: "Bugaboo Fox 5 wheels",
-            thumbnailSrc: "/assets/pdp/sustainability/bugaboo/thumb-2.png",
+            thumbnailSrc: "/assets/pdp/sustainability/bugaboo/thumb-2.jpg",
             thumbnailAlt: "Wheel detail",
             hotspots: [],
           },
           {
             id: "seat",
-            src: "/assets/pdp/sustainability/bugaboo/thumb-3.png",
+            src: "/assets/pdp/sustainability/bugaboo/thumb-3.jpg",
             alt: "Bugaboo Fox 5 seat",
-            thumbnailSrc: "/assets/pdp/sustainability/bugaboo/thumb-3.png",
+            thumbnailSrc: "/assets/pdp/sustainability/bugaboo/thumb-3.jpg",
             thumbnailAlt: "Seat view",
             hotspots: [],
           },
           {
             id: "frame",
-            src: "/assets/pdp/sustainability/bugaboo/thumb-4.png",
+            src: "/assets/pdp/sustainability/bugaboo/thumb-4.jpg",
             alt: "Bugaboo Fox 5 frame",
-            thumbnailSrc: "/assets/pdp/sustainability/bugaboo/thumb-4.png",
+            thumbnailSrc: "/assets/pdp/sustainability/bugaboo/thumb-4.jpg",
             thumbnailAlt: "Frame view",
             hotspots: [],
           },
@@ -851,7 +851,7 @@ export const productCatalog: Record<BrandId, ProductDetail[]> = {
         nodeId: "8677:6556",
         title: "Shop the look",
         topImage: {
-          src: "/assets/pdp/shop-the-look/bugaboo/top-image.png",
+          src: "/assets/pdp/shop-the-look/bugaboo/top-image.jpg",
           alt: "Parent with newborn in Bugaboo bassinet",
         },
         subheading: "Comfortable, supportive bassinet",
@@ -862,7 +862,7 @@ export const productCatalog: Record<BrandId, ProductDetail[]> = {
           icon: "chevron",
         },
         heroImage: {
-          src: "/assets/pdp/shop-the-look/bugaboo/feature-bg.png",
+          src: "/assets/pdp/shop-the-look/bugaboo/feature-bg.jpg",
           alt: "Lifestyle shot with Bugaboo carry bag",
         },
         products: [
@@ -946,7 +946,7 @@ export const productCatalog: Record<BrandId, ProductDetail[]> = {
                 ],
               },
               {
-                imageSrc: "/assets/pdp/accordion/bugaboo/spec-dimensions.png",
+                imageSrc: "/assets/pdp/accordion/bugaboo/spec-dimensions.jpg",
                 imageAlt: "Bugaboo Fox 5 Renew dimensions diagram",
               },
               {
@@ -1264,7 +1264,7 @@ export const productCatalog: Record<BrandId, ProductDetail[]> = {
             stockStatus: "In stock",
             compareAtPrice: "€69.95",
             price: "€89,95",
-            imageSrc: "/assets/pdp/cross-sell/joolz/travel-bag.png",
+            imageSrc: "/assets/pdp/cross-sell/joolz/travel-bag.jpg",
             imageAlt: "Joolz Aer2 travel bag",
             swatches: [
               { id: "black", color: "#26252a", label: "Black" },
@@ -1280,7 +1280,7 @@ export const productCatalog: Record<BrandId, ProductDetail[]> = {
             stockStatus: "In stock",
             compareAtPrice: "€69.95",
             price: "€49,95",
-            imageSrc: "/assets/pdp/cross-sell/joolz/seat-liner.png",
+            imageSrc: "/assets/pdp/cross-sell/joolz/seat-liner.jpg",
             imageAlt: "Joolz breathable seat liner",
             swatches: [
               { id: "forest", color: "#687267", label: "Forest green" },
@@ -1358,7 +1358,7 @@ export const productCatalog: Record<BrandId, ProductDetail[]> = {
       videoStory: {
         nodeId: "8612:5017",
         videoSrc: "/assets/hero/joolz-hero.mp4",
-        posterSrc: "/assets/pdp/video-story/joolz/poster.png",
+        posterSrc: "/assets/pdp/video-story/joolz/poster.jpg",
         posterAlt: "Baby resting in a Joolz stroller cot",
         title: {
           kind: "split",
@@ -1380,7 +1380,7 @@ export const productCatalog: Record<BrandId, ProductDetail[]> = {
         author: {
           name: "By Mila",
           role: "Mother of Otis",
-          avatarSrc: "/assets/pdp/story-shop/joolz/avatar.png",
+          avatarSrc: "/assets/pdp/story-shop/joolz/avatar.jpg",
           avatarAlt: "Portrait of Mila",
         },
         lead: {
@@ -1414,7 +1414,7 @@ export const productCatalog: Record<BrandId, ProductDetail[]> = {
             label: "Add to the setup",
             title: "Aer2 travel bag",
             subtitle: "Forest Green",
-            imageSrc: "/assets/pdp/cross-sell/joolz/travel-bag.png",
+            imageSrc: "/assets/pdp/cross-sell/joolz/travel-bag.jpg",
             imageAlt: "Joolz Aer2 travel bag",
           },
           {
@@ -1474,7 +1474,7 @@ export const productCatalog: Record<BrandId, ProductDetail[]> = {
         gallery: [
           {
             id: "fabric",
-            src: "/assets/pdp/sustainability/joolz/feature-bg.png",
+            src: "/assets/pdp/sustainability/joolz/feature-bg.jpg",
             alt: "Joolz Aer 2 stroller fabric detail",
             thumbnailSrc: "/assets/pdp/sustainability/joolz/thumb-1.png",
             thumbnailAlt: "Fabric detail",
@@ -1490,17 +1490,17 @@ export const productCatalog: Record<BrandId, ProductDetail[]> = {
           },
           {
             id: "frame",
-            src: "/assets/pdp/sustainability/joolz/thumb-2.png",
+            src: "/assets/pdp/sustainability/joolz/thumb-2.jpg",
             alt: "Joolz Aer 2 frame",
-            thumbnailSrc: "/assets/pdp/sustainability/joolz/thumb-2.png",
+            thumbnailSrc: "/assets/pdp/sustainability/joolz/thumb-2.jpg",
             thumbnailAlt: "Frame view",
             hotspots: [],
           },
           {
             id: "wheels",
-            src: "/assets/pdp/sustainability/joolz/thumb-3.png",
+            src: "/assets/pdp/sustainability/joolz/thumb-3.jpg",
             alt: "Joolz Aer 2 wheels",
-            thumbnailSrc: "/assets/pdp/sustainability/joolz/thumb-3.png",
+            thumbnailSrc: "/assets/pdp/sustainability/joolz/thumb-3.jpg",
             thumbnailAlt: "Wheel detail",
             hotspots: [],
           },
@@ -1511,7 +1511,7 @@ export const productCatalog: Record<BrandId, ProductDetail[]> = {
         nodeId: "8612:5105",
         title: "Shop the look",
         topImage: {
-          src: "/assets/pdp/shop-the-look/joolz/top-image.png",
+          src: "/assets/pdp/shop-the-look/joolz/top-image.jpg",
           alt: "Joolz Aer 2 with parent using one-hand fold",
         },
         subheading: "Designed for one-hand use",
@@ -1522,7 +1522,7 @@ export const productCatalog: Record<BrandId, ProductDetail[]> = {
           icon: "plus-circle",
         },
         heroImage: {
-          src: "/assets/pdp/shop-the-look/joolz/feature-bg.png",
+          src: "/assets/pdp/shop-the-look/joolz/feature-bg.jpg",
           alt: "Parent with baby and Joolz Aer 2 stroller in urban setting",
         },
         products: [
@@ -1531,7 +1531,7 @@ export const productCatalog: Record<BrandId, ProductDetail[]> = {
             title: "Joolz Aer2 basket bag",
             colorLabel: "Space Black",
             price: "€49,95",
-            thumbnailSrc: "/assets/pdp/shop-the-look/joolz/product-1.png",
+            thumbnailSrc: "/assets/pdp/shop-the-look/joolz/product-1.jpg",
             thumbnailAlt: "Joolz Aer 2 basket bag",
           },
           {
@@ -1539,7 +1539,7 @@ export const productCatalog: Record<BrandId, ProductDetail[]> = {
             title: "Parasol",
             colorLabel: "Sandy Taupe",
             price: "€49,95",
-            thumbnailSrc: "/assets/pdp/shop-the-look/joolz/product-2.png",
+            thumbnailSrc: "/assets/pdp/shop-the-look/joolz/product-2.jpg",
             thumbnailAlt: "Joolz parasol",
           },
           {
@@ -1547,7 +1547,7 @@ export const productCatalog: Record<BrandId, ProductDetail[]> = {
             title: "Breathable seat liner",
             colorLabel: "Forest Green",
             price: "€49,95",
-            thumbnailSrc: "/assets/pdp/shop-the-look/joolz/product-3.png",
+            thumbnailSrc: "/assets/pdp/shop-the-look/joolz/product-3.jpg",
             thumbnailAlt: "Joolz breathable seat liner",
           },
         ],

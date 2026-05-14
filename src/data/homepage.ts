@@ -158,28 +158,28 @@ export const homepageBrandUsp: Record<BrandId, BrandUspContent> = {
       kind: "stacked",
       lines: ["Designed for", "the future"],
     },
-    imageSrc: "/assets/brand-usp/bugaboo-designed-future.png",
+    imageSrc: "/assets/brand-usp/bugaboo-designed-future.jpg",
     imageAlt: "Parent and child beside a Bugaboo stroller in tall grass",
     points: [
       {
         title: "Better, by design",
         description:
           "Certified B Corp, committed to reducing impact across everything we do, from materials to production.",
-        imageSrc: "/assets/brand-usp/bugaboo-designed-future.png",
+        imageSrc: "/assets/brand-usp/bugaboo-designed-future.jpg",
         imageAlt: "Parent and child beside a Bugaboo stroller in tall grass",
       },
       {
         title: "Built to go further",
         description:
           "Durable materials and thoughtful engineering made to last. Designed to support daily use over time, without compromising on comfort.",
-        imageSrc: "/assets/brand-usp/bugaboo-usp2.png",
+        imageSrc: "/assets/brand-usp/bugaboo-usp2.jpg",
         imageAlt: "Parent pushing a Bugaboo stroller through a grassy landscape",
       },
       {
         title: "Made to last",
         description:
           "Refurbished and buyback options designed to keep products in use longer. By extending the life of every product, we reduce waste and create a more responsible system.",
-        imageSrc: "/assets/brand-usp/bugaboo-usp3.png",
+        imageSrc: "/assets/brand-usp/bugaboo-usp3.jpg",
         imageAlt: "Expectant parent standing outdoors behind soft grasses",
       },
     ],
@@ -211,13 +211,13 @@ export const homepageBrandUsp: Record<BrandId, BrandUspContent> = {
         title: "Better for their world",
         description:
           "For every stroller sold, we plant a tree — growing our Birth Forest for future generations.",
-        imageSrc: "/assets/brand-usp/joolz-usp2.png",
+        imageSrc: "/assets/brand-usp/joolz-usp2.jpg",
         imageAlt: "Child beside a Joolz stroller basket filled with toys and day-trip essentials",
       },
       {
         title: "Built to last",
         description: "With a 10-year transferable warranty, made to support your family for years to come.",
-        imageSrc: "/assets/brand-usp/joolz-usp3.png",
+        imageSrc: "/assets/brand-usp/joolz-usp3.jpg",
         imageAlt: "Parent carrying a child with a folded Joolz stroller on their back",
       },
     ],
@@ -348,7 +348,7 @@ export const homepageProductCarousel: Record<BrandId, ProductCarouselContent> = 
         price: "€ 1.769,00",
         images: [
           {
-            src: "/assets/products/bugaboo-fox-bundle-1.png",
+            src: "/assets/products/bugaboo-fox-bundle-1.jpg",
             alt: "Bugaboo Fox 5 Renew travel system bundle",
           },
         ],
@@ -380,7 +380,7 @@ export const homepageProductCarousel: Record<BrandId, ProductCarouselContent> = 
         price: "€ 1299,00",
         images: [
           {
-            src: "/assets/products/joolz-day-1.png",
+            src: "/assets/products/joolz-day-1.jpg",
             alt: "Joolz Day stroller in sand color",
           },
         ],
@@ -394,7 +394,7 @@ export const homepageProductCarousel: Record<BrandId, ProductCarouselContent> = 
         price: "€ 1549,00",
         images: [
           {
-            src: "/assets/products/joolz-day-bundle-1.png",
+            src: "/assets/products/joolz-day-bundle-1.jpg",
             alt: "Joolz Day essentials stroller bundle",
           },
         ],
@@ -417,21 +417,21 @@ export const homepageEditorialRail: Record<BrandId, EditorialRailContent> = {
         id: "sustainability",
         eyebrow: "Sustainability",
         title: [{ text: "Circular stroller engineering for the next-generation" }],
-        imageSrc: "/assets/editorial/bugaboo-story-sustainability.png",
+        imageSrc: "/assets/editorial/bugaboo-story-sustainability.jpg",
         imageAlt: "Child walking through tall grass beside an adult",
       },
       {
         id: "design-perspective",
         eyebrow: "Design perspective",
         title: [{ text: "What makes a stroller truly future-ready?" }],
-        imageSrc: "/assets/editorial/bugaboo-story-design.png",
+        imageSrc: "/assets/editorial/bugaboo-story-design.jpg",
         imageAlt: "Child smiling from inside a Bugaboo stroller",
       },
       {
         id: "parent-perspective",
         eyebrow: "Parent perspective",
         title: [{ text: "How thoughtful materials shape everyday life" }],
-        imageSrc: "/assets/editorial/bugaboo-story-parent.png",
+        imageSrc: "/assets/editorial/bugaboo-story-parent.jpg",
         imageAlt: "Parent leaning over a baby on a changing mat",
       },
     ],
@@ -475,7 +475,7 @@ export const homepageEditorialRail: Record<BrandId, EditorialRailContent> = {
           { text: "Tiny trips with\n" },
           { text: "big stories", serif: true },
         ],
-        imageSrc: "/assets/brand-usp/joolz-real-life-cutout.png",
+        imageSrc: "/assets/brand-usp/joolz-real-life-cutout.jpg",
         imageAlt: "Parent holding a baby behind a Joolz stroller",
         color: "#d6b6df",
       },
