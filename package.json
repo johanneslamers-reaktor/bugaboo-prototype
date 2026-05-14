@@ -8,7 +8,8 @@
     "dev:bun": "bun --bun vite",
     "build": "tsc && vite build",
     "build:bun": "tsc && bun --bun vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "optimize:images": "bun run scripts/optimize-images.ts"
   },
   "dependencies": {
     "@chenglou/pretext": "^0.0.7",
@@ -21,6 +22,9 @@
   },
   "devDependencies": {
     "@types/react": "^19.1.8",
-    "@types/react-dom": "^19.1.6"
+    "@types/react-dom": "^19.1.6",
+    "sharp": "^0.34.5",
+    "svgo": "^4.0.1",
+    "vite-plugin-image-optimizer": "^2.0.3"
   }
 }
