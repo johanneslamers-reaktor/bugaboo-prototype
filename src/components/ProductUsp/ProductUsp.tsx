@@ -1,5 +1,5 @@
-import { useCallback, useEffect, useRef, useState } from "react";
-import { motion, useMotionValueEvent, useReducedMotion, useScroll, useTransform } from "motion/react";
+import { useEffect, useRef, useState } from "react";
+import { motion, useReducedMotion } from "motion/react";
 import type { BrandId } from "../../brands/brands";
 import type { ProductUspContent } from "../../data/products";
 import styles from "./ProductUsp.module.css";
@@ -12,27 +12,8 @@ type ProductUspProps = {
 export function ProductUsp({ brand, content }: ProductUspProps) {
   const [activePoint, setActivePoint] = useState(0);
   const [isReelExpanded, setIsReelExpanded] = useState(false);
-  const sceneRef = useRef<HTMLElement | null>(null);
   const reelVideoRef = useRef<HTMLVideoElement | null>(null);
   const shouldReduceMotion = useReducedMotion();
-  const { scrollYProgress } = useScroll({
-    target: sceneRef,
-    offset: ["start start", "end end"],
-  });
-  const activeRailHeight = brand === "joolz" ? 96 : 84;
-  const startingRailHeight = brand === "joolz" ? 23 : 27;
-  const progressRailHeight = useTransform(scrollYProgress, (latest) => {
-    if (shouldReduceMotion) {
-      return `${startingRailHeight}px`;
-    }
-
-    const segmentCount = Math.max(content.points.length, 1);
-    const scaledProgress = Math.min(latest * segmentCount, segmentCount - 0.001);
-    const segmentProgress = scaledProgress - Math.floor(scaledProgress);
-    const height = startingRailHeight + segmentProgress * (activeRailHeight - startingRailHeight);
-
-    return `${height}px`;
-  });
 
   useEffect(() => {
     setActivePoint(0);
@@ -41,10 +22,7 @@ export function ProductUsp({ brand, content }: ProductUspProps) {
 
   useEffect(() => {
     const video = reelVideoRef.current;
-
-    if (!video) {
-      return;
-    }
+    if (!video) return;
 
     if (!isReelExpanded) {
       video.pause();
@@ -54,7 +32,6 @@ export function ProductUsp({ brand, content }: ProductUspProps) {
 
     video.muted = true;
     video.currentTime = 0;
-
     const playVideo = () => {
       void video.play().catch(() => undefined);
     };
@@ -66,44 +43,13 @@ export function ProductUsp({ brand, content }: ProductUspProps) {
 
     video.load();
     video.addEventListener("canplay", playVideo, { once: true });
-
     return () => {
       video.removeEventListener("canplay", playVideo);
     };
   }, [content.reel.videoSrc, isReelExpanded]);
 
-  useMotionValueEvent(scrollYProgress, "change", (latest) => {
-    if (shouldReduceMotion) {
-      return;
-    }
-
-    const nextPoint = Math.min(content.points.length - 1, Math.floor(latest * content.points.length));
-    setActivePoint(nextPoint);
-  });
-
-  const scrollToPoint = useCallback((index: number) => {
-    setActivePoint(index);
-
-    const scene = sceneRef.current;
-
-    if (!scene) {
-      return;
-    }
-
-    const pointCount = Math.max(content.points.length, 1);
-    const sceneTop = scene.getBoundingClientRect().top + window.scrollY;
-    const scrollableDistance = Math.max(scene.offsetHeight - window.innerHeight, 0);
-    const targetProgress = Math.min(0.98, (index + 0.08) / pointCount);
-
-    window.scrollTo({
-      behavior: shouldReduceMotion ? "auto" : "smooth",
-      top: sceneTop + scrollableDistance * targetProgress,
-    });
-  }, [content.points.length, shouldReduceMotion]);
-
   return (
     <section
-      ref={sceneRef}
       className={styles.scene}
       data-brand={brand}
       data-reel-expanded={isReelExpanded ? "true" : "false"}
@@ -141,9 +87,7 @@ export function ProductUsp({ brand, content }: ProductUspProps) {
               return (
                 <article className={styles.point} data-active={isActive ? "true" : "false"} key={point.id}>
                   <span className={styles.rail} aria-hidden="true">
-                    {isActive ? (
-                      <motion.span className={styles.railProgress} style={{ height: progressRailHeight }} />
-                    ) : null}
+                    <span className={styles.railProgress} data-active={isActive ? "true" : "false"} />
                   </span>
                   <div className={styles.pointCopy}>
                     <h3>
@@ -151,7 +95,7 @@ export function ProductUsp({ brand, content }: ProductUspProps) {
                         className={styles.pointButton}
                         type="button"
                         aria-current={isActive ? "true" : undefined}
-                        onClick={() => scrollToPoint(index)}
+                        onClick={() => setActivePoint(index)}
                       >
                         {point.title}
                       </button>

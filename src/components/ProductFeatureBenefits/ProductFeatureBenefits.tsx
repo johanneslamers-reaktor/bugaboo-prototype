@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion, useReducedMotion } from "motion/react";
 import type { BrandId } from "../../brands/brands";
 import type { ProductFeatureBenefitsContent, ProductFeatureBenefitItem } from "../../data/products";
@@ -14,6 +14,30 @@ type ProductFeatureBenefitsProps = {
 export function ProductFeatureBenefits({ brand, content }: ProductFeatureBenefitsProps) {
   const [openHotspots, setOpenHotspots] = useState<Record<string, string | null>>({});
   const shouldReduceMotion = useReducedMotion();
+
+  // Compute card width in JS so Safari's CSS min/calc can't collapse the
+  // var to full viewport width. Card width matches the Figma spec but
+  // never wider than the available phone-canvas room.
+  //
+  // Only listen for WIDTH changes — on iOS Safari, the address bar
+  // collapsing on scroll fires a resize event with a changed height,
+  // which would otherwise trigger a re-render mid-scroll and tank FPS.
+  const [vw, setVw] = useState(402);
+  useEffect(() => {
+    const compute = () => Math.min(window.innerWidth || 402, 402);
+    setVw(compute());
+    let lastWidth = window.innerWidth;
+    const onResize = () => {
+      if (window.innerWidth === lastWidth) return;
+      lastWidth = window.innerWidth;
+      setVw(compute());
+    };
+    window.addEventListener("resize", onResize, { passive: true });
+    return () => window.removeEventListener("resize", onResize);
+  }, []);
+  const baseCardWidth = brand === "bugaboo" ? 294 : 302;
+  const insetReserve = brand === "bugaboo" ? 108 : 96;
+  const cardWidth = Math.min(baseCardWidth, vw - insetReserve);
 
   const items = content.items.map((item, index) => (
     <FeatureCard
@@ -39,7 +63,13 @@ export function ProductFeatureBenefits({ brand, content }: ProductFeatureBenefit
     <section className={styles.section} data-brand={brand} data-node-id={content.nodeId}>
       <h2 className={styles.heading}>{content.title}</h2>
 
-      <Carousel items={items} gap={8} loop={false} ariaLabel={content.title}>
+      <Carousel
+        items={items}
+        gap={8}
+        loop={false}
+        itemSize={cardWidth}
+        ariaLabel={content.title}
+      >
         <FeatureControls shouldReduceMotion={shouldReduceMotion ?? false} />
       </Carousel>
     </section>

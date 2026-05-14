@@ -1,5 +1,5 @@
-import { useCallback, useEffect, useRef, useState } from "react";
-import { motion, useMotionValueEvent, useReducedMotion, useScroll, useTransform } from "motion/react";
+import { useEffect, useRef, useState } from "react";
+import { motion, useReducedMotion } from "motion/react";
 import type { BrandId } from "../../brands/brands";
 import type { BrandUspContent, BrandUspTitle } from "../../data/homepage";
 import styles from "./BrandUsp.module.css";
@@ -10,29 +10,11 @@ type BrandUspProps = {
 };
 
 export function BrandUsp({ brand, content }: BrandUspProps) {
-  const sceneRef = useRef<HTMLElement | null>(null);
   const reelVideoRef = useRef<HTMLVideoElement | null>(null);
   const shouldReduceMotion = useReducedMotion();
   const [activePoint, setActivePoint] = useState(0);
   const [isReelExpanded, setIsReelExpanded] = useState(false);
-  const { scrollYProgress } = useScroll({
-    target: sceneRef,
-    offset: ["start start", "end end"],
-  });
-  const activeRailHeight = brand === "joolz" ? 96 : 84;
-  const startingRailHeight = brand === "joolz" ? 23 : 27;
-  const progressRailHeight = useTransform(scrollYProgress, (latest) => {
-    if (shouldReduceMotion) {
-      return `${startingRailHeight}px`;
-    }
 
-    const segmentCount = Math.max(content.points.length, 1);
-    const scaledProgress = Math.min(latest * segmentCount, segmentCount - 0.001);
-    const segmentProgress = scaledProgress - Math.floor(scaledProgress);
-    const height = startingRailHeight + segmentProgress * (activeRailHeight - startingRailHeight);
-
-    return `${height}px`;
-  });
   useEffect(() => {
     setActivePoint(0);
     setIsReelExpanded(false);
@@ -40,10 +22,7 @@ export function BrandUsp({ brand, content }: BrandUspProps) {
 
   useEffect(() => {
     const video = reelVideoRef.current;
-
-    if (!video) {
-      return;
-    }
+    if (!video) return;
 
     if (!isReelExpanded) {
       video.pause();
@@ -53,7 +32,6 @@ export function BrandUsp({ brand, content }: BrandUspProps) {
 
     video.muted = true;
     video.currentTime = 0;
-
     const playVideo = () => {
       void video.play().catch(() => undefined);
     };
@@ -65,50 +43,13 @@ export function BrandUsp({ brand, content }: BrandUspProps) {
 
     video.load();
     video.addEventListener("canplay", playVideo, { once: true });
-
     return () => {
       video.removeEventListener("canplay", playVideo);
     };
   }, [content.reel.videoSrc, isReelExpanded]);
 
-  useMotionValueEvent(scrollYProgress, "change", (latest) => {
-    if (shouldReduceMotion) {
-      return;
-    }
-
-    // Freeze active-point tracking while the reel is expanded.
-    // Otherwise the section's height grows, scrollYProgress at the same
-    // scroll position changes, and the USP highlight flips mid-animation —
-    // which reads as the page "jumping" when the reel opens/closes.
-    if (isReelExpanded) {
-      return;
-    }
-
-    const nextPoint = Math.min(content.points.length - 1, Math.floor(latest * content.points.length));
-    setActivePoint(nextPoint);
-  });
-
-  const scrollToPoint = useCallback((index: number) => {
-    const scene = sceneRef.current;
-
-    if (!scene) {
-      return;
-    }
-
-    const pointCount = Math.max(content.points.length, 1);
-    const sceneTop = scene.getBoundingClientRect().top + window.scrollY;
-    const scrollableDistance = Math.max(scene.offsetHeight - window.innerHeight, 0);
-    const targetProgress = Math.min(0.98, (index + 0.08) / pointCount);
-
-    window.scrollTo({
-      behavior: shouldReduceMotion ? "auto" : "smooth",
-      top: sceneTop + scrollableDistance * targetProgress,
-    });
-  }, [content.points.length, shouldReduceMotion]);
-
   return (
     <section
-      ref={sceneRef}
       className={styles.scene}
       data-brand={brand}
       data-reel-expanded={isReelExpanded ? "true" : "false"}
@@ -121,10 +62,9 @@ export function BrandUsp({ brand, content }: BrandUspProps) {
           <div className={styles.heroBlock}>
             <UspHeading id={`${brand}-brand-usp-title`} title={content.title} />
             {/*
-              All USP images render at once, layered absolutely. The active
-              one fades to opacity 1 while the previous fades to 0 — both
-              transitions run simultaneously so there is never a frame
-              where the imageFrame background shows through.
+              Crossfade between point images by toggling opacity. All images
+              render simultaneously so there's never a frame where the
+              imageFrame background shows through.
             */}
             <div className={styles.imageFrame} data-usp-index={activePoint}>
               {content.points.map((point, index) => {
@@ -162,9 +102,7 @@ export function BrandUsp({ brand, content }: BrandUspProps) {
               return (
                 <article className={styles.point} data-active={isActive ? "true" : "false"} key={point.title}>
                   <span className={styles.rail} aria-hidden="true">
-                    {isActive ? (
-                      <motion.span className={styles.railProgress} style={{ height: progressRailHeight }} />
-                    ) : null}
+                    <span className={styles.railProgress} data-active={isActive ? "true" : "false"} />
                   </span>
                   <div className={styles.pointCopy}>
                     <h3>
@@ -172,7 +110,7 @@ export function BrandUsp({ brand, content }: BrandUspProps) {
                         className={styles.pointButton}
                         type="button"
                         aria-current={isActive ? "true" : undefined}
-                        onClick={() => scrollToPoint(index)}
+                        onClick={() => setActivePoint(index)}
                       >
                         {point.title}
                       </button>
@@ -180,7 +118,7 @@ export function BrandUsp({ brand, content }: BrandUspProps) {
                     {isActive ? (
                       <motion.p
                         className={styles.pointDescription}
-                        initial={{ opacity: 0, y: 4 }}
+                        initial={shouldReduceMotion ? false : { opacity: 0, y: 4 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.24, ease: [0.22, 1, 0.36, 1] }}
                       >
