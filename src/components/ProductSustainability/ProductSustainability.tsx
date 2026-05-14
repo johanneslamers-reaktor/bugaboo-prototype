@@ -5,6 +5,7 @@ import type {
   ProductSustainabilityContent,
   ProductSustainabilityHotspot,
 } from "../../data/products";
+import { Hotspot } from "../Hotspot";
 import styles from "./ProductSustainability.module.css";
 
 type ProductSustainabilityProps = {
@@ -93,15 +94,16 @@ export function ProductSustainability({ brand, content }: ProductSustainabilityP
           </AnimatePresence>
 
           {activeImage.hotspots.map((hotspot) => (
-            <HotspotDot
+            <Hotspot
               key={hotspot.id}
-              brand={brand}
-              hotspot={hotspot}
-              isOpen={openHotspotId === hotspot.id}
-              onToggle={() =>
+              x={hotspot.x}
+              y={hotspot.y}
+              label={openHotspotId === hotspot.id ? `Close ${hotspot.title}` : `Open ${hotspot.title}`}
+              isActive={openHotspotId === hotspot.id}
+              ariaExpanded={openHotspotId === hotspot.id}
+              onClick={() =>
                 setOpenHotspotId((current) => (current === hotspot.id ? null : hotspot.id))
               }
-              shouldReduceMotion={shouldReduceMotion ?? false}
             />
           ))}
 
@@ -147,44 +149,6 @@ export function ProductSustainability({ brand, content }: ProductSustainabilityP
         </div>
       </div>
     </section>
-  );
-}
-
-function HotspotDot({
-  brand,
-  hotspot,
-  isOpen,
-  onToggle,
-  shouldReduceMotion,
-}: {
-  brand: BrandId;
-  hotspot: ProductSustainabilityHotspot;
-  isOpen: boolean;
-  onToggle: () => void;
-  shouldReduceMotion: boolean;
-}) {
-  return (
-    <motion.button
-      className={styles.hotspotDot}
-      type="button"
-      // motion drives the -50% offset via x/y so whileTap's scale composes
-      // with it. Pure CSS `transform: translate(-50%, -50%)` would be
-      // overwritten by motion and the dot would jump to its raw % anchor.
-      style={{ left: `${hotspot.x}%`, top: `${hotspot.y}%`, x: "-50%", y: "-50%" }}
-      aria-label={isOpen ? `Close ${hotspot.title}` : `Open ${hotspot.title}`}
-      aria-expanded={isOpen}
-      onClick={onToggle}
-      whileTap={shouldReduceMotion ? undefined : { scale: 0.9 }}
-      data-active={isOpen ? "true" : "false"}
-    >
-      <img
-        className={styles.hotspotDotImage}
-        src={`/assets/pdp/sustainability/${brand}/hotspot.svg`}
-        alt=""
-        aria-hidden="true"
-        draggable={false}
-      />
-    </motion.button>
   );
 }
 

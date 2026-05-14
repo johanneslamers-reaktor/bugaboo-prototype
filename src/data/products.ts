@@ -39,6 +39,7 @@ export type ProductDetail = {
   videoStory?: ProductVideoStoryContent;
   storyShop?: ProductStoryShopContent;
   sustainability?: ProductSustainabilityContent;
+  shopTheLook?: ProductShopTheLookContent;
   impact: ProductImpactContent;
   accordions: ProductAccordionItem[];
   colorways: ProductColorway[];
@@ -131,6 +132,48 @@ export type ProductBundleVariant = {
     imageSrc: string;
     imageAlt: string;
   }[];
+};
+
+export type ProductShopTheLookContent = {
+  nodeId: string;
+  title: string;
+  /** Optional top hero image shown above the body copy. */
+  topImage?: { src: string; alt: string };
+  subheading: string;
+  body: string;
+  link: {
+    label: string;
+    href: string;
+    /** "chevron" (bugaboo) | "plus-circle" (joolz). Default chevron. */
+    icon?: "chevron" | "plus-circle";
+  };
+  /** The hero image at the bottom on which hotspots can be placed. */
+  heroImage: { src: string; alt: string };
+  /**
+   * Always-visible product cards. Hotspots reference them by index so a
+   * click on a dot scrolls the card row to that product.
+   */
+  products: ProductShopTheLookProduct[];
+  /** Optional dots placed on the hero image, each linked to a product. */
+  hotspots?: ProductShopTheLookHotspot[];
+};
+
+export type ProductShopTheLookProduct = {
+  id: string;
+  title: string;
+  /** e.g. "Heritage Black • €161,95" or two separate values. */
+  colorLabel: string;
+  price: string;
+  thumbnailSrc: string;
+  thumbnailAlt: string;
+};
+
+export type ProductShopTheLookHotspot = {
+  id: string;
+  x: number;
+  y: number;
+  /** Index into the products array that this hotspot opens. */
+  productIndex: number;
 };
 
 export type ProductSustainabilityContent = {
@@ -804,6 +847,38 @@ export const productCatalog: Record<BrandId, ProductDetail[]> = {
           },
         ],
       },
+      shopTheLook: {
+        nodeId: "8677:6556",
+        title: "Shop the look",
+        topImage: {
+          src: "/assets/pdp/shop-the-look/bugaboo/top-image.png",
+          alt: "Parent with newborn in Bugaboo bassinet",
+        },
+        subheading: "Comfortable, supportive bassinet",
+        body: "Convenient carry straps and a secure, sturdy construction let you lift the pod without interrupting your baby's nap. Thoughtfully constructed for stability and softness, it offers a calm, protected space wherever you go.",
+        link: {
+          label: "View product",
+          href: "#shop-the-look",
+          icon: "chevron",
+        },
+        heroImage: {
+          src: "/assets/pdp/shop-the-look/bugaboo/feature-bg.png",
+          alt: "Lifestyle shot with Bugaboo carry bag",
+        },
+        products: [
+          {
+            id: "baby-nest",
+            title: "Baby nest",
+            colorLabel: "Heritage Black",
+            price: "€161,95",
+            thumbnailSrc: "/assets/pdp/shop-the-look/bugaboo/product-1.png",
+            thumbnailAlt: "Bugaboo baby nest bag",
+          },
+        ],
+        hotspots: [
+          { id: "bag", x: 50, y: 60, productIndex: 0 },
+        ],
+      },
       accordions: [
         {
           id: "features",
@@ -1399,9 +1474,9 @@ export const productCatalog: Record<BrandId, ProductDetail[]> = {
         gallery: [
           {
             id: "fabric",
-            src: "/assets/pdp/sustainability/joolz/thumb-2.png",
+            src: "/assets/pdp/sustainability/joolz/feature-bg.png",
             alt: "Joolz Aer 2 stroller fabric detail",
-            thumbnailSrc: "/assets/pdp/sustainability/joolz/thumb-2.png",
+            thumbnailSrc: "/assets/pdp/sustainability/joolz/thumb-1.png",
             thumbnailAlt: "Fabric detail",
             hotspots: [
               {
@@ -1415,22 +1490,70 @@ export const productCatalog: Record<BrandId, ProductDetail[]> = {
           },
           {
             id: "frame",
-            src: "/assets/pdp/sustainability/joolz/thumb-3.png",
+            src: "/assets/pdp/sustainability/joolz/thumb-2.png",
             alt: "Joolz Aer 2 frame",
-            thumbnailSrc: "/assets/pdp/sustainability/joolz/thumb-3.png",
+            thumbnailSrc: "/assets/pdp/sustainability/joolz/thumb-2.png",
             thumbnailAlt: "Frame view",
             hotspots: [],
           },
           {
             id: "wheels",
-            src: "/assets/pdp/sustainability/joolz/thumb-2.png",
+            src: "/assets/pdp/sustainability/joolz/thumb-3.png",
             alt: "Joolz Aer 2 wheels",
-            thumbnailSrc: "/assets/pdp/sustainability/joolz/thumb-2.png",
+            thumbnailSrc: "/assets/pdp/sustainability/joolz/thumb-3.png",
             thumbnailAlt: "Wheel detail",
             hotspots: [],
           },
         ],
         thumbnailsCounter: "1/3",
+      },
+      shopTheLook: {
+        nodeId: "8612:5105",
+        title: "Shop the look",
+        topImage: {
+          src: "/assets/pdp/shop-the-look/joolz/top-image.png",
+          alt: "Joolz Aer 2 with parent using one-hand fold",
+        },
+        subheading: "Designed for one-hand use",
+        body: "Designed for one-hand use, you can grab all your items in a single motion while folding your stroller. When you need more space, simply hang the basket bag by tucking its flap into the pocket behind the seat, instantly creating extra storage.",
+        link: {
+          label: "View product",
+          href: "#shop-the-look",
+          icon: "plus-circle",
+        },
+        heroImage: {
+          src: "/assets/pdp/shop-the-look/joolz/feature-bg.png",
+          alt: "Parent with baby and Joolz Aer 2 stroller in urban setting",
+        },
+        products: [
+          {
+            id: "basket-bag",
+            title: "Joolz Aer2 basket bag",
+            colorLabel: "Space Black",
+            price: "€49,95",
+            thumbnailSrc: "/assets/pdp/shop-the-look/joolz/product-1.png",
+            thumbnailAlt: "Joolz Aer 2 basket bag",
+          },
+          {
+            id: "parasol",
+            title: "Parasol",
+            colorLabel: "Sandy Taupe",
+            price: "€49,95",
+            thumbnailSrc: "/assets/pdp/shop-the-look/joolz/product-2.png",
+            thumbnailAlt: "Joolz parasol",
+          },
+          {
+            id: "seat-liner",
+            title: "Breathable seat liner",
+            colorLabel: "Forest Green",
+            price: "€49,95",
+            thumbnailSrc: "/assets/pdp/shop-the-look/joolz/product-3.png",
+            thumbnailAlt: "Joolz breathable seat liner",
+          },
+        ],
+        hotspots: [
+          { id: "bag", x: 50, y: 64, productIndex: 0 },
+        ],
       },
       accordions: [
         {
