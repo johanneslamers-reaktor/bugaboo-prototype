@@ -206,61 +206,54 @@
 .hotspotDot {
   align-items: center;
   appearance: none;
-  background: rgb(255 255 255 / 90%);
+  background: transparent;
   border: 0;
-  border-radius: 999px;
-  box-shadow: 0 2px 10px rgb(0 0 0 / 24%);
-  color: #121212;
   cursor: pointer;
   display: flex;
-  height: 34px;
+  height: 36px;
   justify-content: center;
   padding: 0;
   /* x/y come from inline `left` / `top` percentages */
   position: absolute;
   transform: translate(-50%, -50%);
-  transition: background-color 160ms ease;
-  width: 34px;
+  width: 36px;
   z-index: 2;
 }
 
-.hotspotDot[data-active="true"] {
-  background: #ffffff;
-}
-
-.hotspotDotInner {
-  background: currentColor;
-  border-radius: 999px;
+.hotspotDotImage {
   display: block;
-  height: 6px;
-  width: 6px;
+  height: 100%;
+  pointer-events: none;
+  user-select: none;
+  width: 100%;
 }
 
 .hotspotCard {
+  align-items: center;
   background: #ffffff;
   border-radius: 4px;
-  bottom: 88px;
   box-shadow: 0 8px 24px rgb(0 0 0 / 18%);
   box-sizing: border-box;
   color: #1a1a1a;
-  display: grid;
+  display: flex;
   gap: 16px;
-  grid-template-columns: 94px 1fr auto;
   /*
-   * Pinned to the bottom of the gallery (above the thumbnails), centered
-   * horizontally and full-width minus the inset. Stays on-page no matter
-   * where the hotspot dot is.
+   * Y anchored to the hotspot via --hotspot-y, offset down by 30px so the
+   * card sits just under the dot. X is centered with the standard inset.
+   * Stays on the same page regardless of dot position.
    */
   left: 12px;
   padding: 8px;
   position: absolute;
   right: 12px;
+  top: calc(var(--hotspot-y, 50%) + 30px);
   z-index: 3;
 }
 
 .hotspotCardThumb {
   background: #dadada;
   display: block;
+  flex: 0 0 94px;
   height: 94px;
   overflow: hidden;
   width: 94px;
@@ -275,6 +268,7 @@
 
 .hotspotCardCopy {
   display: flex;
+  flex: 1 1 auto;
   flex-direction: column;
   font-family: var(--font-aeonik);
   font-size: 14px;
@@ -293,19 +287,38 @@
   font-weight: 400;
 }
 
+.section[data-brand="joolz"] .hotspotCardCopy {
+  font-family: var(--font-value-sans);
+}
+
+.section[data-brand="joolz"] .hotspotCardCopy strong {
+  color: var(--joolz-deep-blue);
+  font-family: var(--font-value-sans-joolz);
+}
+
+.section[data-brand="joolz"] .hotspotCardCopy span {
+  color: rgb(19 15 49 / 80%);
+}
+
+
 .hotspotCardClose {
   align-items: center;
-  align-self: start;
+  align-self: flex-start;
   appearance: none;
   background: transparent;
   border: 0;
   color: #1a1a1a;
   cursor: pointer;
   display: flex;
+  flex: 0 0 24px;
   height: 24px;
   justify-content: center;
   padding: 0;
   width: 24px;
+}
+
+.section[data-brand="joolz"] .hotspotCardClose {
+  color: var(--joolz-deep-blue);
 }
 
 .closeIcon {

@@ -78,6 +78,7 @@ export function ProductSustainability({ brand, content }: ProductSustainabilityP
           {activeImage.hotspots.map((hotspot) => (
             <HotspotDot
               key={hotspot.id}
+              brand={brand}
               hotspot={hotspot}
               isOpen={openHotspotId === hotspot.id}
               onToggle={() =>
@@ -133,11 +134,13 @@ export function ProductSustainability({ brand, content }: ProductSustainabilityP
 }
 
 function HotspotDot({
+  brand,
   hotspot,
   isOpen,
   onToggle,
   shouldReduceMotion,
 }: {
+  brand: BrandId;
   hotspot: ProductSustainabilityHotspot;
   isOpen: boolean;
   onToggle: () => void;
@@ -154,7 +157,13 @@ function HotspotDot({
       whileTap={shouldReduceMotion ? undefined : { scale: 0.9 }}
       data-active={isOpen ? "true" : "false"}
     >
-      <span className={styles.hotspotDotInner} aria-hidden="true" />
+      <img
+        className={styles.hotspotDotImage}
+        src={`/assets/pdp/sustainability/${brand}/hotspot.svg`}
+        alt=""
+        aria-hidden="true"
+        draggable={false}
+      />
     </motion.button>
   );
 }
@@ -171,6 +180,10 @@ function HotspotCard({
   return (
     <motion.div
       className={styles.hotspotCard}
+      // Anchor the card just below the dot via a CSS custom property — keeps
+      // it visually close to the point on the y-axis. CSS handles the
+      // horizontal centering + clamping inside the image bounds.
+      style={{ "--hotspot-y": `${hotspot.y}%` } as React.CSSProperties}
       initial={shouldReduceMotion ? false : { opacity: 0, y: 8, scale: 0.98 }}
       animate={{ opacity: 1, y: 0, scale: 1 }}
       exit={{ opacity: 0, y: 6, scale: 0.98 }}

@@ -761,11 +761,11 @@ export const productCatalog: Record<BrandId, ProductDetail[]> = {
         },
         gallery: [
           {
-            id: "handlebar",
-            src: "/assets/pdp/sustainability/bugaboo/feature-bg.png",
-            alt: "Bugaboo Fox 5 handlebar with folding button",
+            id: "harness",
+            src: "/assets/pdp/sustainability/bugaboo/thumb-1.png",
+            alt: "Bugaboo Fox 5 harness detail",
             thumbnailSrc: "/assets/pdp/sustainability/bugaboo/thumb-1.png",
-            thumbnailAlt: "Handlebar view",
+            thumbnailAlt: "Harness detail",
             hotspots: [
               {
                 id: "folding-button",
@@ -1399,9 +1399,9 @@ export const productCatalog: Record<BrandId, ProductDetail[]> = {
         gallery: [
           {
             id: "fabric",
-            src: "/assets/pdp/sustainability/joolz/feature-bg.png",
+            src: "/assets/pdp/sustainability/joolz/thumb-2.png",
             alt: "Joolz Aer 2 stroller fabric detail",
-            thumbnailSrc: "/assets/pdp/sustainability/joolz/thumb-1.png",
+            thumbnailSrc: "/assets/pdp/sustainability/joolz/thumb-2.png",
             thumbnailAlt: "Fabric detail",
             hotspots: [
               {
@@ -1415,17 +1415,17 @@ export const productCatalog: Record<BrandId, ProductDetail[]> = {
           },
           {
             id: "frame",
-            src: "/assets/pdp/sustainability/joolz/thumb-2.png",
+            src: "/assets/pdp/sustainability/joolz/thumb-3.png",
             alt: "Joolz Aer 2 frame",
-            thumbnailSrc: "/assets/pdp/sustainability/joolz/thumb-2.png",
+            thumbnailSrc: "/assets/pdp/sustainability/joolz/thumb-3.png",
             thumbnailAlt: "Frame view",
             hotspots: [],
           },
           {
             id: "wheels",
-            src: "/assets/pdp/sustainability/joolz/thumb-3.png",
+            src: "/assets/pdp/sustainability/joolz/thumb-2.png",
             alt: "Joolz Aer 2 wheels",
-            thumbnailSrc: "/assets/pdp/sustainability/joolz/thumb-3.png",
+            thumbnailSrc: "/assets/pdp/sustainability/joolz/thumb-2.png",
             thumbnailAlt: "Wheel detail",
             hotspots: [],
           },
