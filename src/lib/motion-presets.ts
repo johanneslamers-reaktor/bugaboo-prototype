@@ -21,5 +21,5 @@ export const ENTRANCE_ZOOM = {
    * unloaded carousel-peek cards animate into blank space.
    */
   viewport: { once: true, amount: 0.25 },
-  transition: { duration: 1.2, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] },
+  transition: { duration: 1.8, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] },
 };
