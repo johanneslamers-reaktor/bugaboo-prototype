@@ -11,6 +11,8 @@ type ProductFloatingCtaProps = {
   };
   price: string;
   productTitle: string;
+  /** Optional handler — double-clicking the CTA triggers it (easter egg). */
+  onDoubleClick?: () => void;
 };
 
 export function ProductFloatingCta({
@@ -19,6 +21,7 @@ export function ProductFloatingCta({
   financing,
   price,
   productTitle,
+  onDoubleClick,
 }: ProductFloatingCtaProps) {
   const shouldReduceMotion = useReducedMotion();
 
@@ -46,6 +49,7 @@ export function ProductFloatingCta({
           className={styles.button}
           type="button"
           aria-label={`Add ${productTitle} to cart`}
+          onDoubleClick={onDoubleClick}
           whileTap={shouldReduceMotion ? undefined : { scale: 0.97 }}
         >
           Add to cart

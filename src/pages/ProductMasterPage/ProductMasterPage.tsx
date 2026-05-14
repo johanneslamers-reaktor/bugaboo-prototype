@@ -1,5 +1,6 @@
-import { useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import type { BrandId } from "../../brands/brands";
+import { productCatalog } from "../../data/products";
 import { MobileNavigation } from "../../components/MobileNavigation";
 import { ProductAccordion } from "../../components/ProductAccordion";
 import { ProductBundle } from "../../components/ProductBundle";
@@ -27,6 +28,17 @@ export function ProductMasterPage({ brand, product }: ProductMasterPageProps) {
   const selectedColorway = useMemo(() => (
     product.colorways.find((colorway) => colorway.id === selectedColorwayId) ?? product.colorways[0]
   ), [product.colorways, selectedColorwayId]);
+
+  // Easter egg: double-clicking the floating CTA jumps to the equivalent
+  // product index on the OTHER brand. Falls back to that brand's first
+  // product if the index doesn't exist.
+  const handleEasterEgg = useCallback(() => {
+    const otherBrand: BrandId = brand === "bugaboo" ? "joolz" : "bugaboo";
+    const currentIndex = productCatalog[brand].findIndex((p) => p.slug === product.slug);
+    const target = productCatalog[otherBrand][currentIndex] ?? productCatalog[otherBrand][0];
+    if (!target) return;
+    window.location.pathname = `/${otherBrand}/products/${target.slug}`;
+  }, [brand, product.slug]);
 
   return (
     <article className={styles.page} data-brand={brand}>
@@ -72,6 +84,7 @@ export function ProductMasterPage({ brand, product }: ProductMasterPageProps) {
         financing={product.floatingCta?.financing}
         price={product.price}
         productTitle={`${product.title}${product.titleSuffix ?? ""}`}
+        onDoubleClick={handleEasterEgg}
       />
     </article>
   );
