@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import type { BrandId } from "../../brands/brands";
 import type {
@@ -17,6 +17,23 @@ export function ProductSustainability({ brand, content }: ProductSustainabilityP
   const [activeIndex, setActiveIndex] = useState(0);
   const [openHotspotId, setOpenHotspotId] = useState<string | null>(null);
   const activeImage = content.gallery[activeIndex] ?? content.gallery[0];
+
+  // Click-outside dismissal: any pointerdown that doesn't land on the
+  // tooltip card or a hotspot dot closes the open card.
+  useEffect(() => {
+    if (openHotspotId === null) return;
+
+    const handlePointerDown = (event: PointerEvent) => {
+      const target = event.target;
+      if (!(target instanceof Element)) return;
+      if (target.closest(`.${styles.hotspotCard}`)) return;
+      if (target.closest(`.${styles.hotspotDot}`)) return;
+      setOpenHotspotId(null);
+    };
+
+    document.addEventListener("pointerdown", handlePointerDown);
+    return () => document.removeEventListener("pointerdown", handlePointerDown);
+  }, [openHotspotId]);
 
   if (!activeImage) return null;
 
@@ -150,7 +167,10 @@ function HotspotDot({
     <motion.button
       className={styles.hotspotDot}
       type="button"
-      style={{ left: `${hotspot.x}%`, top: `${hotspot.y}%` }}
+      // motion drives the -50% offset via x/y so whileTap's scale composes
+      // with it. Pure CSS `transform: translate(-50%, -50%)` would be
+      // overwritten by motion and the dot would jump to its raw % anchor.
+      style={{ left: `${hotspot.x}%`, top: `${hotspot.y}%`, x: "-50%", y: "-50%" }}
       aria-label={isOpen ? `Close ${hotspot.title}` : `Open ${hotspot.title}`}
       aria-expanded={isOpen}
       onClick={onToggle}

@@ -213,9 +213,12 @@
   height: 36px;
   justify-content: center;
   padding: 0;
-  /* x/y come from inline `left` / `top` percentages */
+  /*
+   * Position via left/top % set inline; translate(-50%) is driven by
+   * motion's `style={{ x, y }}` so whileTap's scale composes instead of
+   * replacing the translation (which would otherwise make the dot jump).
+   */
   position: absolute;
-  transform: translate(-50%, -50%);
   width: 36px;
   z-index: 2;
 }
@@ -246,7 +249,7 @@
   padding: 8px;
   position: absolute;
   right: 12px;
-  top: calc(var(--hotspot-y, 50%) + 30px);
+  top: calc(var(--hotspot-y, 50%) + 44px);
   z-index: 3;
 }
 
