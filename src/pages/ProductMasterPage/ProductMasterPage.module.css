@@ -1,5 +1,7 @@
 .page {
-  --floating-cta-bottom-offset: max(18px, calc(12px + env(safe-area-inset-bottom, 0px)));
+  /* No bottom margin while the gradient + Klarna text are removed —
+     CTA pill sits flush against the safe-area edge. */
+  --floating-cta-bottom-offset: env(safe-area-inset-bottom, 0px);
   --floating-cta-reserved-space: calc(58px + var(--floating-cta-bottom-offset) + 24px);
 
   background: #ffffff;

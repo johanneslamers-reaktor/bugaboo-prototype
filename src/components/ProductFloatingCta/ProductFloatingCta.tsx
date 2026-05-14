@@ -55,20 +55,6 @@ export function ProductFloatingCta({
           Add to cart
         </motion.button>
       </motion.div>
-
-      {financing ? (
-        <div className={styles.financing}>
-          <span>From</span>
-          <span className={styles.financingAmount}>{financing.monthlyPrice}</span>
-          <span>with</span>
-          <span className={styles.financingProvider}>{financing.provider}</span>
-          <img
-            src={brand === "joolz" ? "/assets/pdp/cta/joolz-info.svg" : "/assets/pdp/cta/bugaboo-info.svg"}
-            alt=""
-            loading="lazy"
-          />
-        </div>
-      ) : null}
     </aside>
   );
 }
