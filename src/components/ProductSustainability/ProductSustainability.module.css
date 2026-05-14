@@ -200,13 +200,6 @@
   width: 100%;
 }
 
-.hotspotLayer {
-  pointer-events: none;
-  position: absolute;
-  transform: translate(-50%, -50%);
-  z-index: 2;
-}
-
 .hotspotDot {
   align-items: center;
   appearance: none;
@@ -220,10 +213,12 @@
   height: 34px;
   justify-content: center;
   padding: 0;
-  pointer-events: auto;
+  /* x/y come from inline `left` / `top` percentages */
   position: absolute;
+  transform: translate(-50%, -50%);
   transition: background-color 160ms ease;
   width: 34px;
+  z-index: 2;
 }
 
 .hotspotDot[data-active="true"] {
@@ -241,23 +236,23 @@
 .hotspotCard {
   background: #ffffff;
   border-radius: 4px;
+  bottom: 88px;
   box-shadow: 0 8px 24px rgb(0 0 0 / 18%);
+  box-sizing: border-box;
   color: #1a1a1a;
   display: grid;
   gap: 16px;
   grid-template-columns: 94px 1fr auto;
-  padding: 8px;
-  pointer-events: auto;
-  position: absolute;
   /*
-   * Pop the card UP from the hotspot dot, slightly offset right so it's
-   * not directly under the dot. Width is responsive but capped so it
-   * never overflows the gallery container.
+   * Pinned to the bottom of the gallery (above the thumbnails), centered
+   * horizontally and full-width minus the inset. Stays on-page no matter
+   * where the hotspot dot is.
    */
-  left: 28px;
-  top: -8px;
-  transform: translateY(-100%);
-  width: min(372px, calc(100vw - 32px));
+  left: 12px;
+  padding: 8px;
+  position: absolute;
+  right: 12px;
+  z-index: 3;
 }
 
 .hotspotCardThumb {
@@ -322,27 +317,25 @@
 }
 
 .thumbnailRow {
-  align-items: flex-end;
+  /*
+   * Anchored bottom-left per Figma — both brands have thumbs starting at
+   * the left edge with the counter (joolz only) tucked below them.
+   */
+  align-items: flex-start;
   bottom: 24px;
   display: flex;
-  gap: 12px;
-  justify-content: space-between;
-  left: 16px;
+  flex-direction: column;
+  gap: 14px;
+  left: 17px;
   pointer-events: none;
   position: absolute;
-  right: 16px;
   z-index: 3;
 }
 
 .thumbnails {
   display: flex;
   gap: 4px;
-  margin-left: auto;
   pointer-events: auto;
-}
-
-.section[data-brand="joolz"] .thumbnails {
-  margin-left: 0;
 }
 
 .thumbnail {

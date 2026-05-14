@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import type { BrandId } from "../../brands/brands";
 import { productCatalog } from "../../data/products";
 import { MobileNavigation } from "../../components/MobileNavigation";
@@ -18,6 +18,8 @@ import { ProductVideoStory } from "../../components/ProductVideoStory";
 import type { ProductDetail } from "../../data/products";
 import styles from "./ProductMasterPage.module.css";
 
+const BRAND_SWAP_SCROLL_KEY = "pdp-brand-swap-scroll";
+
 type ProductMasterPageProps = {
   brand: BrandId;
   product: ProductDetail;
@@ -31,14 +33,28 @@ export function ProductMasterPage({ brand, product }: ProductMasterPageProps) {
 
   // Easter egg: double-clicking the floating CTA jumps to the equivalent
   // product index on the OTHER brand. Falls back to that brand's first
-  // product if the index doesn't exist.
+  // product if the index doesn't exist. The scroll position is stashed
+  // in sessionStorage so the destination page can restore it — lets us
+  // compare the same section across brands without re-scrolling.
   const handleEasterEgg = useCallback(() => {
     const otherBrand: BrandId = brand === "bugaboo" ? "joolz" : "bugaboo";
     const currentIndex = productCatalog[brand].findIndex((p) => p.slug === product.slug);
     const target = productCatalog[otherBrand][currentIndex] ?? productCatalog[otherBrand][0];
     if (!target) return;
+    sessionStorage.setItem(BRAND_SWAP_SCROLL_KEY, String(window.scrollY));
     window.location.pathname = `/${otherBrand}/products/${target.slug}`;
   }, [brand, product.slug]);
+
+  // Restore scroll position after the easter-egg brand swap.
+  useEffect(() => {
+    const saved = sessionStorage.getItem(BRAND_SWAP_SCROLL_KEY);
+    if (saved === null) return;
+    sessionStorage.removeItem(BRAND_SWAP_SCROLL_KEY);
+    const y = Number(saved);
+    if (!Number.isFinite(y)) return;
+    // Wait a frame so layout has settled before scrolling.
+    requestAnimationFrame(() => window.scrollTo({ top: y, behavior: "instant" as ScrollBehavior }));
+  }, []);
 
   return (
     <article className={styles.page} data-brand={brand}>

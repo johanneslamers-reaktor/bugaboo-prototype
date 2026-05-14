@@ -769,8 +769,8 @@ export const productCatalog: Record<BrandId, ProductDetail[]> = {
             hotspots: [
               {
                 id: "folding-button",
-                x: 52,
-                y: 36,
+                x: 54.7,
+                y: 26.2,
                 title: "Fold and maneuver with one hand",
                 body: "Extra-large puncture-proof wheels and advanced suspension absorb bumps and uneven ground.",
                 iconSrc: "/assets/pdp/sustainability/bugaboo/featured-thumb.png",
@@ -780,7 +780,7 @@ export const productCatalog: Record<BrandId, ProductDetail[]> = {
           },
           {
             id: "wheels",
-            src: "/assets/pdp/sustainability/bugaboo/feature-bg.png",
+            src: "/assets/pdp/sustainability/bugaboo/thumb-2.png",
             alt: "Bugaboo Fox 5 wheels",
             thumbnailSrc: "/assets/pdp/sustainability/bugaboo/thumb-2.png",
             thumbnailAlt: "Wheel detail",
@@ -788,7 +788,7 @@ export const productCatalog: Record<BrandId, ProductDetail[]> = {
           },
           {
             id: "seat",
-            src: "/assets/pdp/sustainability/bugaboo/feature-bg.png",
+            src: "/assets/pdp/sustainability/bugaboo/thumb-3.png",
             alt: "Bugaboo Fox 5 seat",
             thumbnailSrc: "/assets/pdp/sustainability/bugaboo/thumb-3.png",
             thumbnailAlt: "Seat view",
@@ -796,7 +796,7 @@ export const productCatalog: Record<BrandId, ProductDetail[]> = {
           },
           {
             id: "frame",
-            src: "/assets/pdp/sustainability/bugaboo/feature-bg.png",
+            src: "/assets/pdp/sustainability/bugaboo/thumb-4.png",
             alt: "Bugaboo Fox 5 frame",
             thumbnailSrc: "/assets/pdp/sustainability/bugaboo/thumb-4.png",
             thumbnailAlt: "Frame view",
@@ -1406,8 +1406,8 @@ export const productCatalog: Record<BrandId, ProductDetail[]> = {
             hotspots: [
               {
                 id: "fabric-story",
-                x: 50,
-                y: 50,
+                x: 31.3,
+                y: 38.5,
                 title: "Recycled bottle fabric",
                 body: "Each Aer 2 uses 90+ recycled PET bottles in its fabric, lowering material impact without losing comfort.",
               },
@@ -1415,7 +1415,7 @@ export const productCatalog: Record<BrandId, ProductDetail[]> = {
           },
           {
             id: "frame",
-            src: "/assets/pdp/sustainability/joolz/feature-bg.png",
+            src: "/assets/pdp/sustainability/joolz/thumb-2.png",
             alt: "Joolz Aer 2 frame",
             thumbnailSrc: "/assets/pdp/sustainability/joolz/thumb-2.png",
             thumbnailAlt: "Frame view",
@@ -1423,7 +1423,7 @@ export const productCatalog: Record<BrandId, ProductDetail[]> = {
           },
           {
             id: "wheels",
-            src: "/assets/pdp/sustainability/joolz/feature-bg.png",
+            src: "/assets/pdp/sustainability/joolz/thumb-3.png",
             alt: "Joolz Aer 2 wheels",
             thumbnailSrc: "/assets/pdp/sustainability/joolz/thumb-3.png",
             thumbnailAlt: "Wheel detail",

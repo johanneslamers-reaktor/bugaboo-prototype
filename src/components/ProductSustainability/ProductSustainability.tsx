@@ -70,104 +70,126 @@ export function ProductSustainability({ brand, content }: ProductSustainabilityP
           />
 
           {activeImage.hotspots.map((hotspot) => (
-            <Hotspot
+            <HotspotDot
               key={hotspot.id}
               hotspot={hotspot}
               isOpen={openHotspotId === hotspot.id}
               onToggle={() =>
                 setOpenHotspotId((current) => (current === hotspot.id ? null : hotspot.id))
               }
-              onClose={() => setOpenHotspotId(null)}
               shouldReduceMotion={shouldReduceMotion ?? false}
             />
           ))}
-        </div>
 
-        <div className={styles.thumbnailRow} aria-label={`${content.title} gallery`}>
-          <div className={styles.thumbnails} role="tablist">
-            {content.gallery.map((image, index) => (
-              <button
-                key={image.id}
-                className={styles.thumbnail}
-                type="button"
-                role="tab"
-                aria-selected={index === activeIndex}
-                aria-label={image.thumbnailAlt}
-                data-active={index === activeIndex ? "true" : "false"}
-                onClick={() => selectImage(index)}
-              >
-                <img src={image.thumbnailSrc} alt="" loading="lazy" decoding="async" draggable={false} />
-              </button>
-            ))}
+          {/*
+            Tooltip card lives OUTSIDE the hotspot layer so it can be centered
+            within the gallery (full width minus inset) instead of anchored to
+            the dot. This keeps it on-page no matter where the dot sits.
+          */}
+          <AnimatePresence>
+            {activeImage.hotspots.map((hotspot) =>
+              openHotspotId === hotspot.id ? (
+                <HotspotCard
+                  key={hotspot.id}
+                  hotspot={hotspot}
+                  onClose={() => setOpenHotspotId(null)}
+                  shouldReduceMotion={shouldReduceMotion ?? false}
+                />
+              ) : null,
+            )}
+          </AnimatePresence>
+
+          <div className={styles.thumbnailRow} aria-label={`${content.title} gallery`}>
+            <div className={styles.thumbnails} role="tablist">
+              {content.gallery.map((image, index) => (
+                <button
+                  key={image.id}
+                  className={styles.thumbnail}
+                  type="button"
+                  role="tab"
+                  aria-selected={index === activeIndex}
+                  aria-label={image.thumbnailAlt}
+                  data-active={index === activeIndex ? "true" : "false"}
+                  onClick={() => selectImage(index)}
+                >
+                  <img src={image.thumbnailSrc} alt="" loading="lazy" decoding="async" draggable={false} />
+                </button>
+              ))}
+            </div>
+            {content.thumbnailsCounter ? (
+              <p className={styles.counter} aria-hidden="true">{content.thumbnailsCounter}</p>
+            ) : null}
           </div>
-          {content.thumbnailsCounter ? (
-            <p className={styles.counter} aria-hidden="true">{content.thumbnailsCounter}</p>
-          ) : null}
         </div>
       </div>
     </section>
   );
 }
 
-function Hotspot({
+function HotspotDot({
   hotspot,
   isOpen,
   onToggle,
-  onClose,
   shouldReduceMotion,
 }: {
   hotspot: ProductSustainabilityHotspot;
   isOpen: boolean;
   onToggle: () => void;
+  shouldReduceMotion: boolean;
+}) {
+  return (
+    <motion.button
+      className={styles.hotspotDot}
+      type="button"
+      style={{ left: `${hotspot.x}%`, top: `${hotspot.y}%` }}
+      aria-label={isOpen ? `Close ${hotspot.title}` : `Open ${hotspot.title}`}
+      aria-expanded={isOpen}
+      onClick={onToggle}
+      whileTap={shouldReduceMotion ? undefined : { scale: 0.9 }}
+      data-active={isOpen ? "true" : "false"}
+    >
+      <span className={styles.hotspotDotInner} aria-hidden="true" />
+    </motion.button>
+  );
+}
+
+function HotspotCard({
+  hotspot,
+  onClose,
+  shouldReduceMotion,
+}: {
+  hotspot: ProductSustainabilityHotspot;
   onClose: () => void;
   shouldReduceMotion: boolean;
 }) {
   return (
-    <span className={styles.hotspotLayer} style={{ left: `${hotspot.x}%`, top: `${hotspot.y}%` }}>
-      <motion.button
-        className={styles.hotspotDot}
+    <motion.div
+      className={styles.hotspotCard}
+      initial={shouldReduceMotion ? false : { opacity: 0, y: 8, scale: 0.98 }}
+      animate={{ opacity: 1, y: 0, scale: 1 }}
+      exit={{ opacity: 0, y: 6, scale: 0.98 }}
+      transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
+      role="dialog"
+      aria-label={hotspot.title}
+    >
+      {hotspot.iconSrc ? (
+        <span className={styles.hotspotCardThumb}>
+          <img src={hotspot.iconSrc} alt={hotspot.iconAlt ?? ""} loading="lazy" />
+        </span>
+      ) : null}
+      <div className={styles.hotspotCardCopy}>
+        <strong>{hotspot.title}</strong>
+        <span>{hotspot.body}</span>
+      </div>
+      <button
+        className={styles.hotspotCardClose}
         type="button"
-        aria-label={isOpen ? `Close ${hotspot.title}` : `Open ${hotspot.title}`}
-        aria-expanded={isOpen}
-        onClick={onToggle}
-        whileTap={shouldReduceMotion ? undefined : { scale: 0.9 }}
-        data-active={isOpen ? "true" : "false"}
+        aria-label={`Close ${hotspot.title}`}
+        onClick={onClose}
       >
-        <span className={styles.hotspotDotInner} aria-hidden="true" />
-      </motion.button>
-
-      <AnimatePresence>
-        {isOpen ? (
-          <motion.div
-            className={styles.hotspotCard}
-            initial={shouldReduceMotion ? false : { opacity: 0, y: 8, scale: 0.98 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 6, scale: 0.98 }}
-            transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
-            role="dialog"
-            aria-label={hotspot.title}
-          >
-            {hotspot.iconSrc ? (
-              <span className={styles.hotspotCardThumb}>
-                <img src={hotspot.iconSrc} alt={hotspot.iconAlt ?? ""} loading="lazy" />
-              </span>
-            ) : null}
-            <div className={styles.hotspotCardCopy}>
-              <strong>{hotspot.title}</strong>
-              <span>{hotspot.body}</span>
-            </div>
-            <button
-              className={styles.hotspotCardClose}
-              type="button"
-              aria-label={`Close ${hotspot.title}`}
-              onClick={onClose}
-            >
-              <CloseIcon />
-            </button>
-          </motion.div>
-        ) : null}
-      </AnimatePresence>
-    </span>
+        <CloseIcon />
+      </button>
+    </motion.div>
   );
 }
 
