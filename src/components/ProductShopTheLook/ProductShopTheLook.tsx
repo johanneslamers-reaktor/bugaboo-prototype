@@ -1,10 +1,12 @@
-import { useRef } from "react";
+import { useEffect, useState } from "react";
 import { motion, useReducedMotion } from "motion/react";
 import type { BrandId } from "../../brands/brands";
 import type { ProductShopTheLookContent, ProductShopTheLookProduct } from "../../data/products";
 import { Hotspot } from "../Hotspot";
-import { useScrollDrag } from "../../hooks/useScrollDrag";
+import { useCarouselTrack } from "../../hooks/useCarouselTrack";
 import styles from "./ProductShopTheLook.module.css";
+
+const PRODUCT_CARD_STEP = 360; // 352px card + 8px gap
 
 type ProductShopTheLookProps = {
   brand: BrandId;
@@ -13,20 +15,22 @@ type ProductShopTheLookProps = {
 
 export function ProductShopTheLook({ brand, content }: ProductShopTheLookProps) {
   const shouldReduceMotion = useReducedMotion();
-  const productsRef = useRef<HTMLDivElement | null>(null);
-  const productsDrag = useScrollDrag(productsRef);
+  const [viewportWidth, setViewportWidth] = useState(402);
 
-  // Click a hotspot → scroll the product row to that product card.
-  const focusProduct = (index: number) => {
-    const scroller = productsRef.current;
-    if (!scroller) return;
-    const card = scroller.children.item(index) as HTMLElement | null;
-    if (!card) return;
-    scroller.scrollTo({
-      behavior: shouldReduceMotion ? "auto" : "smooth",
-      left: card.offsetLeft - scroller.offsetLeft - 16,
-    });
-  };
+  // Carousel for the product cards row. Single-card-visible per step with
+  // spring snap (motion.dev style) — same physics as the other carousels.
+  const { trackProps, gotoPage } = useCarouselTrack({
+    count: content.products.length,
+    itemSize: Math.min(PRODUCT_CARD_STEP, viewportWidth - 16),
+    loop: false,
+  });
+
+  useEffect(() => {
+    const update = () => setViewportWidth(Math.min(window.innerWidth, 402));
+    update();
+    window.addEventListener("resize", update);
+    return () => window.removeEventListener("resize", update);
+  }, []);
 
   return (
     <section className={styles.section} data-brand={brand} data-node-id={content.nodeId}>
@@ -70,25 +74,25 @@ export function ProductShopTheLook({ brand, content }: ProductShopTheLookProps) 
               x={hotspot.x}
               y={hotspot.y}
               label={`View ${content.products[hotspot.productIndex]?.title ?? "product"}`}
-              onClick={() => focusProduct(hotspot.productIndex)}
+              onClick={() => gotoPage(hotspot.productIndex)}
             />
           ))}
         </div>
 
-        <div
-          className={styles.products}
-          ref={productsRef}
-          data-dragging={productsDrag.isDragging ? "true" : "false"}
-          aria-label={`${content.title} products`}
-          {...productsDrag.handlers}
-        >
-          {content.products.map((product) => (
-            <ProductCard
-              key={product.id}
-              product={product}
-              shouldReduceMotion={shouldReduceMotion ?? false}
-            />
-          ))}
+        <div className={styles.productsViewport}>
+          <motion.div
+            className={styles.productsTrack}
+            aria-label={`${content.title} products`}
+            {...trackProps}
+          >
+            {content.products.map((product) => (
+              <ProductCard
+                key={product.id}
+                product={product}
+                shouldReduceMotion={shouldReduceMotion ?? false}
+              />
+            ))}
+          </motion.div>
         </div>
       </div>
     </section>
@@ -142,4 +146,3 @@ function PlusIcon() {
     </svg>
   );
 }
-

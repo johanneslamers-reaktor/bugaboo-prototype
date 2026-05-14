@@ -176,28 +176,29 @@
   top: 0;
 }
 
-.products {
+.productsViewport {
   bottom: 16px;
-  cursor: grab;
-  display: flex;
-  gap: 8px;
+  box-sizing: border-box;
   left: 0;
-  overflow-x: auto;
-  overflow-y: hidden;
+  overflow-x: clip;
+  overflow-y: visible;
   padding: 0 16px;
   position: absolute;
   right: 0;
-  scrollbar-width: none;
-  user-select: none;
   z-index: 2;
 }
 
-.products[data-dragging="true"] {
-  cursor: grabbing;
+.productsTrack {
+  cursor: grab;
+  display: flex;
+  gap: 8px;
+  user-select: none;
+  width: max-content;
+  will-change: transform;
 }
 
-.products::-webkit-scrollbar {
-  display: none;
+.productsTrack:active {
+  cursor: grabbing;
 }
 
 .productCard {
@@ -211,13 +212,13 @@
   color: #ffffff;
   cursor: pointer;
   display: grid;
-  flex: 0 0 min(352px, calc(100% - 16px));
+  flex: 0 0 min(352px, calc(100vw - 32px));
   gap: 16px;
   grid-template-columns: 72px 1fr 24px;
   height: 89px;
   padding: 8px;
   text-align: left;
-  width: min(352px, calc(100% - 16px));
+  width: min(352px, calc(100vw - 32px));
 }
 
 .section[data-brand="joolz"] .productCard {

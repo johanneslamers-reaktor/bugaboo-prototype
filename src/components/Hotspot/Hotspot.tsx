@@ -37,13 +37,23 @@ export function Hotspot({ x, y, label, isActive, onClick, ariaExpanded }: Hotspo
       onClick={onClick}
       whileTap={shouldReduceMotion ? undefined : { scale: 0.92 }}
     >
-      <img
+      {/*
+        Inline SVG (instead of an external file) — the Figma source uses
+        <foreignObject> for the backdrop-blur, which doesn't render when
+        loaded via <img src>. Inlining lets us keep the layered ring +
+        center dot look without needing a backdrop filter.
+      */}
+      <svg
         className={styles.hotspotImage}
-        src="/assets/icons/hotspot.svg"
-        alt=""
+        viewBox="0 0 38 38"
+        fill="none"
         aria-hidden="true"
-        draggable={false}
-      />
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <circle cx="19" cy="19" r="17" fill="rgba(89, 89, 89, 0.5)" />
+        <circle cx="19" cy="19" r="18" stroke="rgba(255, 255, 255, 0.5)" strokeWidth="2" />
+        <circle cx="19" cy="19" r="4" fill="white" />
+      </svg>
     </motion.button>
   );
 }
