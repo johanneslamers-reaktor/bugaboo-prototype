@@ -7,7 +7,6 @@ import {
   motion,
   useReducedMotion,
   useScroll,
-  useSpring,
   useTransform,
 } from "motion/react";
 import type { BrandId } from "../../brands/brands";
@@ -55,19 +54,14 @@ export function ProductGallery({ brand, colorway, productTitle }: ProductGallery
     target: galleryRef,
     offset: ["start start", "end start"],
   });
-  // Smooth the parallax with a spring so motion catches up gently rather
-  // than running every scroll frame in lockstep — kept the iOS Safari
-  // scroll handler from saturating and dropping the parallax below 60fps.
-  const rawParallaxY = useTransform(
+  // Pixel-based parallax via vh so motion can compile to translate3d
+  // without recomputing percentage-of-parent every frame. Raw
+  // scrollYProgress → vh translation = 1-to-1 precise tracking.
+  const parallaxY = useTransform(
     scrollYProgress,
     [0, 0.5, 1],
-    shouldReduceMotion ? ["0%", "0%", "0%"] : ["0%", "-50%", "-50%"],
+    shouldReduceMotion ? ["0vh", "0vh", "0vh"] : ["0vh", "-35vh", "-35vh"],
   );
-  const parallaxY = useSpring(rawParallaxY, {
-    stiffness: 220,
-    damping: 30,
-    mass: 0.4,
-  });
   const [viewportWidth, setViewportWidth] = useState(402);
   const [zoomedMediaId, setZoomedMediaId] = useState<string | null>(null);
   const [isZoomGestureActive, setIsZoomGestureActive] = useState(false);
