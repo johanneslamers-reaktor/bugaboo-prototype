@@ -18,6 +18,14 @@
 
 .parallaxLayer {
   height: 100%;
+  /*
+   * Tiny linear transition smooths between motion's RAF updates. When iOS
+   * Safari's scroll handler drops a frame, the CSS transition bridges
+   * the gap so the parallax doesn't visibly stutter. 30ms ≈ one frame
+   * at 30fps — long enough to cover a drop, short enough to feel real-
+   * time on the finger.
+   */
+  transition: transform 30ms linear;
   width: 100%;
   will-change: transform;
 }
