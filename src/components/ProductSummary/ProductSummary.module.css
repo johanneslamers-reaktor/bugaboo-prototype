@@ -186,6 +186,7 @@
 }
 
 .colorwayScroller {
+  cursor: grab;
   display: flex;
   gap: 4px;
   overflow-x: auto;
@@ -194,7 +195,12 @@
   scroll-padding-left: 16px;
   scroll-padding-right: 16px;
   scrollbar-width: none;
+  user-select: none;
   -webkit-overflow-scrolling: touch;
+}
+
+.colorwayScroller[data-dragging="true"] {
+  cursor: grabbing;
 }
 
 .colorwayScroller::-webkit-scrollbar {

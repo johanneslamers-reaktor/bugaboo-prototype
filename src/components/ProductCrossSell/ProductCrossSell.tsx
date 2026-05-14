@@ -37,7 +37,7 @@ export function ProductCrossSell({ brand, content }: ProductCrossSellProps) {
         items={items}
         gap={8}
         inset={brand === "joolz" ? 20 : 16}
-        loop={false}
+        loop
         ariaLabel={content.title}
       />
     </section>

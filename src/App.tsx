@@ -24,6 +24,7 @@ const nextBrand: Record<BrandId, BrandId> = {
 type AppRoute =
   | {
       kind: "homepage";
+      brand?: BrandId;
     }
   | {
       kind: "product";
@@ -34,16 +35,16 @@ type AppRoute =
 function parseRoute(pathname: string): AppRoute {
   const [, brandSegment, productsSegment, slugSegment] = pathname.split("/");
 
-  if (
-    (brandSegment === "bugaboo" || brandSegment === "joolz")
-    && productsSegment === "products"
-    && slugSegment
-  ) {
-    return {
-      kind: "product",
-      brand: brandSegment,
-      slug: slugSegment,
-    };
+  if (brandSegment === "bugaboo" || brandSegment === "joolz") {
+    if (productsSegment === "products" && slugSegment) {
+      return {
+        kind: "product",
+        brand: brandSegment,
+        slug: slugSegment,
+      };
+    }
+    // /bugaboo or /joolz → branded homepage
+    return { kind: "homepage", brand: brandSegment };
   }
 
   return { kind: "homepage" };
@@ -51,7 +52,11 @@ function parseRoute(pathname: string): AppRoute {
 
 export default function App() {
   const route = parseRoute(window.location.pathname);
-  const [brand, setBrand] = useState<BrandId>(route.kind === "product" ? route.brand : "bugaboo");
+  const initialBrand: BrandId =
+    route.kind === "product"
+      ? route.brand
+      : route.brand ?? "bugaboo";
+  const [brand, setBrand] = useState<BrandId>(initialBrand);
   const pageBrand = route.kind === "product" ? route.brand : brand;
   const product = route.kind === "product"
     ? getProductBySlug(route.brand, route.slug) ?? getDefaultProduct(route.brand)

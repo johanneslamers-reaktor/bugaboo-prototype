@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { createPortal } from "react-dom";
 import { AnimatePresence, motion } from "motion/react";
 import { brands, type BrandId } from "../../brands/brands";
 import { productCatalog } from "../../data/products";
@@ -40,11 +41,14 @@ export function MobileNavigation({
         </button>
       </div>
 
-      <AnimatePresence>
-        {isMenuOpen ? (
-          <DebugMenu key="debug-menu" brand={brand} onClose={() => setIsMenuOpen(false)} />
-        ) : null}
-      </AnimatePresence>
+      {createPortal(
+        <AnimatePresence>
+          {isMenuOpen ? (
+            <DebugMenu key="debug-menu" brand={brand} onClose={() => setIsMenuOpen(false)} />
+          ) : null}
+        </AnimatePresence>,
+        document.body,
+      )}
 
       <button
         className={styles.logoButton}
@@ -89,7 +93,7 @@ function DebugMenu({ brand, onClose }: { brand: BrandId; onClose: () => void }) 
       brand: "bugaboo",
       label: "Bugaboo",
       items: [
-        { href: "/", label: "Homepage", sublabel: "Default brand toggle" },
+        { href: "/bugaboo", label: "Homepage", sublabel: "Bugaboo home" },
         ...productCatalog.bugaboo.map((p) => ({
           href: `/bugaboo/products/${p.slug}`,
           label: p.title + (p.titleSuffix ? ` ${p.titleSuffix}` : ""),
@@ -100,11 +104,14 @@ function DebugMenu({ brand, onClose }: { brand: BrandId; onClose: () => void }) 
     {
       brand: "joolz",
       label: "Joolz",
-      items: productCatalog.joolz.map((p) => ({
-        href: `/joolz/products/${p.slug}`,
-        label: p.title + (p.titleSuffix ? ` ${p.titleSuffix}` : ""),
-        sublabel: p.subtitle,
-      })),
+      items: [
+        { href: "/joolz", label: "Homepage", sublabel: "Joolz home" },
+        ...productCatalog.joolz.map((p) => ({
+          href: `/joolz/products/${p.slug}`,
+          label: p.title + (p.titleSuffix ? ` ${p.titleSuffix}` : ""),
+          sublabel: p.subtitle,
+        })),
+      ],
     },
   ];
 

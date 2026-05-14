@@ -1,5 +1,4 @@
-import { useCallback, useEffect, useMemo, useRef, useState, type CSSProperties } from "react";
-import { layoutWithLines, prepareWithSegments } from "@chenglou/pretext";
+import { useCallback, useRef, useState } from "react";
 import { motion, useReducedMotion, useScroll, useTransform, type MotionValue } from "motion/react";
 import type { BrandId } from "../../brands/brands";
 import type { ProductStoryShopContent } from "../../data/products";
@@ -8,42 +7,6 @@ import styles from "./ProductStoryShop.module.css";
 type ProductStoryShopProps = {
   brand: BrandId;
   content: ProductStoryShopContent;
-};
-
-type RevealVariant = "lead" | "body";
-
-const fallbackLineLengths: Record<BrandId, Record<RevealVariant, number>> = {
-  bugaboo: {
-    lead: 28,
-    body: 42,
-  },
-  joolz: {
-    lead: 24,
-    body: 38,
-  },
-};
-
-const revealTextMetrics: Record<BrandId, Record<RevealVariant, { font: string; lineHeight: number }>> = {
-  bugaboo: {
-    lead: {
-      font: '400 28px "Aeonik Pro"',
-      lineHeight: 29.4,
-    },
-    body: {
-      font: '400 18px "Aeonik Pro"',
-      lineHeight: 18.9,
-    },
-  },
-  joolz: {
-    lead: {
-      font: '500 26px "Value Sans Pro"',
-      lineHeight: 29.9,
-    },
-    body: {
-      font: '400 20px "Value Sans Pro"',
-      lineHeight: 23,
-    },
-  },
 };
 
 export function ProductStoryShop({ brand, content }: ProductStoryShopProps) {
@@ -140,22 +103,18 @@ export function ProductStoryShop({ brand, content }: ProductStoryShopProps) {
 
         <div className={styles.storyCopy}>
           <RevealParagraph
-            brand={brand}
             className={styles.lead}
             progress={scrollYProgress}
             range={[0.02, 0.32]}
             shouldReduceMotion={shouldReduceMotion}
             text={leadText}
-            variant="lead"
           />
           <RevealParagraph
-            brand={brand}
             className={styles.body}
             progress={scrollYProgress}
             range={[0.3, 0.56]}
             shouldReduceMotion={shouldReduceMotion}
             text={content.body}
-            variant="body"
           />
         </div>
 
@@ -210,171 +169,96 @@ export function ProductStoryShop({ brand, content }: ProductStoryShopProps) {
   );
 }
 
+/**
+ * Word-by-word reveal driven by scroll progress.
+ *
+ * Each word's opacity ramps from muted to active as scrollYProgress crosses
+ * its slice of the `range`. Words remain inline so the browser wraps the
+ * paragraph naturally — no nowrap, no pre-measured line counts, no overflow.
+ */
 function RevealParagraph({
-  brand,
   className,
   progress,
   range,
   shouldReduceMotion,
   text,
-  variant,
 }: {
-  brand: BrandId;
   className: string;
   progress: MotionValue<number>;
   range: [number, number];
   shouldReduceMotion: boolean | null;
   text: string;
-  variant: RevealVariant;
 }) {
-  const paragraphRef = useRef<HTMLParagraphElement | null>(null);
-  const fallbackLines = useMemo(() => splitTextIntoLines(text, fallbackLineLengths[brand][variant]), [brand, text, variant]);
-  const [layoutWidth, setLayoutWidth] = useState(0);
-  const [lines, setLines] = useState(fallbackLines);
+  // Split on whitespace, keep words and spaces separately so layout matches source.
+  const tokens = text.split(/(\s+)/);
+  const wordCount = tokens.filter((token) => token.trim().length > 0).length;
 
-  useEffect(() => {
-    const paragraph = paragraphRef.current;
-
-    if (!paragraph) {
-      return undefined;
-    }
-
-    const updateWidth = () => {
-      const nextWidth = Math.floor(paragraph.getBoundingClientRect().width);
-      setLayoutWidth((currentWidth) => (Math.abs(currentWidth - nextWidth) > 1 ? nextWidth : currentWidth));
-    };
-    const observer = new ResizeObserver(updateWidth);
-
-    updateWidth();
-    observer.observe(paragraph);
-
-    return () => {
-      observer.disconnect();
-    };
-  }, []);
-
-  useEffect(() => {
-    let isCancelled = false;
-
-    const updateLines = () => {
-      if (isCancelled) {
-        return;
-      }
-
-      setLines(measureTextLines(text, brand, variant, layoutWidth, fallbackLines));
-    };
-
-    updateLines();
-    void document.fonts?.ready.then(updateLines);
-
-    return () => {
-      isCancelled = true;
-    };
-  }, [brand, fallbackLines, layoutWidth, text, variant]);
+  let wordIndex = -1;
 
   return (
-    <p className={`${className} ${styles.revealParagraph}`} aria-label={text} ref={paragraphRef}>
-      <span className={styles.revealLineStack} aria-hidden="true">
-        {lines.map((line, index) => (
-          <RevealLine
-            key={`${line}-${index}`}
-            index={index}
+    <p className={`${className} ${styles.revealParagraph}`} aria-label={text}>
+      {tokens.map((token, index) => {
+        if (token.trim().length === 0) {
+          // Preserve whitespace as plain text so the browser wraps naturally.
+          return <span key={`space-${index}`}>{token}</span>;
+        }
+
+        wordIndex += 1;
+        return (
+          <RevealWord
+            key={`word-${index}`}
+            wordIndex={wordIndex}
+            wordCount={wordCount}
             progress={progress}
             range={range}
             shouldReduceMotion={shouldReduceMotion}
-            text={line}
-            total={lines.length}
+            text={token}
           />
-        ))}
-      </span>
+        );
+      })}
     </p>
   );
 }
 
-function measureTextLines(
-  text: string,
-  brand: BrandId,
-  variant: RevealVariant,
-  width: number,
-  fallbackLines: string[],
-) {
-  if (width <= 0 || typeof document === "undefined") {
-    return fallbackLines;
-  }
-
-  try {
-    const metrics = revealTextMetrics[brand][variant];
-    const prepared = prepareWithSegments(text, metrics.font);
-    const layout = layoutWithLines(prepared, width, metrics.lineHeight);
-    const lines = layout.lines.map((line) => line.text.trim()).filter(Boolean);
-
-    return lines.length > 0 ? lines : fallbackLines;
-  } catch {
-    return fallbackLines;
-  }
-}
-
-function RevealLine({
-  index,
+function RevealWord({
+  wordIndex,
+  wordCount,
   progress,
   range,
   shouldReduceMotion,
   text,
-  total,
 }: {
-  index: number;
+  wordIndex: number;
+  wordCount: number;
   progress: MotionValue<number>;
   range: [number, number];
   shouldReduceMotion: boolean | null;
   text: string;
-  total: number;
 }) {
   const rangeSize = range[1] - range[0];
-  const lineSegment = rangeSize / Math.max(total, 1);
-  const lineStart = range[0] + lineSegment * index;
-  const lineEnd = Math.min(range[1], lineStart + lineSegment * 0.92);
-  const lineReveal = useTransform(progress, [lineStart, lineEnd], ["-2%", "103%"]);
-  const lineStyle = {
-    "--story-line-reveal": shouldReduceMotion ? "100%" : lineReveal,
-  } as CSSProperties;
+  // Each word reveals over ~1.6 word-slices so adjacent words overlap, giving
+  // a sweeping read-along feel rather than choppy on/off transitions.
+  const sliceSize = rangeSize / Math.max(wordCount, 1);
+  const wordStart = range[0] + sliceSize * wordIndex;
+  const wordEnd = Math.min(range[1], wordStart + sliceSize * 1.6);
+  // Drive a 0%→100% mix between the muted and active story colors via
+  // CSS `color-mix`. Per-brand colors are set in CSS; this just animates
+  // the percentage so every word smoothly resolves to white (bugaboo)
+  // or deep blue (joolz).
+  const reveal = useTransform(progress, [wordStart, wordEnd], ["0%", "100%"]);
+
+  if (shouldReduceMotion) {
+    return <span className={styles.revealWord} style={{ "--word-reveal": "100%" } as React.CSSProperties}>{text}</span>;
+  }
 
   return (
-    <motion.span className={styles.revealLine} style={lineStyle}>
+    <motion.span
+      className={styles.revealWord}
+      style={{ "--word-reveal": reveal } as React.CSSProperties}
+    >
       {text}
     </motion.span>
   );
-}
-
-function splitTextIntoLines(text: string, targetLength: number) {
-  const words = text.trim().split(/\s+/);
-  const lines: string[] = [];
-  let currentLine = "";
-
-  words.forEach((word) => {
-    const nextLine = currentLine ? `${currentLine} ${word}` : word;
-
-    if (nextLine.length > targetLength && currentLine) {
-      lines.push(currentLine);
-      currentLine = word;
-      return;
-    }
-
-    currentLine = nextLine;
-  });
-
-  if (currentLine) {
-    lines.push(currentLine);
-  }
-
-  if (lines.length > 1 && lines[lines.length - 1].length < targetLength * 0.45) {
-    const previousWords = lines[lines.length - 2].split(" ");
-    const movedWords = previousWords.splice(Math.max(previousWords.length - 2, 1));
-
-    lines[lines.length - 2] = previousWords.join(" ");
-    lines[lines.length - 1] = `${movedWords.join(" ")} ${lines[lines.length - 1]}`;
-  }
-
-  return lines;
 }
 
 function StoryTitle({ title }: { title: ProductStoryShopContent["title"] }) {

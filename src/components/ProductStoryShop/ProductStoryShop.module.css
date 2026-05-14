@@ -48,8 +48,7 @@
   background: var(--story-bg);
   box-sizing: border-box;
   padding: 0 18px;
-  position: sticky;
-  top: 0;
+  position: relative;
   z-index: 3;
 }
 
@@ -206,7 +205,6 @@
 }
 
 .body {
-  color: rgb(255 255 255 / 40%);
   font-family: var(--font-aeonik);
   font-size: 18px;
   font-weight: 400;
@@ -214,7 +212,6 @@
 }
 
 .section[data-brand="joolz"] .body {
-  color: rgb(19 15 49 / 40%);
   font-family: var(--font-value-sans);
   font-size: 20px;
   line-height: 1.15;
@@ -222,32 +219,13 @@
 
 .revealParagraph {
   color: var(--story-muted-color);
-}
-
-.revealLineStack {
-  display: block;
-}
-
-.revealLine {
-  --story-line-reveal: 0%;
-
-  background: linear-gradient(
-    90deg,
-    var(--story-active-color) 0%,
-    var(--story-active-color) var(--story-line-reveal),
-    var(--story-muted-color) var(--story-line-reveal),
-    var(--story-muted-color) 100%
-  );
-  background-clip: text;
-  color: transparent;
-  display: block;
-  line-height: inherit;
-  max-width: 100%;
   overflow-wrap: break-word;
-  white-space: nowrap;
-  width: fit-content;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+}
+
+.revealWord {
+  --word-reveal: 0%;
+
+  color: color-mix(in srgb, var(--story-muted-color), var(--story-active-color) var(--word-reveal));
 }
 
 .storyLink {

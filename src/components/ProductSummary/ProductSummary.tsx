@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import type { BrandId } from "../../brands/brands";
 import type { ProductColorway, ProductDetail } from "../../data/products";
+import { useScrollDrag } from "../../hooks/useScrollDrag";
 import styles from "./ProductSummary.module.css";
 
 type ProductSummaryProps = {
@@ -18,6 +19,8 @@ export function ProductSummary({
 }: ProductSummaryProps) {
   const [isWishlisted, setIsWishlisted] = useState(false);
   const accessibleProductName = `${product.title}${product.titleSuffix ?? ""}`;
+  const colorwayScrollerRef = useRef<HTMLDivElement | null>(null);
+  const colorwayDrag = useScrollDrag(colorwayScrollerRef);
 
   return (
     <section
@@ -64,7 +67,14 @@ export function ProductSummary({
       </div>
 
       <div className={styles.colorwayBlock} aria-labelledby={`${product.slug}-colorway-label`}>
-        <div className={styles.colorwayScroller} role="listbox" aria-label="Choose a color">
+        <div
+          className={styles.colorwayScroller}
+          role="listbox"
+          aria-label="Choose a color"
+          ref={colorwayScrollerRef}
+          data-dragging={colorwayDrag.isDragging ? "true" : "false"}
+          {...colorwayDrag.handlers}
+        >
           {product.colorways.map((colorway) => {
             const previewSrc = colorway.media[0]?.src ?? colorway.thumbnailSrc;
 
