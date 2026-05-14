@@ -28,13 +28,20 @@
 }
 
 .section[data-brand="joolz"] .decoration {
+  bottom: 0;
   display: block;
-  height: 658px;
+  height: auto;
+  /*
+   * Anchor decoration to the right side of the section, spanning the full
+   * height so it scales with content. The image is wider than it is tall
+   * so we anchor by height; about half of it sits off-screen to the right.
+   */
+  max-height: 100%;
   pointer-events: none;
   position: absolute;
-  right: -286px;
-  top: 392px;
-  width: 586px;
+  right: -32%;
+  top: 0;
+  width: auto;
   z-index: 0;
 }
 
@@ -53,10 +60,7 @@
 }
 
 .section[data-brand="joolz"] .copy {
-  background:
-    var(--story-bg)
-    url("/assets/pdp/story-shop/joolz/smile-bg.svg")
-    no-repeat calc(100% + 286px) 392px / 586px 658px;
+  background: var(--story-bg);
   padding: 0 22px;
 }
 
@@ -306,7 +310,7 @@
 }
 
 .section[data-brand="joolz"] .mediaArea {
-  margin-top: 157px;
+  margin-top: 48px;
 }
 
 .inspiration {

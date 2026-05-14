@@ -1,7 +1,13 @@
 .viewport {
   --carousel-inset: 16px;
   box-sizing: border-box;
-  overflow: hidden;
+  /*
+   * `overflow-x: clip` cuts horizontal overflow (so off-track cards don't
+   * show or steal pointer events), while `overflow-y: visible` lets vertical
+   * decorations like focus rings or box-shadow outlines extend past the card.
+   */
+  overflow-x: clip;
+  overflow-y: visible;
   padding: 0 var(--carousel-inset);
   position: relative;
   width: 100%;
