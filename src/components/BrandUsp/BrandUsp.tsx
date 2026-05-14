@@ -33,11 +33,6 @@ export function BrandUsp({ brand, content }: BrandUspProps) {
 
     return `${height}px`;
   });
-  const activeImage = {
-    alt: content.points[activePoint]?.imageAlt ?? content.imageAlt,
-    src: content.points[activePoint]?.imageSrc ?? content.imageSrc,
-  };
-
   useEffect(() => {
     setActivePoint(0);
     setIsReelExpanded(false);
@@ -125,24 +120,39 @@ export function BrandUsp({ brand, content }: BrandUspProps) {
         <div className={styles.inner}>
           <div className={styles.heroBlock}>
             <UspHeading id={`${brand}-brand-usp-title`} title={content.title} />
-            <motion.div
-              key={activeImage.src}
-              className={styles.imageFrame}
-              data-usp-index={activePoint}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.18, ease: "easeOut" }}
-            >
-              <motion.img
-                className={styles.image}
-                src={activeImage.src}
-                alt={activeImage.alt}
-                loading="lazy"
-                initial={{ scale: shouldReduceMotion ? 1 : 1.08, y: shouldReduceMotion ? 0 : 8 }}
-                animate={{ scale: 1, y: 0 }}
-                transition={{ duration: 0.42, ease: [0.16, 1, 0.3, 1] }}
-              />
-            </motion.div>
+            {/*
+              All USP images render at once, layered absolutely. The active
+              one fades to opacity 1 while the previous fades to 0 — both
+              transitions run simultaneously so there is never a frame
+              where the imageFrame background shows through.
+            */}
+            <div className={styles.imageFrame} data-usp-index={activePoint}>
+              {content.points.map((point, index) => {
+                const isActive = index === activePoint;
+                const src = point.imageSrc ?? content.imageSrc;
+                const alt = point.imageAlt ?? content.imageAlt;
+                return (
+                  <motion.img
+                    key={src}
+                    className={styles.image}
+                    src={src}
+                    alt={alt}
+                    loading="eager"
+                    initial={false}
+                    animate={{
+                      opacity: isActive ? 1 : 0,
+                      scale: isActive ? 1 : 1.08,
+                    }}
+                    transition={
+                      shouldReduceMotion
+                        ? { duration: 0 }
+                        : { duration: 0.9, ease: [0.22, 1, 0.36, 1] }
+                    }
+                    style={{ zIndex: isActive ? 2 : 1 }}
+                  />
+                );
+              })}
+            </div>
           </div>
 
           <div className={styles.points} aria-label="Brand commitments">
