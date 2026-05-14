@@ -14,7 +14,7 @@ import type { ProductColorway, ProductGalleryMedia } from "../../data/products";
 import { useCarouselTrack } from "../../hooks/useCarouselTrack";
 import styles from "./ProductGallery.module.css";
 
-const CLICK_ZOOM_SCALE = 2.25;
+const CLICK_ZOOM_SCALE = 2.85;
 const DOUBLE_TAP_MAX_MS = 320;
 const MAX_PINCH_SCALE = 3;
 const TAP_MOVE_THRESHOLD = 6;
@@ -138,39 +138,45 @@ export function ProductGallery({ brand, colorway, productTitle }: ProductGallery
             ))}
           </motion.div>
         </motion.div>
+      </div>
 
-        <div className={styles.controls} aria-label="Gallery controls">
-          <button
-            className={styles.arrowButton}
-            type="button"
-            aria-label="Previous image"
-            disabled={activeIndex === 0}
-            onClick={() => gotoPage(activeIndex - 1)}
-          >
-            <ChevronIcon direction="left" />
-          </button>
-          <button
-            className={styles.arrowButton}
-            type="button"
-            aria-label="Next image"
-            disabled={activeIndex === maxIndex}
-            onClick={() => gotoPage(activeIndex + 1)}
-          >
-            <ChevronIcon direction="right" />
-          </button>
-        </div>
-
-        <div
-          className={styles.progress}
-          aria-hidden="true"
-          style={{
-            "--slide-count": colorway.media.length,
-            "--active-index": activeIndex,
-          } as CSSProperties}
+      {/*
+        Controls + progress live OUTSIDE the sticky viewport so they scroll
+        with the page (1:1), not the parallax image (50%). Visually this
+        anchors them to the white-page edge that slides up over the gallery
+        as the user scrolls.
+      */}
+      <div className={styles.controls} aria-label="Gallery controls">
+        <button
+          className={styles.arrowButton}
+          type="button"
+          aria-label="Previous image"
+          disabled={activeIndex === 0}
+          onClick={() => gotoPage(activeIndex - 1)}
         >
-          <span className={styles.progressTrack} />
-          <span className={styles.progressIndicator} />
-        </div>
+          <ChevronIcon direction="left" />
+        </button>
+        <button
+          className={styles.arrowButton}
+          type="button"
+          aria-label="Next image"
+          disabled={activeIndex === maxIndex}
+          onClick={() => gotoPage(activeIndex + 1)}
+        >
+          <ChevronIcon direction="right" />
+        </button>
+      </div>
+
+      <div
+        className={styles.progress}
+        aria-hidden="true"
+        style={{
+          "--slide-count": colorway.media.length,
+          "--active-index": activeIndex,
+        } as CSSProperties}
+      >
+        <span className={styles.progressTrack} />
+        <span className={styles.progressIndicator} />
       </div>
     </section>
   );
@@ -258,11 +264,14 @@ function ProductGallerySlide({
 
   const animateZoom = useCallback((nextScale: number, nextOffset: Point = { x: 0, y: 0 }) => {
     const clampedOffset = clampOffset(nextOffset, nextScale);
+    // Preserve the current transform-origin during zoom-out so the scale
+    // animation collapses back toward the click point, not the center.
+    // (When the next zoom-in fires, we re-set origin to the new click point.)
     updateZoomState({
       scale: nextScale,
       x: clampedOffset.x,
       y: clampedOffset.y,
-      origin: nextScale > 1.01 ? zoomStateRef.current.origin : "50% 50%",
+      origin: zoomStateRef.current.origin,
     });
     onZoomChange(nextScale > 1.01);
   }, [clampOffset, onZoomChange, updateZoomState]);

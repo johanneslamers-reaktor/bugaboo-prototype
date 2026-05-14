@@ -81,6 +81,14 @@ export function BrandUsp({ brand, content }: BrandUspProps) {
       return;
     }
 
+    // Freeze active-point tracking while the reel is expanded.
+    // Otherwise the section's height grows, scrollYProgress at the same
+    // scroll position changes, and the USP highlight flips mid-animation —
+    // which reads as the page "jumping" when the reel opens/closes.
+    if (isReelExpanded) {
+      return;
+    }
+
     const nextPoint = Math.min(content.points.length - 1, Math.floor(latest * content.points.length));
     setActivePoint(nextPoint);
   });

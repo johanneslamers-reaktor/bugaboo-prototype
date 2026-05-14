@@ -143,11 +143,16 @@
 
 .controls {
   align-items: center;
-  bottom: 24px;
   display: flex;
   gap: 8px;
+  /*
+   * Anchored to gallery (not sticky viewport) so they ride the white-page
+   * edge as it scrolls up over the parallax image. .gallery is 140svh and
+   * ProductContent slides in at the 70svh mark.
+   */
   position: absolute;
   right: 8px;
+  top: calc(70svh - 56px);
   z-index: 2;
 }
 
@@ -190,21 +195,26 @@
 }
 
 .progress {
-  bottom: 0;
+  /*
+   * Sits exactly at the white-page edge (70svh from gallery top). Anchored
+   * to .gallery, not the sticky viewport, so it scrolls 1:1 with the page
+   * while the parallax image moves at half speed underneath.
+   */
   height: 1px;
   left: 0;
   position: absolute;
+  top: calc(70svh - 1px);
   width: 100%;
   z-index: 2;
 }
 
 .progressTrack,
 .progressIndicator {
-  bottom: 0;
   display: block;
   height: 1px;
   left: 0;
   position: absolute;
+  top: 0;
 }
 
 .progressTrack {
