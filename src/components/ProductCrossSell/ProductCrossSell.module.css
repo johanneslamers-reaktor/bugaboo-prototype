@@ -22,6 +22,12 @@
   margin: 0 16px 24px;
 }
 
+.section[data-brand="bugaboo"] .heading {
+  font-size: 24px;
+  letter-spacing: -0.48px;
+  line-height: 1.1;
+}
+
 .section[data-brand="joolz"] .heading {
   font-family: var(--font-value-sans-joolz);
   font-weight: 700;
