@@ -66,20 +66,23 @@
 
 .decoration {
   align-items: center;
+  aspect-ratio: 1;
   background: #f4eed5;
   border-radius: 16px;
+  box-sizing: border-box;
   display: flex;
   justify-content: center;
   margin: 0 0 18px;
-  padding: 28px;
+  padding: 16px;
   width: 100%;
 }
 
 .decoration img {
   display: block;
+  /* Let the SVG keep its natural aspect ratio — only constrain max bounds. */
   height: auto;
-  max-height: 260px;
-  max-width: 70%;
+  max-height: 88%;
+  max-width: 88%;
   object-fit: contain;
   width: auto;
 }

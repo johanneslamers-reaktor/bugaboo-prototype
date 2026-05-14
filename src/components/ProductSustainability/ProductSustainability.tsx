@@ -59,15 +59,21 @@ export function ProductSustainability({ brand, content }: ProductSustainabilityP
 
       <div className={styles.galleryWrapper}>
         <div className={styles.imageStage}>
-          <img
-            key={activeImage.id}
-            className={styles.galleryImage}
-            src={activeImage.src}
-            alt={activeImage.alt}
-            loading="lazy"
-            decoding="async"
-            draggable={false}
-          />
+          <AnimatePresence mode="popLayout" initial={false}>
+            <motion.img
+              key={activeImage.id}
+              className={styles.galleryImage}
+              src={activeImage.src}
+              alt={activeImage.alt}
+              loading="lazy"
+              decoding="async"
+              draggable={false}
+              initial={shouldReduceMotion ? false : { opacity: 0, scale: 1.06 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={shouldReduceMotion ? undefined : { opacity: 0, scale: 1.02 }}
+              transition={{ duration: 0.42, ease: [0.22, 1, 0.36, 1] }}
+            />
+          </AnimatePresence>
 
           {activeImage.hotspots.map((hotspot) => (
             <HotspotDot
