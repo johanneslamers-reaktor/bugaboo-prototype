@@ -102,7 +102,8 @@ function FeatureCard({
     >
       <figure className={styles.media}>
         {item.media.type === "video" ? (
-          <video
+          <motion.video
+            {...(shouldReduceMotion ? {} : ENTRANCE_ZOOM)}
             src={item.media.src}
             poster={item.media.posterSrc}
             aria-label={item.media.alt}

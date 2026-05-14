@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { motion, useReducedMotion } from "motion/react";
 import type { BrandId } from "../../brands/brands";
 import type { ProductVideoStoryContent } from "../../data/products";
+import { ENTRANCE_ZOOM } from "../../lib/motion-presets";
 import styles from "./ProductVideoStory.module.css";
 
 type ProductVideoStoryProps = {
@@ -61,7 +62,8 @@ export function ProductVideoStory({ brand, content }: ProductVideoStoryProps) {
     >
       <div className={styles.frame}>
         {content.videoSrc ? (
-          <video
+          <motion.video
+            {...(shouldReduceMotion ? {} : ENTRANCE_ZOOM)}
             ref={videoRef}
             className={styles.media}
             src={content.videoSrc}
@@ -72,7 +74,14 @@ export function ProductVideoStory({ brand, content }: ProductVideoStoryProps) {
             preload="metadata"
           />
         ) : (
-          <img className={styles.media} src={content.posterSrc} alt={content.posterAlt} loading="lazy" draggable={false} />
+          <motion.img
+            {...(shouldReduceMotion ? {} : ENTRANCE_ZOOM)}
+            className={styles.media}
+            src={content.posterSrc}
+            alt={content.posterAlt}
+            loading="eager"
+            draggable={false}
+          />
         )}
 
         <motion.h2
