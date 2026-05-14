@@ -2,6 +2,7 @@ import { useCallback, useRef, useState } from "react";
 import { motion, useReducedMotion, useScroll, useTransform, type MotionValue } from "motion/react";
 import type { BrandId } from "../../brands/brands";
 import type { ProductStoryShopContent } from "../../data/products";
+import { useScrollDrag } from "../../hooks/useScrollDrag";
 import styles from "./ProductStoryShop.module.css";
 
 type ProductStoryShopProps = {
@@ -12,6 +13,7 @@ type ProductStoryShopProps = {
 export function ProductStoryShop({ brand, content }: ProductStoryShopProps) {
   const sectionRef = useRef<HTMLElement | null>(null);
   const railRef = useRef<HTMLDivElement | null>(null);
+  const railDrag = useScrollDrag(railRef);
   const [activeIndex, setActiveIndex] = useState(0);
   const shouldReduceMotion = useReducedMotion();
   const { scrollYProgress } = useScroll({
@@ -142,7 +144,14 @@ export function ProductStoryShop({ brand, content }: ProductStoryShopProps) {
           />
         </motion.figure>
 
-        <div className={styles.productRail} ref={railRef} onScroll={handleScroll} aria-label="Shoppable product carousel">
+        <div
+          className={styles.productRail}
+          ref={railRef}
+          onScroll={handleScroll}
+          data-dragging={railDrag.isDragging ? "true" : "false"}
+          aria-label="Shoppable product carousel"
+          {...railDrag.handlers}
+        >
           {content.products.map((product) => (
             <motion.button
               className={styles.productCard}
