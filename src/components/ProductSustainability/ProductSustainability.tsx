@@ -6,6 +6,7 @@ import type {
   ProductSustainabilityHotspot,
 } from "../../data/products";
 import { Hotspot } from "../Hotspot";
+import { ENTRANCE_ZOOM } from "../../lib/motion-presets";
 import styles from "./ProductSustainability.module.css";
 
 type ProductSustainabilityProps = {
@@ -51,13 +52,19 @@ export function ProductSustainability({ brand, content }: ProductSustainabilityP
 
         {content.topImage ? (
           <figure className={styles.topImage}>
-            <img src={content.topImage.src} alt={content.topImage.alt} loading="lazy" decoding="async" />
+            <motion.img
+              {...(shouldReduceMotion ? {} : ENTRANCE_ZOOM)}
+              src={content.topImage.src}
+              alt={content.topImage.alt}
+              loading="eager"
+              decoding="async"
+            />
           </figure>
         ) : null}
 
         {content.decoration ? (
           <figure className={styles.decoration} aria-hidden="true">
-            <img src={content.decoration.src} alt={content.decoration.alt} loading="lazy" decoding="async" />
+            <img src={content.decoration.src} alt={content.decoration.alt} loading="eager" decoding="async" />
           </figure>
         ) : null}
 
@@ -83,7 +90,7 @@ export function ProductSustainability({ brand, content }: ProductSustainabilityP
               className={styles.galleryImage}
               src={activeImage.src}
               alt={activeImage.alt}
-              loading="lazy"
+              loading="eager"
               decoding="async"
               draggable={false}
               initial={shouldReduceMotion ? false : { opacity: 0, scale: 1.06 }}
@@ -138,7 +145,7 @@ export function ProductSustainability({ brand, content }: ProductSustainabilityP
                   data-active={index === activeIndex ? "true" : "false"}
                   onClick={() => selectImage(index)}
                 >
-                  <img src={image.thumbnailSrc} alt="" loading="lazy" decoding="async" draggable={false} />
+                  <img src={image.thumbnailSrc} alt="" loading="eager" decoding="async" draggable={false} />
                 </button>
               ))}
             </div>
@@ -177,7 +184,7 @@ function HotspotCard({
     >
       {hotspot.iconSrc ? (
         <span className={styles.hotspotCardThumb}>
-          <img src={hotspot.iconSrc} alt={hotspot.iconAlt ?? ""} loading="lazy" />
+          <img src={hotspot.iconSrc} alt={hotspot.iconAlt ?? ""} loading="eager" />
         </span>
       ) : null}
       <div className={styles.hotspotCardCopy}>

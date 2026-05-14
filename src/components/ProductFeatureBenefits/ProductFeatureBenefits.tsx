@@ -3,6 +3,7 @@ import { motion, useReducedMotion } from "motion/react";
 import type { BrandId } from "../../brands/brands";
 import type { ProductFeatureBenefitsContent, ProductFeatureBenefitItem } from "../../data/products";
 import { Carousel, useCarousel } from "../Carousel";
+import { ENTRANCE_ZOOM } from "../../lib/motion-presets";
 import styles from "./ProductFeatureBenefits.module.css";
 
 type ProductFeatureBenefitsProps = {
@@ -113,7 +114,8 @@ function FeatureCard({
             style={{ objectPosition: item.media.objectPosition }}
           />
         ) : (
-          <img
+          <motion.img
+            {...(shouldReduceMotion ? {} : ENTRANCE_ZOOM)}
             src={item.media.src}
             alt={item.media.alt}
             loading={index === 0 ? "eager" : "lazy"}

@@ -4,6 +4,7 @@ import type { BrandId } from "../../brands/brands";
 import type { ProductShopTheLookContent, ProductShopTheLookProduct } from "../../data/products";
 import { Hotspot } from "../Hotspot";
 import { useCarouselTrack } from "../../hooks/useCarouselTrack";
+import { ENTRANCE_ZOOM } from "../../lib/motion-presets";
 import styles from "./ProductShopTheLook.module.css";
 
 const PRODUCT_CARD_STEP = 360; // 352px card + 8px gap
@@ -39,7 +40,13 @@ export function ProductShopTheLook({ brand, content }: ProductShopTheLookProps) 
 
         {content.topImage ? (
           <figure className={styles.topImage}>
-            <img src={content.topImage.src} alt={content.topImage.alt} loading="lazy" decoding="async" />
+            <motion.img
+              {...(shouldReduceMotion ? {} : ENTRANCE_ZOOM)}
+              src={content.topImage.src}
+              alt={content.topImage.alt}
+              loading="eager"
+              decoding="async"
+            />
           </figure>
         ) : null}
 
@@ -59,11 +66,12 @@ export function ProductShopTheLook({ brand, content }: ProductShopTheLookProps) 
 
       <div className={styles.heroWrapper}>
         <div className={styles.heroImageBox}>
-          <img
+          <motion.img
+            {...(shouldReduceMotion ? {} : ENTRANCE_ZOOM)}
             className={styles.heroImage}
             src={content.heroImage.src}
             alt={content.heroImage.alt}
-            loading="lazy"
+            loading="eager"
             decoding="async"
             draggable={false}
           />
@@ -114,7 +122,7 @@ function ProductCard({
       whileTap={shouldReduceMotion ? undefined : { scale: 0.985 }}
     >
       <span className={styles.productThumb}>
-        <img src={product.thumbnailSrc} alt={product.thumbnailAlt} loading="lazy" decoding="async" draggable={false} />
+        <img src={product.thumbnailSrc} alt={product.thumbnailAlt} loading="eager" decoding="async" draggable={false} />
       </span>
       <span className={styles.productCopy}>
         <strong>{product.title}</strong>

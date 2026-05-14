@@ -1,5 +1,7 @@
+import { motion, useReducedMotion } from "motion/react";
 import type { BrandId } from "../../brands/brands";
 import type { ProductImpactContent, ProductImpactItem } from "../../data/products";
+import { ENTRANCE_ZOOM } from "../../lib/motion-presets";
 import styles from "./ProductImpact.module.css";
 
 type ProductImpactProps = {
@@ -8,11 +10,18 @@ type ProductImpactProps = {
 };
 
 export function ProductImpact({ brand, content }: ProductImpactProps) {
+  const shouldReduceMotion = useReducedMotion();
   return (
     <section className={styles.impact} data-brand={brand} data-node-id={content.nodeId}>
       <div className={styles.hero}>
         <figure className={styles.heroMedia}>
-          <img src={content.hero.imageSrc} alt={content.hero.imageAlt} loading="lazy" decoding="async" />
+          <motion.img
+            {...(shouldReduceMotion ? {} : ENTRANCE_ZOOM)}
+            src={content.hero.imageSrc}
+            alt={content.hero.imageAlt}
+            loading="eager"
+            decoding="async"
+          />
         </figure>
         <div className={styles.heroCopy}>
           <h2>{content.hero.title}</h2>

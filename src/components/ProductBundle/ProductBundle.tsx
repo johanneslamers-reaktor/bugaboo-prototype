@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { motion, useReducedMotion } from "motion/react";
 import type { BrandId } from "../../brands/brands";
 import type { ProductBundleContent } from "../../data/products";
+import { ENTRANCE_ZOOM } from "../../lib/motion-presets";
 import styles from "./ProductBundle.module.css";
 
 type ProductBundleProps = {
@@ -52,7 +53,13 @@ export function ProductBundle({ brand, content }: ProductBundleProps) {
 
       <article className={styles.bundleCard} aria-label={variant.title}>
         <figure className={styles.hero}>
-          <img src={variant.heroImageSrc} alt={variant.heroImageAlt} loading="eager" decoding="async" />
+          <motion.img
+            {...(shouldReduceMotion ? {} : ENTRANCE_ZOOM)}
+            src={variant.heroImageSrc}
+            alt={variant.heroImageAlt}
+            loading="eager"
+            decoding="async"
+          />
           <span className={styles.saveBadge}>{variant.saveLabel}</span>
           <button
             className={styles.wishlistButton}
