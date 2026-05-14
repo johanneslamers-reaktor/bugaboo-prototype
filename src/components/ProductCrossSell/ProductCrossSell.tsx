@@ -87,7 +87,7 @@ function CrossSellCard({
           >
             <HeartIcon filled={isWishlisted} />
           </motion.button>
-          <img src={item.imageSrc} alt={item.imageAlt} loading="lazy" decoding="async" draggable={false} />
+          <img src={item.imageSrc} alt={item.imageAlt} loading="eager" decoding="async" draggable={false} />
         </div>
         <div className={styles.imageProgress} aria-hidden="true">
           <span />

@@ -118,7 +118,10 @@ function FeatureCard({
             {...(shouldReduceMotion ? {} : ENTRANCE_ZOOM)}
             src={item.media.src}
             alt={item.media.alt}
-            loading={index === 0 ? "eager" : "lazy"}
+            // Always eager — the carousel scrolls horizontally so adjacent
+            // cards can be peeking already and lazy-loaded cards animate
+            // into blank space.
+            loading="eager"
             decoding="async"
             draggable={false}
             style={{ objectPosition: item.media.objectPosition }}

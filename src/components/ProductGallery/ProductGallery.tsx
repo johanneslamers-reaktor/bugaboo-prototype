@@ -12,6 +12,7 @@ import {
 import type { BrandId } from "../../brands/brands";
 import type { ProductColorway, ProductGalleryMedia } from "../../data/products";
 import { useCarouselTrack } from "../../hooks/useCarouselTrack";
+import { ENTRANCE_ZOOM } from "../../lib/motion-presets";
 import styles from "./ProductGallery.module.css";
 
 const CLICK_ZOOM_SCALE = 2.85;
@@ -126,7 +127,12 @@ export function ProductGallery({ brand, colorway, productTitle }: ProductGallery
             drag={canDragCarousel ? "x" : false}
           >
             {colorway.media.map((item, index) => (
-              <figure className={styles.slide} data-fit={item.fit} key={item.id}>
+              <motion.figure
+                className={styles.slide}
+                data-fit={item.fit}
+                key={item.id}
+                {...(shouldReduceMotion ? {} : ENTRANCE_ZOOM)}
+              >
                 <ProductGallerySlide
                   item={item}
                   isActive={index === activeIndex}
@@ -134,7 +140,7 @@ export function ProductGallery({ brand, colorway, productTitle }: ProductGallery
                   onZoomChange={(nextIsZoomed) => setZoomedMediaId(nextIsZoomed ? item.id : null)}
                   onZoomGestureChange={setIsZoomGestureActive}
                 />
-              </figure>
+              </motion.figure>
             ))}
           </motion.div>
         </motion.div>
