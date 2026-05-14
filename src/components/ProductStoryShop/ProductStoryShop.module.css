@@ -333,35 +333,12 @@
   -webkit-user-drag: none;
 }
 
-.productRail {
-  cursor: grab;
-  display: flex;
-  gap: 12px;
+.productCarousel {
   margin-top: 20px;
-  overflow-x: auto;
-  padding: 0 16px;
-  scroll-padding-inline: 16px;
-  scroll-snap-type: x mandatory;
-  scrollbar-width: none;
-  touch-action: pan-x pan-y;
-  user-select: none;
-  width: 100%;
-  -webkit-overflow-scrolling: touch;
 }
 
-.productRail[data-dragging="true"] {
-  cursor: grabbing;
-}
-
-.section[data-brand="joolz"] .productRail {
-  gap: 12px;
+.section[data-brand="joolz"] .productCarousel {
   margin-top: 24px;
-  padding: 0 20px;
-  scroll-padding-inline: 20px;
-}
-
-.productRail::-webkit-scrollbar {
-  display: none;
 }
 
 .controls {

@@ -1,8 +1,8 @@
-import { useCallback, useRef, useState } from "react";
+import { useRef } from "react";
 import { motion, useReducedMotion, useScroll, useTransform, type MotionValue } from "motion/react";
 import type { BrandId } from "../../brands/brands";
-import type { ProductStoryShopContent } from "../../data/products";
-import { useScrollDrag } from "../../hooks/useScrollDrag";
+import type { ProductStoryShopContent, ProductStoryShopCard } from "../../data/products";
+import { Carousel, useCarousel } from "../Carousel";
 import styles from "./ProductStoryShop.module.css";
 
 type ProductStoryShopProps = {
@@ -12,9 +12,6 @@ type ProductStoryShopProps = {
 
 export function ProductStoryShop({ brand, content }: ProductStoryShopProps) {
   const sectionRef = useRef<HTMLElement | null>(null);
-  const railRef = useRef<HTMLDivElement | null>(null);
-  const railDrag = useScrollDrag(railRef);
-  const [activeIndex, setActiveIndex] = useState(0);
   const shouldReduceMotion = useReducedMotion();
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -22,69 +19,9 @@ export function ProductStoryShop({ brand, content }: ProductStoryShopProps) {
   });
   const leadText = `${content.lead.strong}${content.lead.muted}`;
 
-  const scrollToIndex = useCallback((index: number) => {
-    const rail = railRef.current;
-
-    if (!rail) {
-      return;
-    }
-
-    const nextIndex = Math.max(0, Math.min(content.products.length - 1, index));
-    const card = rail.children.item(nextIndex) as HTMLElement | null;
-
-    if (!card) {
-      return;
-    }
-
-    rail.scrollTo({
-      behavior: shouldReduceMotion ? "auto" : "smooth",
-      left: card.offsetLeft - rail.offsetLeft,
-    });
-    setActiveIndex(nextIndex);
-  }, [content.products.length, shouldReduceMotion]);
-
-  const handleScroll = useCallback(() => {
-    const rail = railRef.current;
-
-    if (!rail) {
-      return;
-    }
-
-    const cards = Array.from(rail.children) as HTMLElement[];
-    const nearestIndex = cards.reduce((closestIndex, card, index) => {
-      const closestDistance = Math.abs(cards[closestIndex].offsetLeft - rail.scrollLeft);
-      const distance = Math.abs(card.offsetLeft - rail.scrollLeft);
-
-      return distance < closestDistance ? index : closestIndex;
-    }, 0);
-
-    setActiveIndex(nearestIndex);
-  }, []);
-
-  const controls = (
-    <div className={styles.controls} aria-label="Shoppable products">
-      <motion.button
-        className={styles.control}
-        type="button"
-        aria-label="Previous product"
-        disabled={activeIndex === 0}
-        onClick={() => scrollToIndex(activeIndex - 1)}
-        whileTap={shouldReduceMotion ? undefined : { scale: 0.94 }}
-      >
-        <span aria-hidden="true" />
-      </motion.button>
-      <motion.button
-        className={styles.control}
-        type="button"
-        aria-label="Next product"
-        disabled={activeIndex === content.products.length - 1}
-        onClick={() => scrollToIndex(activeIndex + 1)}
-        whileTap={shouldReduceMotion ? undefined : { scale: 0.94 }}
-      >
-        <span aria-hidden="true" />
-      </motion.button>
-    </div>
-  );
+  const productItems = content.products.map((product) => (
+    <ProductCard key={product.id} product={product} shouldReduceMotion={shouldReduceMotion ?? false} />
+  ));
 
   return (
     <section className={styles.section} data-brand={brand} data-node-id={content.nodeId} ref={sectionRef}>
@@ -144,46 +81,69 @@ export function ProductStoryShop({ brand, content }: ProductStoryShopProps) {
           />
         </motion.figure>
 
-        <div
-          className={styles.productRail}
-          ref={railRef}
-          onScroll={handleScroll}
-          data-dragging={railDrag.isDragging ? "true" : "false"}
-          aria-label="Shoppable product carousel"
-          {...railDrag.handlers}
+        <Carousel
+          items={productItems}
+          gap={12}
+          inset={16}
+          loop
+          ariaLabel="Shoppable product carousel"
+          className={styles.productCarousel}
         >
-          {content.products.map((product) => (
-            <motion.button
-              className={styles.productCard}
-              type="button"
-              key={product.id}
-              whileTap={shouldReduceMotion ? undefined : { scale: 0.985 }}
-            >
-              <span className={styles.productImage}>
-                <img src={product.imageSrc} alt={product.imageAlt} loading="lazy" decoding="async" draggable={false} />
-              </span>
-              <span className={styles.productCopy}>
-                <strong>{product.label}</strong>
-                <span>{product.title}</span>
-                <span>{product.subtitle}</span>
-              </span>
-              <span className={styles.productIcon} aria-hidden="true" />
-            </motion.button>
-          ))}
-        </div>
-
-        {controls}
+          <StoryControls shouldReduceMotion={shouldReduceMotion ?? false} />
+        </Carousel>
       </div>
     </section>
   );
 }
 
+function StoryControls({ shouldReduceMotion }: { shouldReduceMotion: boolean }) {
+  const { nextPage, prevPage } = useCarousel();
+  return (
+    <div className={styles.controls} aria-label="Shoppable products">
+      <motion.button
+        className={styles.control}
+        type="button"
+        aria-label="Previous product"
+        onClick={prevPage}
+        whileTap={shouldReduceMotion ? undefined : { scale: 0.94 }}
+      >
+        <span aria-hidden="true" />
+      </motion.button>
+      <motion.button
+        className={styles.control}
+        type="button"
+        aria-label="Next product"
+        onClick={nextPage}
+        whileTap={shouldReduceMotion ? undefined : { scale: 0.94 }}
+      >
+        <span aria-hidden="true" />
+      </motion.button>
+    </div>
+  );
+}
+
+function ProductCard({ product, shouldReduceMotion }: { product: ProductStoryShopCard; shouldReduceMotion: boolean }) {
+  return (
+    <motion.button
+      className={styles.productCard}
+      type="button"
+      whileTap={shouldReduceMotion ? undefined : { scale: 0.985 }}
+    >
+      <span className={styles.productImage}>
+        <img src={product.imageSrc} alt={product.imageAlt} loading="lazy" decoding="async" draggable={false} />
+      </span>
+      <span className={styles.productCopy}>
+        <strong>{product.label}</strong>
+        <span>{product.title}</span>
+        <span>{product.subtitle}</span>
+      </span>
+      <span className={styles.productIcon} aria-hidden="true" />
+    </motion.button>
+  );
+}
+
 /**
  * Word-by-word reveal driven by scroll progress.
- *
- * Each word's opacity ramps from muted to active as scrollYProgress crosses
- * its slice of the `range`. Words remain inline so the browser wraps the
- * paragraph naturally — no nowrap, no pre-measured line counts, no overflow.
  */
 function RevealParagraph({
   className,
@@ -198,7 +158,6 @@ function RevealParagraph({
   shouldReduceMotion: boolean | null;
   text: string;
 }) {
-  // Split on whitespace, keep words and spaces separately so layout matches source.
   const tokens = text.split(/(\s+)/);
   const wordCount = tokens.filter((token) => token.trim().length > 0).length;
 
@@ -208,7 +167,6 @@ function RevealParagraph({
     <p className={`${className} ${styles.revealParagraph}`} aria-label={text}>
       {tokens.map((token, index) => {
         if (token.trim().length === 0) {
-          // Preserve whitespace as plain text so the browser wraps naturally.
           return <span key={`space-${index}`}>{token}</span>;
         }
 
@@ -245,15 +203,9 @@ function RevealWord({
   text: string;
 }) {
   const rangeSize = range[1] - range[0];
-  // Each word reveals over ~1.6 word-slices so adjacent words overlap, giving
-  // a sweeping read-along feel rather than choppy on/off transitions.
   const sliceSize = rangeSize / Math.max(wordCount, 1);
   const wordStart = range[0] + sliceSize * wordIndex;
   const wordEnd = Math.min(range[1], wordStart + sliceSize * 1.6);
-  // Drive a 0%→100% mix between the muted and active story colors via
-  // CSS `color-mix`. Per-brand colors are set in CSS; this just animates
-  // the percentage so every word smoothly resolves to white (bugaboo)
-  // or deep blue (joolz).
   const reveal = useTransform(progress, [wordStart, wordEnd], ["0%", "100%"]);
 
   if (shouldReduceMotion) {
