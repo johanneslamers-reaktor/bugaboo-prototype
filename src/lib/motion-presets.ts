@@ -17,11 +17,10 @@ export const ENTRANCE_ZOOM = {
   initial: { opacity: 0, scale: 1.08 },
   whileInView: { opacity: 1, scale: 1 },
   /*
-   * `margin` triggers the IntersectionObserver before the element reaches
-   * the viewport edge — gives the browser time to decode the image so the
-   * animation doesn't run on blank space. `once: true` so it doesn't
-   * re-trigger on scroll-up.
+   * Fire when ~25% of the element is visible. No pre-trigger margin —
+   * previous 200px margin meant elements high on the page were
+   * "in view" before paint and the animation completed unseen.
    */
-  viewport: { once: true, amount: 0.15, margin: "200px 0px" },
+  viewport: { once: true, amount: 0.25 },
   transition: { duration: 1.2, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] },
 };
