@@ -109,7 +109,12 @@ export type ProductBundleContent = {
   nodeId: string;
   eyebrow: string;
   heading: string;
-  filters: string[];
+  variants: ProductBundleVariant[];
+};
+
+export type ProductBundleVariant = {
+  id: string;
+  label: string;
   saveLabel: string;
   brandLabel: string;
   title: string;
@@ -379,42 +384,88 @@ export const productCatalog: Record<BrandId, ProductDetail[]> = {
         nodeId: "8677:5872",
         eyebrow: "Bundle & save",
         heading: "Everything you need for your Fox 5 Renew.",
-        filters: ["Travel system", "Ultimate newborn"],
-        saveLabel: "You save € 274,95",
-        brandLabel: "Bugaboo",
-        title: "Fox 5 Renew Travel System Bundle",
-        heroImageSrc: "/assets/pdp/bundles/bugaboo/travel-system-hero.png",
-        heroImageAlt: "Bugaboo Fox 5 Renew travel system bundle outdoors",
-        thumbnailSrc: "/assets/pdp/bundles/bugaboo/thumb.png",
-        thumbnailAlt: "Bugaboo Fox 5 Renew bundle thumbnail",
-        compareAtPrice: "€ 2.729,00",
-        price: "€ 2.159,00",
-        ctaLabel: "Shop bundle",
-        items: [
+        variants: [
           {
-            id: "stroller",
-            imageSrc: "/assets/pdp/bundles/bugaboo/stroller.png",
-            imageAlt: "Fox 5 Renew stroller with bassinet",
+            id: "travel-system",
+            label: "Travel system",
+            saveLabel: "You save € 274,95",
+            brandLabel: "Bugaboo",
+            title: "Fox 5 Renew Travel System Bundle",
+            heroImageSrc: "/assets/pdp/bundles/bugaboo/travel-system-hero.png",
+            heroImageAlt: "Bugaboo Fox 5 Renew travel system bundle outdoors",
+            thumbnailSrc: "/assets/pdp/bundles/bugaboo/thumb.png",
+            thumbnailAlt: "Bugaboo Fox 5 Renew bundle thumbnail",
+            compareAtPrice: "€ 2.729,00",
+            price: "€ 2.159,00",
+            ctaLabel: "Shop bundle",
+            items: [
+              {
+                id: "stroller",
+                imageSrc: "/assets/pdp/bundles/bugaboo/stroller.png",
+                imageAlt: "Fox 5 Renew stroller with bassinet",
+              },
+              {
+                id: "seat",
+                imageSrc: "/assets/pdp/bundles/bugaboo/seat.png",
+                imageAlt: "Fox 5 Renew seat fabric",
+              },
+              {
+                id: "bag",
+                imageSrc: "/assets/pdp/bundles/bugaboo/bag.png",
+                imageAlt: "Bugaboo transport bag",
+              },
+              {
+                id: "bassinet",
+                imageSrc: "/assets/pdp/bundles/bugaboo/bassinet.png",
+                imageAlt: "Fox 5 Renew bassinet",
+              },
+              {
+                id: "car-seat",
+                imageSrc: "/assets/pdp/bundles/bugaboo/car-seat.png",
+                imageAlt: "Bugaboo car seat accessory",
+              },
+            ],
           },
           {
-            id: "seat",
-            imageSrc: "/assets/pdp/bundles/bugaboo/seat.png",
-            imageAlt: "Fox 5 Renew seat fabric",
-          },
-          {
-            id: "bag",
-            imageSrc: "/assets/pdp/bundles/bugaboo/bag.png",
-            imageAlt: "Bugaboo transport bag",
-          },
-          {
-            id: "bassinet",
-            imageSrc: "/assets/pdp/bundles/bugaboo/bassinet.png",
-            imageAlt: "Fox 5 Renew bassinet",
-          },
-          {
-            id: "car-seat",
-            imageSrc: "/assets/pdp/bundles/bugaboo/car-seat.png",
-            imageAlt: "Bugaboo car seat accessory",
+            id: "ultimate-newborn",
+            label: "Ultimate newborn",
+            saveLabel: "You save € 274,95",
+            brandLabel: "Bugaboo",
+            title: "Fox 5 Renew Ultimate Newborn Bundle",
+            heroImageSrc: "/assets/pdp/bundles/bugaboo/ultimate-newborn/hero.png",
+            heroImageAlt: "Mother holding Bugaboo Fox 5 Renew newborn bassinet outdoors",
+            thumbnailSrc: "/assets/pdp/bundles/bugaboo/ultimate-newborn/thumb.png",
+            thumbnailAlt: "Fox 5 Renew bassinet thumbnail",
+            compareAtPrice: "€ 2.563,95",
+            price: "€ 2.289,00",
+            ctaLabel: "Shop bundle",
+            items: [
+              {
+                id: "cup-holder",
+                imageSrc: "/assets/pdp/bundles/bugaboo/ultimate-newborn/cup-holder.png",
+                imageAlt: "Bugaboo cup holder",
+              },
+              {
+                id: "changing-bag",
+                imageSrc: "/assets/pdp/bundles/bugaboo/ultimate-newborn/changing-bag.png",
+                imageAlt: "Bugaboo changing bag",
+              },
+              {
+                id: "car-seat",
+                imageSrc: "/assets/pdp/bundles/bugaboo/ultimate-newborn/car-seat.png",
+                imageAlt: "Bugaboo car seat",
+              },
+              {
+                id: "footmuff",
+                imageSrc: "/assets/pdp/bundles/bugaboo/ultimate-newborn/footmuff.png",
+                imageAlt: "Bugaboo seat liner",
+              },
+              {
+                id: "stargazer-toy",
+                imageSrc: "/assets/pdp/bundles/bugaboo/ultimate-newborn/stargazer-toy.png",
+                imageAlt: "Stargazer hanging toy",
+              },
+            ],
           },
         ],
       },

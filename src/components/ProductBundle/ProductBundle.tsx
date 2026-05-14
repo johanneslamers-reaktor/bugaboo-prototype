@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion, useReducedMotion } from "motion/react";
 import type { BrandId } from "../../brands/brands";
 import type { ProductBundleContent } from "../../data/products";
@@ -10,9 +10,23 @@ type ProductBundleProps = {
 };
 
 export function ProductBundle({ brand, content }: ProductBundleProps) {
-  const [selectedFilter, setSelectedFilter] = useState(content.filters[0]);
-  const [isWishlisted, setIsWishlisted] = useState(false);
+  const [selectedVariantId, setSelectedVariantId] = useState(content.variants[0]?.id);
+  const [wishlistedByVariant, setWishlistedByVariant] = useState<Record<string, boolean>>({});
   const shouldReduceMotion = useReducedMotion();
+  const variant = content.variants.find((v) => v.id === selectedVariantId) ?? content.variants[0];
+
+  // Preload all variant images on mount so tab switches feel instant.
+  useEffect(() => {
+    content.variants.forEach((v) => {
+      [v.heroImageSrc, v.thumbnailSrc, ...v.items.map((i) => i.imageSrc)].forEach((src) => {
+        const img = new Image();
+        img.src = src;
+      });
+    });
+  }, [content.variants]);
+
+  if (!variant) return null;
+  const isWishlisted = wishlistedByVariant[variant.id] === true;
 
   return (
     <section className={styles.bundle} data-brand={brand} data-node-id={content.nodeId}>
@@ -22,48 +36,53 @@ export function ProductBundle({ brand, content }: ProductBundleProps) {
       </div>
 
       <div className={styles.filters} aria-label="Bundle type">
-        {content.filters.map((filter) => (
+        {content.variants.map((v) => (
           <button
             className={styles.filterButton}
-            data-active={selectedFilter === filter ? "true" : "false"}
+            data-active={selectedVariantId === v.id ? "true" : "false"}
             type="button"
-            aria-pressed={selectedFilter === filter}
-            onClick={() => setSelectedFilter(filter)}
-            key={filter}
+            aria-pressed={selectedVariantId === v.id}
+            onClick={() => setSelectedVariantId(v.id)}
+            key={v.id}
           >
-            {filter}
+            {v.label}
           </button>
         ))}
       </div>
 
-      <article className={styles.bundleCard} aria-label={content.title}>
+      <article className={styles.bundleCard} aria-label={variant.title}>
         <figure className={styles.hero}>
-          <img src={content.heroImageSrc} alt={content.heroImageAlt} loading="lazy" decoding="async" />
-          <span className={styles.saveBadge}>{content.saveLabel}</span>
+          <img src={variant.heroImageSrc} alt={variant.heroImageAlt} loading="eager" decoding="async" />
+          <span className={styles.saveBadge}>{variant.saveLabel}</span>
           <button
             className={styles.wishlistButton}
             type="button"
-            aria-label={isWishlisted ? `Remove ${content.title} from wishlist` : `Add ${content.title} to wishlist`}
+            aria-label={isWishlisted ? `Remove ${variant.title} from wishlist` : `Add ${variant.title} to wishlist`}
             aria-pressed={isWishlisted}
-            onClick={() => setIsWishlisted((current) => !current)}
+            onClick={() =>
+              setWishlistedByVariant((current) => ({
+                ...current,
+                [variant.id]: !current[variant.id],
+              }))
+            }
           >
-            <img src="/assets/pdp/bundles/bugaboo/heart.svg" alt="" loading="lazy" />
+            <img src="/assets/pdp/bundles/bugaboo/heart.svg" alt="" loading="eager" />
           </button>
           <figcaption className={styles.heroCaption}>
-            <span>{content.brandLabel}</span>
-            <strong>{content.title}</strong>
+            <span>{variant.brandLabel}</span>
+            <strong>{variant.title}</strong>
           </figcaption>
         </figure>
 
         <div className={styles.productGrid} aria-label="Bundle contents">
-          {content.items.map((item, index) => (
+          {variant.items.map((item, index) => (
             <div
               className={styles.productTile}
               data-large={index === 0 ? "true" : "false"}
               key={item.id}
             >
-              <img src={item.imageSrc} alt={item.imageAlt} loading="lazy" decoding="async" draggable={false} />
-              <img className={styles.plusIcon} src="/assets/pdp/bundles/bugaboo/plus.svg" alt="" loading="lazy" />
+              <img src={item.imageSrc} alt={item.imageAlt} loading="eager" decoding="async" draggable={false} />
+              <img className={styles.plusIcon} src="/assets/pdp/bundles/bugaboo/plus.svg" alt="" loading="eager" />
             </div>
           ))}
         </div>
@@ -77,17 +96,17 @@ export function ProductBundle({ brand, content }: ProductBundleProps) {
         >
           <div className={styles.bundlePrice}>
             <span className={styles.thumbnail}>
-              <img src={content.thumbnailSrc} alt={content.thumbnailAlt} loading="lazy" decoding="async" />
+              <img src={variant.thumbnailSrc} alt={variant.thumbnailAlt} loading="eager" decoding="async" />
             </span>
-            <span className={styles.compareAt}>{content.compareAtPrice}</span>
-            <span className={styles.price}>{content.price}</span>
+            <span className={styles.compareAt}>{variant.compareAtPrice}</span>
+            <span className={styles.price}>{variant.price}</span>
           </div>
           <motion.button
             className={styles.cta}
             type="button"
             whileTap={shouldReduceMotion ? undefined : { scale: 0.97 }}
           >
-            {content.ctaLabel}
+            {variant.ctaLabel}
           </motion.button>
         </motion.div>
       </article>
