@@ -30,13 +30,13 @@
     #ffffff 100%
   );
   /*
-   * 50vh of buffer below the CTA — guarantees the solid-white tail of
-   * the gradient continues underneath Safari's bottom URL bar pill
-   * (which can be 60-100px tall) and the home indicator safe area.
-   * The gradient stops keep the visible fade compact regardless of the
-   * element's height.
+   * 100lvh of buffer below the CTA covers iOS Safari's URL bar pill
+   * regardless of expanded/collapsed state (lvh = large viewport
+   * height, biggest possible). The visible fade is pixel-anchored at
+   * 0-100px from the element top, so a tall element keeps the fade
+   * compact while filling the rest with solid white.
    */
-  bottom: -50vh;
+  bottom: -100lvh;
   content: "";
   left: 50%;
   pointer-events: none;
