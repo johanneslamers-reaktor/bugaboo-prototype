@@ -1,4 +1,7 @@
+import { useState } from "react";
+import { AnimatePresence, motion } from "motion/react";
 import { brands, type BrandId } from "../../brands/brands";
+import { productCatalog } from "../../data/products";
 import styles from "./MobileNavigation.module.css";
 
 type MobileNavigationProps = {
@@ -15,6 +18,7 @@ export function MobileNavigation({
   tone = "light",
 }: MobileNavigationProps) {
   const config = brands[brand];
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
     <header
@@ -25,10 +29,22 @@ export function MobileNavigation({
       aria-label={`${config.name} mobile navigation`}
     >
       <div className={styles.side}>
-        <button className={styles.iconButton} type="button" aria-label="Open menu">
+        <button
+          className={styles.iconButton}
+          type="button"
+          aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+          aria-expanded={isMenuOpen}
+          onClick={() => setIsMenuOpen((open) => !open)}
+        >
           <MenuIcon />
         </button>
       </div>
+
+      <AnimatePresence>
+        {isMenuOpen ? (
+          <DebugMenu key="debug-menu" brand={brand} onClose={() => setIsMenuOpen(false)} />
+        ) : null}
+      </AnimatePresence>
 
       <button
         className={styles.logoButton}
@@ -56,6 +72,106 @@ export function MobileNavigation({
         </button>
       </div>
     </header>
+  );
+}
+
+/**
+ * Debug menu — lists every working route in the prototype so we can hop
+ * around without rebuilding URLs from memory.
+ *
+ * Uses plain anchor tags (full page navigation) on purpose: the app is
+ * SPA-routed via window.location.pathname parsing on mount, so an anchor
+ * click re-runs the route parse with a clean state.
+ */
+function DebugMenu({ brand, onClose }: { brand: BrandId; onClose: () => void }) {
+  const sections: { brand: BrandId; label: string; items: { href: string; label: string; sublabel?: string }[] }[] = [
+    {
+      brand: "bugaboo",
+      label: "Bugaboo",
+      items: [
+        { href: "/", label: "Homepage", sublabel: "Default brand toggle" },
+        ...productCatalog.bugaboo.map((p) => ({
+          href: `/bugaboo/products/${p.slug}`,
+          label: p.title + (p.titleSuffix ? ` ${p.titleSuffix}` : ""),
+          sublabel: p.subtitle,
+        })),
+      ],
+    },
+    {
+      brand: "joolz",
+      label: "Joolz",
+      items: productCatalog.joolz.map((p) => ({
+        href: `/joolz/products/${p.slug}`,
+        label: p.title + (p.titleSuffix ? ` ${p.titleSuffix}` : ""),
+        sublabel: p.subtitle,
+      })),
+    },
+  ];
+
+  return (
+    <motion.div
+      className={styles.debugMenuRoot}
+      data-active-brand={brand}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.18, ease: [0.22, 1, 0.36, 1] }}
+    >
+      <button
+        className={styles.debugMenuBackdrop}
+        type="button"
+        aria-label="Close menu"
+        onClick={onClose}
+      />
+      <motion.nav
+        className={styles.debugMenu}
+        aria-label="Debug navigation"
+        initial={{ x: "-100%" }}
+        animate={{ x: 0 }}
+        exit={{ x: "-100%" }}
+        transition={{ type: "spring", stiffness: 360, damping: 36, mass: 0.7 }}
+      >
+        <div className={styles.debugMenuHeader}>
+          <span className={styles.debugMenuKicker}>Debug</span>
+          <h2 className={styles.debugMenuTitle}>Working routes</h2>
+          <button
+            className={styles.debugMenuClose}
+            type="button"
+            aria-label="Close menu"
+            onClick={onClose}
+          >
+            <CloseIcon />
+          </button>
+        </div>
+
+        {sections.map((section) => (
+          <div className={styles.debugMenuSection} key={section.brand} data-brand={section.brand}>
+            <p className={styles.debugMenuSectionLabel}>{section.label}</p>
+            <ul className={styles.debugMenuList}>
+              {section.items.map((item) => (
+                <li key={item.href}>
+                  <a className={styles.debugMenuItem} href={item.href}>
+                    <span className={styles.debugMenuItemLabel}>{item.label}</span>
+                    {item.sublabel ? (
+                      <span className={styles.debugMenuItemSub}>{item.sublabel}</span>
+                    ) : null}
+                    <span className={styles.debugMenuItemPath}>{item.href}</span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </motion.nav>
+    </motion.div>
+  );
+}
+
+function CloseIcon() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true" className={styles.icon}>
+      <path d="m5 5 14 14M19 5 5 19" />
+    </svg>
   );
 }
 
