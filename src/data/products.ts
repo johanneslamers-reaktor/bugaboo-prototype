@@ -1386,7 +1386,7 @@ export const productCatalog: Record<BrandId, ProductDetail[]> = {
         eyebrow: "Sustainability",
         title: "40.000 trees planted",
         decoration: {
-          src: "/assets/pdp/sustainability/joolz/tree-mascot.png",
+          src: "/assets/pdp/sustainability/joolz/tree-mascot.svg",
           alt: "Joolz tree mascot illustration",
         },
         subheading: "We plant a tree for every stroller",

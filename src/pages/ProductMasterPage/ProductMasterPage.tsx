@@ -11,6 +11,7 @@ import { ProductImpact } from "../../components/ProductImpact";
 import { ProductReasons } from "../../components/ProductReasons";
 import { ProductStoryShop } from "../../components/ProductStoryShop";
 import { ProductSummary } from "../../components/ProductSummary";
+import { ProductSustainability } from "../../components/ProductSustainability";
 import { ProductUsp } from "../../components/ProductUsp";
 import { ProductVideoStory } from "../../components/ProductVideoStory";
 import type { ProductDetail } from "../../data/products";
@@ -59,6 +60,9 @@ export function ProductMasterPage({ brand, product }: ProductMasterPageProps) {
         ) : null}
         {product.storyShop ? (
           <ProductStoryShop brand={brand} content={product.storyShop} />
+        ) : null}
+        {product.sustainability ? (
+          <ProductSustainability brand={brand} content={product.sustainability} />
         ) : null}
       </div>
 

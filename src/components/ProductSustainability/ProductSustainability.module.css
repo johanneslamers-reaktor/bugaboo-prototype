@@ -1,0 +1,399 @@
+.section {
+  background: #ffffff;
+  color: #121212;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+}
+
+.section[data-brand="joolz"] {
+  background: #d0b6d8;
+  color: #130f31;
+}
+
+.top {
+  box-sizing: border-box;
+  padding: 50px 17px 24px;
+  position: relative;
+  z-index: 1;
+}
+
+.eyebrow {
+  color: currentColor;
+  font-family: var(--font-aeonik);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.2;
+  margin: 0 0 8px;
+}
+
+.section[data-brand="joolz"] .eyebrow {
+  font-family: var(--font-value-sans);
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.title {
+  color: currentColor;
+  font-family: var(--font-aeonik);
+  font-size: 40px;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  margin: 0 0 24px;
+}
+
+.section[data-brand="joolz"] .title {
+  font-family: var(--font-value-sans-joolz);
+  font-size: 36px;
+  font-weight: 700;
+  letter-spacing: 0;
+}
+
+.topImage {
+  border-radius: 0;
+  margin: 0 0 16px;
+  overflow: hidden;
+  width: 100%;
+}
+
+.topImage img {
+  display: block;
+  height: 340px;
+  object-fit: cover;
+  width: 100%;
+}
+
+.decoration {
+  align-items: center;
+  background: #f4eed5;
+  border-radius: 16px;
+  display: flex;
+  justify-content: center;
+  margin: 0 0 18px;
+  padding: 28px;
+  width: 100%;
+}
+
+.decoration img {
+  display: block;
+  height: auto;
+  max-height: 260px;
+  max-width: 70%;
+  object-fit: contain;
+  width: auto;
+}
+
+.subheading {
+  color: currentColor;
+  font-family: var(--font-aeonik);
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.2;
+  margin: 0 0 11px;
+}
+
+.section[data-brand="joolz"] .subheading {
+  font-family: var(--font-value-sans-joolz);
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.body {
+  color: currentColor;
+  font-family: var(--font-aeonik);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.25;
+  margin: 0 0 18px;
+  opacity: 0.75;
+}
+
+.section[data-brand="joolz"] .body {
+  font-family: var(--font-value-sans);
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.25;
+  opacity: 0.8;
+}
+
+.link {
+  align-items: center;
+  color: currentColor;
+  display: inline-flex;
+  font-family: var(--font-aeonik);
+  font-size: 14px;
+  font-weight: 500;
+  gap: 8px;
+  line-height: 1.2;
+  text-decoration: none;
+}
+
+.section[data-brand="joolz"] .link {
+  font-family: var(--font-value-sans-joolz);
+  font-size: 16px;
+  font-weight: 700;
+  gap: 12px;
+}
+
+.link:focus-visible {
+  outline: 1.5px solid currentColor;
+  outline-offset: 4px;
+}
+
+.chevron {
+  display: block;
+  fill: none;
+  height: 10px;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.5;
+  width: 10px;
+}
+
+.linkPlusCircle {
+  align-items: center;
+  background: #ffffff;
+  border-radius: 999px;
+  box-shadow: 0 1px 4px rgb(19 15 49 / 8%);
+  display: inline-flex;
+  height: 32px;
+  justify-content: center;
+  width: 32px;
+}
+
+.plusIcon {
+  display: block;
+  fill: none;
+  height: 12px;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.8;
+  width: 12px;
+}
+
+.galleryWrapper {
+  background: #121212;
+  position: relative;
+  width: 100%;
+}
+
+.section[data-brand="joolz"] .galleryWrapper {
+  background: #d0b6d8;
+}
+
+.imageStage {
+  aspect-ratio: 402 / 603;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+}
+
+.galleryImage {
+  display: block;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+  user-select: none;
+  width: 100%;
+}
+
+.hotspotLayer {
+  pointer-events: none;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+}
+
+.hotspotDot {
+  align-items: center;
+  appearance: none;
+  background: rgb(255 255 255 / 90%);
+  border: 0;
+  border-radius: 999px;
+  box-shadow: 0 2px 10px rgb(0 0 0 / 24%);
+  color: #121212;
+  cursor: pointer;
+  display: flex;
+  height: 34px;
+  justify-content: center;
+  padding: 0;
+  pointer-events: auto;
+  position: absolute;
+  transition: background-color 160ms ease;
+  width: 34px;
+}
+
+.hotspotDot[data-active="true"] {
+  background: #ffffff;
+}
+
+.hotspotDotInner {
+  background: currentColor;
+  border-radius: 999px;
+  display: block;
+  height: 6px;
+  width: 6px;
+}
+
+.hotspotCard {
+  background: #ffffff;
+  border-radius: 4px;
+  box-shadow: 0 8px 24px rgb(0 0 0 / 18%);
+  color: #1a1a1a;
+  display: grid;
+  gap: 16px;
+  grid-template-columns: 94px 1fr auto;
+  padding: 8px;
+  pointer-events: auto;
+  position: absolute;
+  /*
+   * Pop the card UP from the hotspot dot, slightly offset right so it's
+   * not directly under the dot. Width is responsive but capped so it
+   * never overflows the gallery container.
+   */
+  left: 28px;
+  top: -8px;
+  transform: translateY(-100%);
+  width: min(372px, calc(100vw - 32px));
+}
+
+.hotspotCardThumb {
+  background: #dadada;
+  display: block;
+  height: 94px;
+  overflow: hidden;
+  width: 94px;
+}
+
+.hotspotCardThumb img {
+  display: block;
+  height: 100%;
+  object-fit: cover;
+  width: 100%;
+}
+
+.hotspotCardCopy {
+  display: flex;
+  flex-direction: column;
+  font-family: var(--font-aeonik);
+  font-size: 14px;
+  gap: 4px;
+  line-height: 1.3;
+  min-width: 0;
+}
+
+.hotspotCardCopy strong {
+  color: #1a1a1a;
+  font-weight: 700;
+}
+
+.hotspotCardCopy span {
+  color: rgb(26 26 26 / 80%);
+  font-weight: 400;
+}
+
+.hotspotCardClose {
+  align-items: center;
+  align-self: start;
+  appearance: none;
+  background: transparent;
+  border: 0;
+  color: #1a1a1a;
+  cursor: pointer;
+  display: flex;
+  height: 24px;
+  justify-content: center;
+  padding: 0;
+  width: 24px;
+}
+
+.closeIcon {
+  display: block;
+  fill: none;
+  height: 14px;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.5;
+  width: 14px;
+}
+
+.thumbnailRow {
+  align-items: flex-end;
+  bottom: 24px;
+  display: flex;
+  gap: 12px;
+  justify-content: space-between;
+  left: 16px;
+  pointer-events: none;
+  position: absolute;
+  right: 16px;
+  z-index: 3;
+}
+
+.thumbnails {
+  display: flex;
+  gap: 4px;
+  margin-left: auto;
+  pointer-events: auto;
+}
+
+.section[data-brand="joolz"] .thumbnails {
+  margin-left: 0;
+}
+
+.thumbnail {
+  appearance: none;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  display: block;
+  height: 56px;
+  overflow: hidden;
+  padding: 0;
+  position: relative;
+  width: 56px;
+}
+
+.section[data-brand="joolz"] .thumbnail {
+  border-radius: 4px;
+}
+
+.thumbnail img {
+  display: block;
+  filter: brightness(0.78);
+  height: 100%;
+  object-fit: cover;
+  transition: filter 160ms ease;
+  width: 100%;
+}
+
+.thumbnail[data-active="true"] img {
+  filter: none;
+}
+
+.thumbnail[data-active="true"]::after {
+  background: #ffffff;
+  bottom: 0;
+  content: "";
+  height: 2px;
+  left: 0;
+  position: absolute;
+  right: 0;
+}
+
+.section[data-brand="joolz"] .thumbnail[data-active="true"]::after {
+  display: none;
+}
+
+.counter {
+  color: rgb(19 15 49 / 60%);
+  font-family: var(--font-value-sans-joolz);
+  font-size: 16px;
+  font-weight: 700;
+  margin: 0;
+  pointer-events: auto;
+}
