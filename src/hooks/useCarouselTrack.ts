@@ -83,7 +83,7 @@ export interface UseCarouselReturn {
   reset: () => void;
 }
 
-export function useCarousel({
+export function useCarouselTrack({
   count,
   itemSize,
   loop = false,

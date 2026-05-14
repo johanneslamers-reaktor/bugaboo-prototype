@@ -31,43 +31,9 @@
   margin-right: 20px;
 }
 
-.scroller {
-  cursor: grab;
-  display: flex;
-  gap: 8px;
-  overflow-x: auto;
-  overflow-y: hidden;
-  overscroll-behavior-x: contain;
-  padding: 0 16px;
-  scroll-padding-left: 16px;
-  scroll-padding-right: 16px;
-  scroll-snap-type: x mandatory;
-  scrollbar-width: none;
-  touch-action: pan-x pan-y;
-  user-select: none;
-  -webkit-overflow-scrolling: touch;
-}
-
-.section[data-brand="joolz"] .scroller {
-  padding-left: 20px;
-  padding-right: 20px;
-  scroll-padding-left: 20px;
-  scroll-padding-right: 20px;
-}
-
-.scroller[data-dragging="true"] {
-  cursor: grabbing;
-  scroll-snap-type: none;
-}
-
-.scroller::-webkit-scrollbar {
-  display: none;
-}
-
 .card {
   background: #ffffff;
   flex: 0 0 209px;
-  scroll-snap-align: start;
   width: 209px;
 }
 

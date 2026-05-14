@@ -11,7 +11,7 @@ import {
 } from "motion/react";
 import type { BrandId } from "../../brands/brands";
 import type { ProductColorway, ProductGalleryMedia } from "../../data/products";
-import { useCarousel } from "../../hooks/useCarousel";
+import { useCarouselTrack } from "../../hooks/useCarouselTrack";
 import styles from "./ProductGallery.module.css";
 
 const CLICK_ZOOM_SCALE = 2.25;
@@ -64,7 +64,7 @@ export function ProductGallery({ brand, colorway, productTitle }: ProductGallery
   const [isZoomGestureActive, setIsZoomGestureActive] = useState(false);
   const maxIndex = Math.max(colorway.media.length - 1, 0);
 
-  const { trackProps, currentPage: activeIndex, gotoPage, reset } = useCarousel({
+  const { trackProps, currentPage: activeIndex, gotoPage, reset } = useCarouselTrack({
     count: colorway.media.length,
     itemSize: viewportWidth,
     loop: false,

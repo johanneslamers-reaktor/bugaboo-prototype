@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { motion, useReducedMotion } from "motion/react";
 import type { BrandId } from "../../brands/brands";
 import type { EditorialCardItem, EditorialRailContent } from "../../data/homepage";
-import { useCarousel } from "../../hooks/useCarousel";
+import { useCarouselTrack } from "../../hooks/useCarouselTrack";
 import styles from "./EditorialRail.module.css";
 
 const CARD_WIDTH = 344;
@@ -105,7 +105,7 @@ function JoolzStoryCard({ item, index }: { item: EditorialCardItem; index: numbe
 export function EditorialRail({ brand, content }: EditorialRailProps) {
   const shouldReduceMotion = useReducedMotion();
   const cardStep = CARD_WIDTH + CARD_GAP[brand];
-  const { trackProps, currentPage, reset } = useCarousel({
+  const { trackProps, currentPage, reset } = useCarouselTrack({
     count: content.items.length,
     itemSize: cardStep,
     loop: false,

@@ -9,7 +9,7 @@ import {
 } from "motion/react";
 import type { BrandId } from "../../brands/brands";
 import type { CategoryCarouselContent } from "../../data/homepage";
-import { useCarousel } from "../../hooks/useCarousel";
+import { useCarouselTrack } from "../../hooks/useCarouselTrack";
 import { CategoryCard } from "./CategoryCard";
 import styles from "./CategoryCarousel.module.css";
 
@@ -24,7 +24,7 @@ type CategoryCarouselProps = {
 export function CategoryCarousel({ brand, content }: CategoryCarouselProps) {
   const shouldReduceMotion = useReducedMotion();
   const trackStart = brand === "joolz" ? 22 : 18;
-  const { trackProps, buffer, centerCycle, nextPage, prevPage, reset } = useCarousel({
+  const { trackProps, buffer, centerCycle, nextPage, prevPage, reset } = useCarouselTrack({
     count: content.items.length,
     itemSize: CARD_WIDTH,
     loop: true,

@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import { motion } from "motion/react";
 import type { BrandId } from "../../brands/brands";
 import type { ProductCarouselContent } from "../../data/homepage";
-import { useCarousel } from "../../hooks/useCarousel";
+import { useCarouselTrack } from "../../hooks/useCarouselTrack";
 import { ProductCard } from "./ProductCard";
 import styles from "./ProductCarousel.module.css";
 
@@ -15,7 +15,7 @@ type ProductCarouselProps = {
 
 export function ProductCarousel({ brand, content }: ProductCarouselProps) {
   const trackStart = brand === "joolz" ? 20 : 16;
-  const { trackProps, buffer, centerCycle, reset } = useCarousel({
+  const { trackProps, buffer, centerCycle, reset } = useCarouselTrack({
     count: content.items.length,
     itemSize: CARD_STEP,
     loop: true,

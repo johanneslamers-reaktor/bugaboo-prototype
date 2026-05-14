@@ -1,14 +1,8 @@
-import {
-  useCallback,
-  useRef,
-  useState,
-  type CSSProperties,
-  type PointerEvent,
-  type WheelEvent,
-} from "react";
+import { useState, type CSSProperties } from "react";
 import { motion, useReducedMotion } from "motion/react";
 import type { BrandId } from "../../brands/brands";
 import type { ProductCrossSellContent, ProductCrossSellItem } from "../../data/products";
+import { Carousel } from "../Carousel";
 import styles from "./ProductCrossSell.module.css";
 
 type ProductCrossSellProps = {
@@ -16,112 +10,38 @@ type ProductCrossSellProps = {
   content: ProductCrossSellContent;
 };
 
-type DragGesture = {
-  isHorizontal: boolean;
-  startScrollLeft: number;
-  startX: number;
-  startY: number;
-};
-
 export function ProductCrossSell({ brand, content }: ProductCrossSellProps) {
-  const scrollerRef = useRef<HTMLDivElement | null>(null);
-  const dragGestureRef = useRef<DragGesture | null>(null);
-  const [isDragging, setIsDragging] = useState(false);
   const [wishlistById, setWishlistById] = useState<Record<string, boolean>>({});
   const [addedById, setAddedById] = useState<Record<string, boolean>>({});
 
-  const handleWheel = useCallback((event: WheelEvent<HTMLDivElement>) => {
-    const scroller = scrollerRef.current;
-    if (!scroller || Math.abs(event.deltaX) <= Math.abs(event.deltaY)) return;
-    scroller.scrollLeft += event.deltaX;
-  }, []);
-
-  // Mouse-only drag — native scroll handles touch on its own.
-  const handlePointerDown = useCallback((event: PointerEvent<HTMLDivElement>) => {
-    const scroller = scrollerRef.current;
-    if (!scroller || event.pointerType !== "mouse" || event.button !== 0) return;
-    if (isInteractiveElement(event.target)) return;
-
-    dragGestureRef.current = {
-      isHorizontal: false,
-      startScrollLeft: scroller.scrollLeft,
-      startX: event.clientX,
-      startY: event.clientY,
-    };
-  }, []);
-
-  const handlePointerMove = useCallback((event: PointerEvent<HTMLDivElement>) => {
-    const scroller = scrollerRef.current;
-    const gesture = dragGestureRef.current;
-    if (!scroller || !gesture) return;
-
-    const deltaX = event.clientX - gesture.startX;
-    const deltaY = event.clientY - gesture.startY;
-
-    if (!gesture.isHorizontal) {
-      if (Math.abs(deltaX) < 6 && Math.abs(deltaY) < 6) return;
-      if (Math.abs(deltaY) > Math.abs(deltaX)) {
-        dragGestureRef.current = null;
-        return;
-      }
-      gesture.isHorizontal = true;
-      setIsDragging(true);
-      event.currentTarget.setPointerCapture(event.pointerId);
-    }
-
-    event.preventDefault();
-    scroller.scrollLeft = gesture.startScrollLeft - deltaX;
-  }, []);
-
-  const finishPointerGesture = useCallback((event: PointerEvent<HTMLDivElement>) => {
-    const gesture = dragGestureRef.current;
-    dragGestureRef.current = null;
-
-    if (!gesture?.isHorizontal) return;
-
-    if (event.currentTarget.hasPointerCapture(event.pointerId)) {
-      event.currentTarget.releasePointerCapture(event.pointerId);
-    }
-    setIsDragging(false);
-  }, []);
+  const items = content.items.map((item) => (
+    <CrossSellCard
+      brand={brand}
+      isAdded={addedById[item.id] === true}
+      isWishlisted={wishlistById[item.id] === true}
+      item={item}
+      key={item.id}
+      onAdd={() => {
+        setAddedById((current) => ({ ...current, [item.id]: !current[item.id] }));
+      }}
+      onWishlist={() => {
+        setWishlistById((current) => ({ ...current, [item.id]: !current[item.id] }));
+      }}
+    />
+  ));
 
   return (
     <section className={styles.section} data-brand={brand} data-node-id={content.nodeId}>
       <h2 className={styles.heading}>{content.title}</h2>
-
-      <motion.div
-        className={styles.scroller}
-        ref={scrollerRef}
-        onWheel={handleWheel}
-        onPointerDown={handlePointerDown}
-        onPointerMove={handlePointerMove}
-        onPointerUp={finishPointerGesture}
-        onPointerCancel={finishPointerGesture}
-        data-dragging={isDragging ? "true" : "false"}
-        aria-label={content.title}
-      >
-        {content.items.map((item) => (
-          <CrossSellCard
-            brand={brand}
-            isAdded={addedById[item.id] === true}
-            isWishlisted={wishlistById[item.id] === true}
-            item={item}
-            key={item.id}
-            onAdd={() => {
-              setAddedById((current) => ({ ...current, [item.id]: !current[item.id] }));
-            }}
-            onWishlist={() => {
-              setWishlistById((current) => ({ ...current, [item.id]: !current[item.id] }));
-            }}
-          />
-        ))}
-      </motion.div>
+      <Carousel
+        items={items}
+        gap={8}
+        inset={brand === "joolz" ? 20 : 16}
+        loop={false}
+        ariaLabel={content.title}
+      />
     </section>
   );
-}
-
-function isInteractiveElement(target: EventTarget) {
-  return target instanceof Element && target.closest("button, a, input, select, textarea") !== null;
 }
 
 function CrossSellCard({

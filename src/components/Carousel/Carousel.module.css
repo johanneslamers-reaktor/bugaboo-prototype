@@ -1,0 +1,30 @@
+.viewport {
+  --carousel-inset: 16px;
+  box-sizing: border-box;
+  overflow: hidden;
+  padding: 0 var(--carousel-inset);
+  position: relative;
+  width: 100%;
+}
+
+.viewport[data-overflow="true"] {
+  padding: 0;
+}
+
+.track {
+  align-items: stretch;
+  cursor: grab;
+  display: flex;
+  width: max-content;
+  will-change: transform;
+}
+
+.track:active {
+  cursor: grabbing;
+}
+
+.slot {
+  box-sizing: border-box;
+  display: flex;
+  min-width: 0;
+}
