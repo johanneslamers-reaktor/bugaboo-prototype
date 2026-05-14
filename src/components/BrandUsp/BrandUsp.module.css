@@ -419,11 +419,8 @@
 }
 
 .reel[data-expanded="true"] .reelIcon {
-  background: rgba(255, 255, 255, 0.74);
-  border-radius: 999px;
-  right: 14px;
-  top: 14px;
-  transform: none;
+  /* When expanded, hide the minus/close icon — clicking anywhere on the reel collapses it. */
+  display: none;
 }
 
 .reelIcon::before,

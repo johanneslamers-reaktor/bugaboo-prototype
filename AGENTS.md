@@ -142,7 +142,15 @@ PDP:
 - `ProductUsp`
 - `ProductVideoStory`
 - `ProductStoryShop`
-- `ProductFloatingCta`
+- `ProductSustainability` — feature-and-material highlight with an interactive hotspot gallery
+- `ProductShopTheLook` — hero image with hotspots that snap a product-card row to the linked item
+- `ProductFloatingCta` — double-clicking the CTA jumps to the equivalent product on the other brand (preserves scroll position)
+
+Shared building blocks:
+
+- `Carousel` — `<Carousel items={...} loop>` matching motion.dev's API; bounded + infinite modes
+- `Hotspot` — universal dot icon for interactive image hotspots (x/y in %)
+- `MobileNavigation` debug menu — hamburger opens a full list of working routes per brand
 
 ## Theming
 

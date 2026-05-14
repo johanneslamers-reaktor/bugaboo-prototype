@@ -1,6 +1,8 @@
 import { useRef, useState } from "react";
+import { motion, useReducedMotion } from "motion/react";
 import type { BrandId } from "../../brands/brands";
 import type { HeroContent } from "../../data/homepage";
+import { ENTRANCE_ZOOM } from "../../lib/motion-presets";
 import { MobileNavigation } from "../MobileNavigation";
 import styles from "./Hero.module.css";
 
@@ -13,6 +15,7 @@ type HeroProps = {
 export function Hero({ brand, content, onLogoDoubleClick }: HeroProps) {
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const [isPaused, setIsPaused] = useState(false);
+  const shouldReduceMotion = useReducedMotion();
 
   const togglePlayback = async () => {
     const video = videoRef.current;
@@ -36,7 +39,8 @@ export function Hero({ brand, content, onLogoDoubleClick }: HeroProps) {
     <section className={styles.hero} data-brand={brand} data-node-id={content.nodeId}>
       <div className={styles.media} aria-hidden="true">
         {content.videoSrc ? (
-          <video
+          <motion.video
+            {...(shouldReduceMotion ? {} : ENTRANCE_ZOOM)}
             ref={videoRef}
             className={styles.video}
             src={content.videoSrc}

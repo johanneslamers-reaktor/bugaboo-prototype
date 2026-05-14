@@ -84,21 +84,38 @@ export function ProductSustainability({ brand, content }: ProductSustainabilityP
 
       <div className={styles.galleryWrapper}>
         <div className={styles.imageStage}>
-          <AnimatePresence mode="popLayout" initial={false}>
-            <motion.img
-              key={activeImage.id}
-              className={styles.galleryImage}
-              src={activeImage.src}
-              alt={activeImage.alt}
-              loading="eager"
-              decoding="async"
-              draggable={false}
-              initial={shouldReduceMotion ? false : { opacity: 0, scale: 1.06 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={shouldReduceMotion ? undefined : { opacity: 0, scale: 1.02 }}
-              transition={{ duration: 0.42, ease: [0.22, 1, 0.36, 1] }}
-            />
-          </AnimatePresence>
+          {/*
+           * Render every gallery image at once, layered absolutely. The
+           * active one animates opacity → 1, all others → 0. Because both
+           * the outgoing and incoming images animate simultaneously over
+           * the same duration, the user sees a real crossfade with no
+           * frame where the parent background is exposed.
+           */}
+          {content.gallery.map((image) => {
+            const isActive = image.id === activeImage.id;
+            return (
+              <motion.img
+                key={image.id}
+                className={styles.galleryImage}
+                src={image.src}
+                alt={image.alt}
+                loading="eager"
+                decoding="async"
+                draggable={false}
+                initial={false}
+                animate={{
+                  opacity: isActive ? 1 : 0,
+                  scale: isActive ? 1 : 1.06,
+                }}
+                transition={
+                  shouldReduceMotion
+                    ? { duration: 0 }
+                    : { duration: 0.5, ease: [0.22, 1, 0.36, 1] }
+                }
+                style={{ zIndex: isActive ? 2 : 1 }}
+              />
+            );
+          })}
 
           {activeImage.hotspots.map((hotspot) => (
             <Hotspot

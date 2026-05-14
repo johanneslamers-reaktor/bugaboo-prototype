@@ -4,6 +4,7 @@ import { motion, useReducedMotion } from "motion/react";
 import type { BrandId } from "../../brands/brands";
 import type { EditorialCardItem, EditorialRailContent } from "../../data/homepage";
 import { useCarouselTrack } from "../../hooks/useCarouselTrack";
+import { ENTRANCE_ZOOM } from "../../lib/motion-presets";
 import styles from "./EditorialRail.module.css";
 
 const CARD_WIDTH = 344;
@@ -51,7 +52,8 @@ function StoryTitle({ item }: { item: EditorialCardItem }) {
 function BugabooStoryCard({ item, index }: { item: EditorialCardItem; index: number }) {
   return (
     <article className={styles.storyCard} data-card={item.id}>
-      <img
+      <motion.img
+        {...ENTRANCE_ZOOM}
         className={styles.storyImage}
         src={item.imageSrc}
         alt={item.imageAlt}
@@ -87,7 +89,8 @@ function JoolzStoryCard({ item, index }: { item: EditorialCardItem; index: numbe
             <StoryTitle item={item} />
           </h3>
         </div>
-        <img
+        <motion.img
+          {...ENTRANCE_ZOOM}
           className={styles.joolzStoryImage}
           src={item.imageSrc}
           alt={item.imageAlt}
