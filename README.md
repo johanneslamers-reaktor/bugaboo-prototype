@@ -110,9 +110,11 @@ Parent must have `overflow: hidden` so the 8% overflow clips cleanly.
 Two-pass setup keeps assets small:
 
 1. **Source pass** — `bun run optimize:images` resizes oversize PNGs to max 1200px wide and converts opaque PNGs to JPEG (q82) in place. Re-runnable; only writes when smaller. References in source are rewritten when `.png` becomes `.jpg`.
-2. **Build pass** — `vite-plugin-image-optimizer` compresses any remaining PNG/JPEG/SVG on `vite build` (cached in `node_modules/.cache/`).
+2. **Optional build pass** — `vite-plugin-image-optimizer` is installed but disabled by default. Run `OPTIMIZE_IMAGES=true bun --bun run build` only when auditing a new batch of assets.
 
 Public assets went from 209 MB → 89 MB with this pipeline.
+
+Keep `OPTIMIZE_IMAGES` unset on Vercel. The checked-in assets are already optimized, and reprocessing the full asset tree during every deploy makes production builds slow and noisy.
 
 ## Theming
 
@@ -136,9 +138,61 @@ Use the Figma MCP tools for design context + asset export:
 
 ## Deployment
 
-Vercel-hosted, deploys on push to `main`. `vercel.json` adds the SPA fallback so direct deep-link visits work.
+Vercel-hosted static app. `vercel.json` adds the SPA fallback so direct deep-link visits work.
 
 Repo: https://github.com/johanneslamers-reaktor/bugaboo-prototype
+
+### Automatic deploy
+
+Push to `main`; Vercel is connected to the GitHub repo and deploys production automatically.
+
+```bash
+git status -sb
+bun --bun run build
+git push origin main
+```
+
+Production URL: [bugaboo-joolz-prototype.vercel.app](https://bugaboo-joolz-prototype.vercel.app)
+
+### Manual production deploy
+
+Use this when you need to publish the current workspace immediately:
+
+```bash
+bun install
+bun --bun run build
+bunx vercel --prod
+curl -I https://bugaboo-joolz-prototype.vercel.app
+```
+
+Expected Vercel alias after deploy:
+
+```text
+https://bugaboo-joolz-prototype.vercel.app
+```
+
+### Vercel troubleshooting
+
+Inspect a deployment:
+
+```bash
+bunx vercel inspect <deployment-url>
+```
+
+List recent deployments:
+
+```bash
+bunx vercel ls bugaboo-joolz-prototype
+```
+
+If a deployment is stuck in `Building` and a newer deploy is queued behind it, remove the stuck deployment by id:
+
+```bash
+bunx vercel inspect <stuck-deployment-url>
+bunx vercel remove <deployment-id> --yes
+```
+
+Only remove deployments that are clearly stuck and are not the active production alias.
 
 ## Non-goals
 
