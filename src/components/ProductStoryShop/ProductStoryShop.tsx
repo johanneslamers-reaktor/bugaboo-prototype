@@ -86,6 +86,12 @@ export function ProductStoryShop({ brand, content }: ProductStoryShopProps) {
           gap={12}
           inset={16}
           loop
+          /*
+           * Explicit itemSize prevents the auto-measure flicker on first
+           * paint and matches the CSS fixed card widths so loop math is
+           * stable from the first frame.
+           */
+          itemSize={brand === "joolz" ? 354 : 368}
           ariaLabel="Shoppable product carousel"
           className={styles.productCarousel}
         >

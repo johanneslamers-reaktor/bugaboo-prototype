@@ -291,13 +291,22 @@ export function useCarouselTrack({
     return () => stopAnim();
   }, [stopAnim]);
 
-  // Keep bounded position aligned with current index when itemSize changes
-  // (responsive layout, ResizeObserver-driven widths, etc).
+  // Keep position aligned with current index when itemSize changes — covers
+  // responsive layouts, ResizeObserver-driven widths, and the auto-measure
+  // path in <Carousel> where step jumps from gap-only to real card-size on
+  // the next frame. Without this, loop mode renders with a stale baseX and
+  // the first scroll cycle visibly snaps to a different position (empty
+  // card flicker on first interaction).
   useEffect(() => {
-    if (loop) return;
     if (anim.current) return;
+    if (loop) {
+      const newCenterX = trackStart - cycleWidth * CENTER_CYCLE;
+      const offsetWithinCycle = (activeIndexRef.current % count) * -itemSize;
+      x.set(newCenterX + offsetWithinCycle);
+      return;
+    }
     x.set(-activeIndexRef.current * itemSize);
-  }, [itemSize, loop, x]);
+  }, [count, cycleWidth, itemSize, loop, trackStart, x]);
 
   return {
     trackProps,

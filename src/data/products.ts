@@ -38,6 +38,7 @@ export type ProductDetail = {
   productUsp?: ProductUspContent;
   videoStory?: ProductVideoStoryContent;
   storyShop?: ProductStoryShopContent;
+  sustainability?: ProductSustainabilityContent;
   impact: ProductImpactContent;
   accordions: ProductAccordionItem[];
   colorways: ProductColorway[];
@@ -130,6 +131,59 @@ export type ProductBundleVariant = {
     imageSrc: string;
     imageAlt: string;
   }[];
+};
+
+export type ProductSustainabilityContent = {
+  nodeId: string;
+  eyebrow: string;
+  title: string;
+  /** Optional top hero image (bugaboo shows a detail shot). */
+  topImage?: {
+    src: string;
+    alt: string;
+  };
+  /** Optional decorative illustration (joolz tree mascot, etc). */
+  decoration?: {
+    src: string;
+    alt: string;
+  };
+  subheading: string;
+  body: string;
+  link: {
+    label: string;
+    href: string;
+    /** "chevron" (bugaboo) | "plus-circle" (joolz). Default chevron. */
+    icon?: "chevron" | "plus-circle";
+  };
+  /**
+   * Interactive gallery: an array of images shown one at a time, switchable
+   * via thumbnails. Each image can have 0+ hotspots that reveal a tooltip
+   * when clicked.
+   */
+  gallery: ProductSustainabilityImage[];
+  /** Optional pagination label (joolz shows "1/3"). */
+  thumbnailsCounter?: string;
+};
+
+export type ProductSustainabilityImage = {
+  id: string;
+  src: string;
+  alt: string;
+  thumbnailSrc: string;
+  thumbnailAlt: string;
+  hotspots: ProductSustainabilityHotspot[];
+};
+
+export type ProductSustainabilityHotspot = {
+  id: string;
+  /** Position in % of the image (0-100). */
+  x: number;
+  y: number;
+  title: string;
+  body: string;
+  /** Optional icon shown to the left of the tooltip content. */
+  iconSrc?: string;
+  iconAlt?: string;
 };
 
 export type ProductCrossSellContent = {
@@ -687,6 +741,66 @@ export const productCatalog: Record<BrandId, ProductDetail[]> = {
             subtitle: "Dark Indigo",
             imageSrc: "/assets/pdp/cross-sell/bugaboo/backpack.png",
             imageAlt: "Bugaboo backpack",
+          },
+        ],
+      },
+      sustainability: {
+        nodeId: "8618:2421",
+        eyebrow: "Rooted in responsibility",
+        title: "Made to last, made right",
+        topImage: {
+          src: "/assets/pdp/sustainability/bugaboo/detail.png",
+          alt: "Bugaboo Fox 5 folding mechanism detail on natural wood",
+        },
+        subheading: "Bio-based materials",
+        body: "Made with recycled and bio-based materials, the Fox 5 reduces CO₂ emissions by 30% while being designed for long-lasting, repairable use.",
+        link: {
+          label: "More about materials",
+          href: "#materials",
+          icon: "chevron",
+        },
+        gallery: [
+          {
+            id: "handlebar",
+            src: "/assets/pdp/sustainability/bugaboo/feature-bg.png",
+            alt: "Bugaboo Fox 5 handlebar with folding button",
+            thumbnailSrc: "/assets/pdp/sustainability/bugaboo/thumb-1.png",
+            thumbnailAlt: "Handlebar view",
+            hotspots: [
+              {
+                id: "folding-button",
+                x: 52,
+                y: 36,
+                title: "Fold and maneuver with one hand",
+                body: "Extra-large puncture-proof wheels and advanced suspension absorb bumps and uneven ground.",
+                iconSrc: "/assets/pdp/sustainability/bugaboo/featured-thumb.png",
+                iconAlt: "Folding mechanism close-up",
+              },
+            ],
+          },
+          {
+            id: "wheels",
+            src: "/assets/pdp/sustainability/bugaboo/feature-bg.png",
+            alt: "Bugaboo Fox 5 wheels",
+            thumbnailSrc: "/assets/pdp/sustainability/bugaboo/thumb-2.png",
+            thumbnailAlt: "Wheel detail",
+            hotspots: [],
+          },
+          {
+            id: "seat",
+            src: "/assets/pdp/sustainability/bugaboo/feature-bg.png",
+            alt: "Bugaboo Fox 5 seat",
+            thumbnailSrc: "/assets/pdp/sustainability/bugaboo/thumb-3.png",
+            thumbnailAlt: "Seat view",
+            hotspots: [],
+          },
+          {
+            id: "frame",
+            src: "/assets/pdp/sustainability/bugaboo/feature-bg.png",
+            alt: "Bugaboo Fox 5 frame",
+            thumbnailSrc: "/assets/pdp/sustainability/bugaboo/thumb-4.png",
+            thumbnailAlt: "Frame view",
+            hotspots: [],
           },
         ],
       },
@@ -1266,6 +1380,57 @@ export const productCatalog: Record<BrandId, ProductDetail[]> = {
             iconAlt: "Sustainable materials icon",
           },
         ],
+      },
+      sustainability: {
+        nodeId: "8612:6206",
+        eyebrow: "Sustainability",
+        title: "40.000 trees planted",
+        decoration: {
+          src: "/assets/pdp/sustainability/joolz/tree-mascot.png",
+          alt: "Joolz tree mascot illustration",
+        },
+        subheading: "We plant a tree for every stroller",
+        body: "Made with recycled and bio-based materials, the Aer 2 reduces CO₂ emissions by 30%, while being designed for long-lasting, repairable use.",
+        link: {
+          label: "Read the full story",
+          href: "#sustainability",
+          icon: "plus-circle",
+        },
+        gallery: [
+          {
+            id: "fabric",
+            src: "/assets/pdp/sustainability/joolz/feature-bg.png",
+            alt: "Joolz Aer 2 stroller fabric detail",
+            thumbnailSrc: "/assets/pdp/sustainability/joolz/thumb-1.png",
+            thumbnailAlt: "Fabric detail",
+            hotspots: [
+              {
+                id: "fabric-story",
+                x: 50,
+                y: 50,
+                title: "Recycled bottle fabric",
+                body: "Each Aer 2 uses 90+ recycled PET bottles in its fabric, lowering material impact without losing comfort.",
+              },
+            ],
+          },
+          {
+            id: "frame",
+            src: "/assets/pdp/sustainability/joolz/feature-bg.png",
+            alt: "Joolz Aer 2 frame",
+            thumbnailSrc: "/assets/pdp/sustainability/joolz/thumb-2.png",
+            thumbnailAlt: "Frame view",
+            hotspots: [],
+          },
+          {
+            id: "wheels",
+            src: "/assets/pdp/sustainability/joolz/feature-bg.png",
+            alt: "Joolz Aer 2 wheels",
+            thumbnailSrc: "/assets/pdp/sustainability/joolz/thumb-3.png",
+            thumbnailAlt: "Wheel detail",
+            hotspots: [],
+          },
+        ],
+        thumbnailsCounter: "1/3",
       },
       accordions: [
         {
