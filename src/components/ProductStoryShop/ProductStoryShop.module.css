@@ -181,12 +181,12 @@
   display: flex;
   flex-direction: column;
   gap: 36px;
-  margin-top: 75px;
+  margin-top: 28px;
   max-width: 352px;
 }
 
 .section[data-brand="joolz"] .storyCopy {
-  margin-top: 88px;
+  margin-top: 32px;
 }
 
 .lead {

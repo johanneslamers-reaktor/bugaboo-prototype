@@ -24,8 +24,11 @@ export function useScrollDrag(scrollerRef: RefObject<HTMLElement | null>) {
   const onPointerDown = useCallback((event: PointerEvent<HTMLElement>) => {
     const scroller = scrollerRef.current;
     if (!scroller || event.pointerType !== "mouse" || event.button !== 0) return;
-    if (isInteractiveElement(event.target)) return;
 
+    // We DON'T bail on interactive elements here. The user might click+drag
+    // on a button/card to scroll. Drag only engages once movement exceeds
+    // the horizontal threshold below; single clicks pass through to the
+    // underlying element via its own click handler.
     gestureRef.current = {
       isHorizontal: false,
       startScrollLeft: scroller.scrollLeft,
