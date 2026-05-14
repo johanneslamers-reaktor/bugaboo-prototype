@@ -3,6 +3,7 @@ import { motion, useReducedMotion, useScroll, useTransform, type MotionValue } f
 import type { BrandId } from "../../brands/brands";
 import type { ProductStoryShopContent, ProductStoryShopCard } from "../../data/products";
 import { Carousel, useCarousel } from "../Carousel";
+import { ENTRANCE_ZOOM } from "../../lib/motion-presets";
 import styles from "./ProductStoryShop.module.css";
 
 type ProductStoryShopProps = {
@@ -66,15 +67,12 @@ export function ProductStoryShop({ brand, content }: ProductStoryShopProps) {
       <div className={styles.mediaArea}>
         <motion.figure
           className={styles.inspiration}
-          initial={shouldReduceMotion ? false : { opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.18 }}
-          transition={{ duration: 0.34, ease: [0.22, 1, 0.36, 1] }}
+          {...(shouldReduceMotion ? {} : ENTRANCE_ZOOM)}
         >
           <img
             src={content.inspirationImage.src}
             alt={content.inspirationImage.alt}
-            loading="lazy"
+            loading="eager"
             decoding="async"
             draggable={false}
             style={{ objectPosition: content.inspirationImage.objectPosition }}
