@@ -11,16 +11,18 @@ type ProductFloatingCtaProps = {
   };
   price: string;
   productTitle: string;
+  /** Optional suffix rendered as superscript next to the title (e.g. "²"). */
+  productTitleSuffix?: string;
   /** Optional handler — double-clicking the CTA triggers it (easter egg). */
   onDoubleClick?: () => void;
 };
 
 export function ProductFloatingCta({
   brand,
-  compareAtPrice,
   financing,
   price,
   productTitle,
+  productTitleSuffix,
   onDoubleClick,
 }: ProductFloatingCtaProps) {
   const shouldReduceMotion = useReducedMotion();
@@ -39,20 +41,18 @@ export function ProductFloatingCta({
         transition={{ duration: 0.42, ease: [0.22, 1, 0.36, 1] }}
       >
         <div className={styles.priceGroup}>
-          {brand === "bugaboo" ? (
-            <span className={styles.title}>{productTitle}</span>
-          ) : null}
-          {brand !== "bugaboo" && compareAtPrice ? (
-            <span className={styles.compareAtPrice}>{compareAtPrice}</span>
-          ) : null}
+          <span className={styles.title}>
+            {productTitle}
+            {productTitleSuffix ? (
+              <sup className={styles.titleSuffix}>{productTitleSuffix}</sup>
+            ) : null}
+          </span>
           <span className={styles.price}>{price}</span>
         </div>
 
-        {brand === "bugaboo" ? (
-          <button className={styles.selectBundle} type="button">
-            Select bundle
-          </button>
-        ) : null}
+        <button className={styles.selectBundle} type="button">
+          Select bundle
+        </button>
 
         <motion.button
           className={styles.button}
