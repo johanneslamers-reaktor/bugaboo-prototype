@@ -36,6 +36,9 @@ export function ProductShopTheLook({ brand, content }: ProductShopTheLookProps) 
   return (
     <section className={styles.section} data-brand={brand} data-node-id={content.nodeId}>
       <div className={styles.top}>
+        {content.eyebrow ? (
+          <p className={styles.eyebrow}>{content.eyebrow}</p>
+        ) : null}
         <h2 className={styles.title}>{content.title}</h2>
 
         {content.topImage ? (

@@ -17,6 +17,15 @@
   z-index: 1;
 }
 
+.eyebrow {
+  color: currentColor;
+  font-family: var(--font-aeonik);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: normal;
+  margin: 0 0 12px;
+}
+
 .title {
   color: currentColor;
   font-family: var(--font-aeonik);
@@ -25,6 +34,7 @@
   letter-spacing: -0.02em;
   line-height: 1;
   margin: 0 0 32px;
+  white-space: pre-line;
 }
 
 .section[data-brand="joolz"] .title {
