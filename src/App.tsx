@@ -91,7 +91,11 @@ export default function App() {
               <>
                 <Hero
                   brand={brand}
-                  content={homepageHero[brand]}
+                  content={
+                    homepageHero[brand][
+                      route.kind === "homepage" ? (route.variant ?? "v1") : "v1"
+                    ]
+                  }
                   onLogoDoubleClick={() => setBrand(nextBrand[brand])}
                 />
                 <CategoryCarousel
