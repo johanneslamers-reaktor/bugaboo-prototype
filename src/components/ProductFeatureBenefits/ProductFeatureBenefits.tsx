@@ -35,8 +35,8 @@ export function ProductFeatureBenefits({ brand, content }: ProductFeatureBenefit
     window.addEventListener("resize", onResize, { passive: true });
     return () => window.removeEventListener("resize", onResize);
   }, []);
-  const baseCardWidth = brand === "bugaboo" ? 294 : 302;
-  const insetReserve = brand === "bugaboo" ? 108 : 96;
+  const baseCardWidth = brand === "bugaboo" ? 330 : 302;
+  const insetReserve = brand === "bugaboo" ? 72 : 96;
   const cardWidth = Math.min(baseCardWidth, vw - insetReserve);
 
   const items = content.items.map((item, index) => (

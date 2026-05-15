@@ -573,7 +573,7 @@ export const productCatalog: Record<BrandId, ProductDetail[]> = {
           {
             id: "one-hand-control",
             title: "Effortless one-hand control",
-            description: "Explore further with ease. Extra-large puncture-proof wheels and advanced suspension absorb bumps and uneven ground.",
+            description: "Engineered to make every day easier. With just one hand, you can adjust the handlebar, recline the seat, and even fold the stroller.",
             media: {
               src: "/assets/pdp/feature-benefits/bugaboo/one-hand-control.jpg",
               alt: "Bugaboo Fox 5 Renew stroller being pushed along a coastal path",
@@ -592,10 +592,10 @@ export const productCatalog: Record<BrandId, ProductDetail[]> = {
             hotspots: [
               {
                 id: "materials",
-                x: 73.9,
-                y: 35.1,
+                x: 50,
+                y: 80,
                 title: "Materials for the future",
-                body: "The stroller is sustainably crafted with recycled fabrics, bio-based material, and recycled aluminum.",
+                body: "Crafted with recycled fabrics, bio-based material, and recycled aluminum.",
                 imageSrc: "/assets/pdp/feature-benefits/bugaboo/materials-thumb.jpg",
                 imageAlt: "Bugaboo recycled fabric texture",
               },
@@ -613,8 +613,8 @@ export const productCatalog: Record<BrandId, ProductDetail[]> = {
             hotspots: [
               {
                 id: "suspension",
-                x: 48.1,
-                y: 52.4,
+                x: 63,
+                y: 55,
                 title: "All-terrain suspension",
                 body: "Large wheels and advanced suspension help absorb shocks and keep the ride smooth on uneven paths.",
               },
