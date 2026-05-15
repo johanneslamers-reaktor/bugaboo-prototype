@@ -575,7 +575,9 @@ export const productCatalog: Record<BrandId, ProductDetail[]> = {
             title: "Effortless one-hand control",
             description: "Engineered to make every day easier. With just one hand, you can adjust the handlebar, recline the seat, and even fold the stroller.",
             media: {
-              src: "/assets/pdp/feature-benefits/bugaboo/one-hand-control.jpg",
+              type: "video",
+              src: "/assets/pdp/feature-benefits/bugaboo/one-hand-control.mp4",
+              posterSrc: "/assets/pdp/feature-benefits/bugaboo/one-hand-control.jpg",
               alt: "Bugaboo Fox 5 Renew stroller being pushed along a coastal path",
               objectPosition: "50% 50%",
             },
