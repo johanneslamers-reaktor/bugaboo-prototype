@@ -10,7 +10,7 @@
 }
 
 .hero {
-  align-items: flex-start;
+  align-items: center;
   display: flex;
   gap: 8px;
   min-height: 116px;
