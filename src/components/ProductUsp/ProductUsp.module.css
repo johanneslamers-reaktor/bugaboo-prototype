@@ -56,7 +56,7 @@
   display: flex;
   flex-direction: column;
   font-family: var(--font-aeonik);
-  font-size: clamp(58px, 18vw, 73px);
+  font-size: clamp(58px, 19vw, 74px);
   font-weight: 300;
   letter-spacing: -2.92px;
   line-height: 0.9;
