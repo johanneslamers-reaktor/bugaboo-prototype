@@ -149,6 +149,12 @@
   width: 34px;
 }
 
+.section[data-brand="bugaboo"] .hotspot {
+  background: rgb(0 0 0 / 50%);
+  border: 1px solid #ffffff;
+  box-shadow: none;
+}
+
 .hotspot::after {
   background: #ffffff;
   border-radius: 999px;
@@ -159,6 +165,11 @@
   top: 50%;
   transform: translate(-50%, -50%);
   width: 5px;
+}
+
+.section[data-brand="bugaboo"] .hotspot::after {
+  height: 8px;
+  width: 8px;
 }
 
 .hotspot:focus-visible {
