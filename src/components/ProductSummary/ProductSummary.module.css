@@ -18,11 +18,17 @@
   gap: 4px;
 }
 
-.brandRow {
+.titleRow {
   align-items: center;
   display: flex;
+  gap: 12px;
   justify-content: space-between;
   width: 100%;
+}
+
+.titleRow .productTitle {
+  flex: 1 1 auto;
+  min-width: 0;
 }
 
 .brandLabel,
@@ -268,14 +274,14 @@
 
 .summary[data-brand="joolz"] .productInfo {
   gap: 16px;
-  padding-top: 24px;
+  padding-top: 12px;
 }
 
 .summary[data-brand="joolz"] .titleGroup {
   gap: 4px;
 }
 
-.summary[data-brand="joolz"] .brandRow {
+.summary[data-brand="joolz"] .brandLabel {
   display: none;
 }
 
@@ -307,16 +313,15 @@
 }
 
 .summary[data-brand="joolz"] .commerceRow {
-  align-items: center;
-  flex-direction: row;
-  gap: 18px;
-  justify-content: space-between;
+  align-items: flex-start;
+  flex-direction: column;
+  gap: 12px;
   width: 100%;
 }
 
 .summary[data-brand="joolz"] .statusRow {
   gap: 16px;
-  justify-content: flex-end;
+  justify-content: flex-start;
 }
 
 .summary[data-brand="joolz"] .ratingPill {
