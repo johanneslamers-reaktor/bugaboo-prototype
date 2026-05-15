@@ -17,8 +17,13 @@
 }
 
 .section[data-brand="bugaboo"] {
-  /* Same peek behavior, slightly narrower per Figma. */
-  --feature-card-width: min(294px, calc(100vw - 108px));
+  /*
+   * Cap at 330px to match the phone-canvas max width (402px) minus the
+   * 72px peek/inset reserve. JS mirrors this exact cap so the slot and
+   * the card stay the same width on desktop preview, preserving the 8px
+   * carousel gap between cards.
+   */
+  --feature-card-width: min(330px, calc(100vw - 72px));
 
   color: #000000;
 }
@@ -185,6 +190,11 @@
   right: 8px;
 }
 
+.section[data-brand="bugaboo"] .hotspotPanel {
+  border-radius: 0;
+  gap: 10px;
+}
+
 .hotspotPanel img {
   border-radius: 4px;
   display: block;
@@ -192,6 +202,10 @@
   height: 72px;
   object-fit: cover;
   width: 70px;
+}
+
+.section[data-brand="bugaboo"] .hotspotPanel img {
+  border-radius: 0;
 }
 
 .hotspotPanel p {
