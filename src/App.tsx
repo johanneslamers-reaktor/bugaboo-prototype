@@ -25,6 +25,7 @@ type AppRoute =
   | {
       kind: "homepage";
       brand?: BrandId;
+      variant?: "v1" | "v2";
     }
   | {
       kind: "product";
@@ -43,8 +44,10 @@ function parseRoute(pathname: string): AppRoute {
         slug: slugSegment,
       };
     }
-    // /bugaboo or /joolz → branded homepage
-    return { kind: "homepage", brand: brandSegment };
+    // /bugaboo/v1 or /bugaboo/v2 → branded homepage with variant
+    // /bugaboo or /joolz (no variant) → default to v1
+    const variant = productsSegment === "v2" ? "v2" : "v1";
+    return { kind: "homepage", brand: brandSegment, variant };
   }
 
   return { kind: "homepage" };

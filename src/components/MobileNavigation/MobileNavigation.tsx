@@ -93,7 +93,8 @@ function DebugMenu({ brand, onClose }: { brand: BrandId; onClose: () => void }) 
       brand: "bugaboo",
       label: "Bugaboo",
       items: [
-        { href: "/bugaboo", label: "Homepage", sublabel: "Bugaboo home" },
+        { href: "/bugaboo/v1", label: "Homepage v1", sublabel: "Bugaboo home – variant 1" },
+        { href: "/bugaboo/v2", label: "Homepage v2", sublabel: "Bugaboo home – variant 2" },
         ...productCatalog.bugaboo.map((p) => ({
           href: `/bugaboo/products/${p.slug}`,
           label: p.title + (p.titleSuffix ? ` ${p.titleSuffix}` : ""),
@@ -105,7 +106,8 @@ function DebugMenu({ brand, onClose }: { brand: BrandId; onClose: () => void }) 
       brand: "joolz",
       label: "Joolz",
       items: [
-        { href: "/joolz", label: "Homepage", sublabel: "Joolz home" },
+        { href: "/joolz/v1", label: "Homepage v1", sublabel: "Joolz home – variant 1" },
+        { href: "/joolz/v2", label: "Homepage v2", sublabel: "Joolz home – variant 2" },
         ...productCatalog.joolz.map((p) => ({
           href: `/joolz/products/${p.slug}`,
           label: p.title + (p.titleSuffix ? ` ${p.titleSuffix}` : ""),
