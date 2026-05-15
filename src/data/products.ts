@@ -748,11 +748,10 @@ export const productCatalog: Record<BrandId, ProductDetail[]> = {
         },
         lead: {
           strong: "Becoming a parent changed everything, not how I expected though.",
-          muted:
-            " I thought life would get smaller. Instead, it opened up. Longer walks, more adventures, extra spontaneity, and an urge to get outside.",
+          muted: " I thought life would get smaller. Instead, it opened everything up.",
         },
         body:
-          "The Bugaboo Fox 5 Renew made it easy. All-terrain, smooth to steer, and comfortable from the start, it moves effortlessly from city streets to park paths. It gave me the confidence to go further, without overthinking it.",
+          "The Bugaboo Fox 5 Renew made it easy. All-terrain, smooth to steer, and comfortable from the start, it moves effortlessly from city streets to park paths. It gave me confidence to go further.",
         ctaLabel: "Read the full story",
         inspirationImage: {
           id: "walk",

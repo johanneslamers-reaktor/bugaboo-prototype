@@ -189,6 +189,10 @@
   max-width: 352px;
 }
 
+.section[data-brand="bugaboo"] .storyCopy {
+  gap: 32px;
+}
+
 .section[data-brand="joolz"] .storyCopy {
   margin-top: 32px;
 }
@@ -198,7 +202,7 @@
   font-size: 28px;
   font-weight: 400;
   letter-spacing: 0;
-  line-height: 1.05;
+  line-height: 32px;
 }
 
 .section[data-brand="joolz"] .lead {
