@@ -1,7 +1,8 @@
 .hero {
   color: #ffffff;
+  height: 100dvh;
   isolation: isolate;
-  min-height: 75svh;
+  max-height: 1000px;
   overflow: hidden;
   position: relative;
   width: 100%;
@@ -27,7 +28,11 @@
 
 .fallbackMedia {
   background:
-    radial-gradient(circle at 36% 14%, rgba(133, 165, 96, 0.58), transparent 32%),
+    radial-gradient(
+      circle at 36% 14%,
+      rgba(133, 165, 96, 0.58),
+      transparent 32%
+    ),
     radial-gradient(circle at 94% 9%, rgba(23, 32, 33, 0.8), transparent 34%),
     linear-gradient(158deg, #314f27 0%, #101d1c 46%, #050a0b 100%);
 }
@@ -35,7 +40,11 @@
 .hero[data-brand="joolz"] .fallbackMedia {
   background:
     radial-gradient(circle at 18% 5%, rgba(217, 85, 95, 0.72), transparent 34%),
-    radial-gradient(circle at 71% 23%, rgba(232, 160, 102, 0.58), transparent 35%),
+    radial-gradient(
+      circle at 71% 23%,
+      rgba(232, 160, 102, 0.58),
+      transparent 35%
+    ),
     linear-gradient(155deg, #2b1715 0%, #694039 42%, #202225 100%);
 }
 

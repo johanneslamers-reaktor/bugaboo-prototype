@@ -56,14 +56,14 @@ function parseRoute(pathname: string): AppRoute {
 export default function App() {
   const route = parseRoute(window.location.pathname);
   const initialBrand: BrandId =
-    route.kind === "product"
-      ? route.brand
-      : route.brand ?? "bugaboo";
+    route.kind === "product" ? route.brand : (route.brand ?? "bugaboo");
   const [brand, setBrand] = useState<BrandId>(initialBrand);
   const pageBrand = route.kind === "product" ? route.brand : brand;
-  const product = route.kind === "product"
-    ? getProductBySlug(route.brand, route.slug) ?? getDefaultProduct(route.brand)
-    : null;
+  const product =
+    route.kind === "product"
+      ? (getProductBySlug(route.brand, route.slug) ??
+        getDefaultProduct(route.brand))
+      : null;
 
   useEffect(() => {
     const targetId = window.location.hash.slice(1);
@@ -80,7 +80,10 @@ export default function App() {
   return (
     <main className={styles.page} data-brand={pageBrand}>
       <div className={styles.previewGrid}>
-        <section className={styles.previewPanel} aria-label={`${pageBrand} prototype preview`}>
+        <section
+          className={styles.previewPanel}
+          aria-label={`${pageBrand} prototype preview`}
+        >
           <div className={styles.phoneCanvas}>
             {route.kind === "product" && product ? (
               <ProductMasterPage brand={route.brand} product={product} />
@@ -91,10 +94,19 @@ export default function App() {
                   content={homepageHero[brand]}
                   onLogoDoubleClick={() => setBrand(nextBrand[brand])}
                 />
-                <CategoryCarousel brand={brand} content={homepageCategoryCarousel[brand]} />
+                <CategoryCarousel
+                  brand={brand}
+                  content={homepageCategoryCarousel[brand]}
+                />
                 <BrandUsp brand={brand} content={homepageBrandUsp[brand]} />
-                <ProductCarousel brand={brand} content={homepageProductCarousel[brand]} />
-                <EditorialRail brand={brand} content={homepageEditorialRail[brand]} />
+                <ProductCarousel
+                  brand={brand}
+                  content={homepageProductCarousel[brand]}
+                />
+                <EditorialRail
+                  brand={brand}
+                  content={homepageEditorialRail[brand]}
+                />
               </>
             )}
           </div>

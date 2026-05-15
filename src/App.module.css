@@ -20,19 +20,31 @@
   min-height: 100svh;
   overflow: visible;
   position: relative;
-  width: min(100vw, 402px);
+  width: min(100vw, 500px);
 }
 
 .page[data-brand="bugaboo"] .phoneCanvas {
   background:
-    radial-gradient(circle at 25% 10%, rgba(135, 159, 99, 0.72), transparent 34%),
+    radial-gradient(
+      circle at 25% 10%,
+      rgba(135, 159, 99, 0.72),
+      transparent 34%
+    ),
     linear-gradient(145deg, #1e301d 0%, #0c1515 46%, #121212 100%);
 }
 
 .page[data-brand="joolz"] .phoneCanvas {
   background:
-    radial-gradient(circle at 22% 8%, rgba(224, 112, 113, 0.76), transparent 34%),
-    radial-gradient(circle at 70% 12%, rgba(234, 180, 126, 0.54), transparent 28%),
+    radial-gradient(
+      circle at 22% 8%,
+      rgba(224, 112, 113, 0.76),
+      transparent 34%
+    ),
+    radial-gradient(
+      circle at 70% 12%,
+      rgba(234, 180, 126, 0.54),
+      transparent 28%
+    ),
     linear-gradient(145deg, #231513 0%, #4f3029 54%, #22252a 100%);
 }
 
