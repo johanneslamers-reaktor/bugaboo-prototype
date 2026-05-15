@@ -1,18 +1,37 @@
+/*
+ * Full-width fixed bar at the bottom of the viewport. Visible fade is
+ * translucent at the top (content shows through, legibility wash) → opaque
+ * white at the bottom (covers scrolling content behind the pill and lines
+ * up with iOS 26 Safari's body-background chin tint when no fixed element
+ * has a solid bg-color set).
+ *
+ * The pill (.shell) is a centered child, max 354/358px wide. The optional
+ * Klarna financing line renders as a sibling below the pill.
+ */
 .floatingCta {
-  bottom: 18px;
-  bottom: calc(12px + constant(safe-area-inset-bottom));
-  bottom: var(--floating-cta-bottom-offset, 18px);
+  align-items: center;
+  background: linear-gradient(
+    180deg,
+    rgb(255 255 255 / 0%) 0%,
+    rgb(255 255 255 / 75%) 35%,
+    rgb(255 255 255 / 100%) 70%
+  );
+  bottom: 0;
   box-sizing: border-box;
-  left: 50%;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  left: 0;
+  padding: 8px 18px calc(4px + env(safe-area-inset-bottom, 0px));
   pointer-events: none;
   position: fixed;
-  transform: translateX(-50%);
-  width: min(calc(100vw - 48px), 354px);
-  width: min(
-    calc(100vw - 48px - env(safe-area-inset-left, 0px) - env(safe-area-inset-right, 0px)),
-    354px
-  );
+  right: 0;
   z-index: 30;
+}
+
+.floatingCta[data-brand="joolz"] {
+  padding-left: 22px;
+  padding-right: 22px;
 }
 
 .shell {
@@ -26,6 +45,7 @@
   display: flex;
   height: 58px;
   justify-content: space-between;
+  max-width: 354px;
   overflow: hidden;
   padding: 8px 8px 8px 24px;
   pointer-events: auto;
@@ -155,10 +175,9 @@
   font-size: 13px;
   font-weight: 400;
   gap: 4px;
-  justify-content: flex-start;
+  justify-content: center;
   line-height: 1;
-  margin-top: 0;
-  padding-left: 0;
+  max-width: 354px;
   pointer-events: auto;
   width: 100%;
 }
@@ -174,21 +193,11 @@
   width: 20px;
 }
 
-.floatingCta[data-brand="joolz"] {
-  width: min(
-    calc(100vw - 44px - env(safe-area-inset-left, 0px) - env(safe-area-inset-right, 0px)),
-    358px
-  );
-}
-
-.floatingCta[data-brand="joolz"]::before {
-  top: -22px;
-}
-
 .floatingCta[data-brand="joolz"] .shell {
   background: rgb(0 0 0 / 75%);
   border-radius: 12px;
   height: 62px;
+  max-width: 358px;
   padding: 8px;
 }
 
@@ -200,6 +209,7 @@
   font-family: var(--font-value-sans);
   justify-content: flex-end;
   line-height: 20px;
+  max-width: 358px;
 }
 
 .floatingCta[data-brand="joolz"] .button {
@@ -220,10 +230,6 @@
 }
 
 @media (max-width: 359px) {
-  .floatingCta {
-    width: calc(100vw - 24px);
-  }
-
   .shell {
     padding-left: 16px;
   }
