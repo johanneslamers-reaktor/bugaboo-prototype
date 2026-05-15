@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion, useReducedMotion } from "motion/react";
 import type { BrandId } from "../../brands/brands";
 import type { ProductFeatureBenefitsContent, ProductFeatureBenefitItem } from "../../data/products";
@@ -122,6 +122,19 @@ function FeatureCard({
   onCloseHotspot: () => void;
   shouldReduceMotion: boolean;
 }) {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [isPaused, setIsPaused] = useState(false);
+
+  const togglePlayback = () => {
+    const video = videoRef.current;
+    if (!video) return;
+    if (video.paused) {
+      void video.play();
+    } else {
+      video.pause();
+    }
+  };
+
   return (
     <motion.article
       className={styles.card}
@@ -133,6 +146,7 @@ function FeatureCard({
       <figure className={styles.media}>
         {item.media.type === "video" ? (
           <motion.video
+            ref={videoRef}
             {...(shouldReduceMotion ? {} : ENTRANCE_ZOOM)}
             src={item.media.src}
             poster={item.media.posterSrc}
@@ -142,6 +156,8 @@ function FeatureCard({
             loop
             playsInline
             preload="metadata"
+            onPlay={() => setIsPaused(false)}
+            onPause={() => setIsPaused(true)}
             style={{ objectPosition: item.media.objectPosition }}
           />
         ) : (
@@ -203,9 +219,21 @@ function FeatureCard({
           );
         })}
         {item.media.type === "video" ? (
-          <span className={styles.playBadge} aria-hidden="true">
-            {brand === "bugaboo" ? <PauseIcon /> : <PlayIcon />}
-          </span>
+          brand === "bugaboo" ? (
+            <button
+              className={styles.playBadge}
+              type="button"
+              aria-label={isPaused ? "Play video" : "Pause video"}
+              aria-pressed={isPaused}
+              onClick={togglePlayback}
+            >
+              {isPaused ? <PlayIcon /> : <PauseIcon />}
+            </button>
+          ) : (
+            <span className={styles.playBadge} aria-hidden="true">
+              <PlayIcon />
+            </span>
+          )
         ) : null}
       </figure>
 
