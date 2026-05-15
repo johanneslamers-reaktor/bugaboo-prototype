@@ -317,3 +317,26 @@
   font-family: var(--font-value-sans);
   font-weight: 500;
 }
+
+/*
+ * Bugaboo accordion text styles per Vanessa's Figma spec:
+ *   Heading: 16px / 500 / #1a1a1a / Aeonik Pro / line-height 1.3
+ *   Body:    16px / 400 / #737373 / Aeonik Pro / line-height 1.3
+ * Joolz uses its own overrides above and is unaffected.
+ */
+.accordion[data-brand="bugaboo"] .boxItem h3 {
+  font-size: 16px;
+}
+
+.accordion[data-brand="bugaboo"] .boxItem p,
+.accordion[data-brand="bugaboo"] .fallbackContent p {
+  color: #737373;
+  font-size: 16px;
+  line-height: 1.3;
+}
+
+.accordion[data-brand="bugaboo"] .bulletList,
+.accordion[data-brand="bugaboo"] .specText,
+.accordion[data-brand="bugaboo"] .featureText {
+  color: #737373;
+}
