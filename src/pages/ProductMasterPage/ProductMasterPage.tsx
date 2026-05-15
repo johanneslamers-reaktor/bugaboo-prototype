@@ -10,6 +10,7 @@ import { ProductFloatingCta } from "../../components/ProductFloatingCta";
 import { ProductGallery } from "../../components/ProductGallery";
 import { ProductImpact } from "../../components/ProductImpact";
 import { ProductReasons } from "../../components/ProductReasons";
+import { ProductReasonsCarousel } from "../../components/ProductReasonsCarousel";
 import { ProductStoryShop } from "../../components/ProductStoryShop";
 import { ProductSummary } from "../../components/ProductSummary";
 import { ProductShopTheLook } from "../../components/ProductShopTheLook";
@@ -69,7 +70,11 @@ export function ProductMasterPage({ brand, product }: ProductMasterPageProps) {
           selectedColorway={selectedColorway}
           onColorwayChange={setSelectedColorwayId}
         />
-        <ProductReasons brand={brand} items={product.reasons} />
+        {product.reasonsCarousel ? (
+          <ProductReasonsCarousel brand={brand} content={product.reasonsCarousel} />
+        ) : (
+          <ProductReasons brand={brand} items={product.reasons} />
+        )}
         <ProductAccordion brand={brand} items={product.accordions} />
         <ProductImpact brand={brand} content={product.impact} />
         {product.featureBenefits ? (
