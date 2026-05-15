@@ -1,7 +1,8 @@
 .hero {
   color: #ffffff;
+  height: 100dvh;
   isolation: isolate;
-  min-height: 75svh;
+  max-height: 1000px;
   overflow: hidden;
   position: relative;
   width: 100%;
@@ -27,7 +28,11 @@
 
 .fallbackMedia {
   background:
-    radial-gradient(circle at 36% 14%, rgba(133, 165, 96, 0.58), transparent 32%),
+    radial-gradient(
+      circle at 36% 14%,
+      rgba(133, 165, 96, 0.58),
+      transparent 32%
+    ),
     radial-gradient(circle at 94% 9%, rgba(23, 32, 33, 0.8), transparent 34%),
     linear-gradient(158deg, #314f27 0%, #101d1c 46%, #050a0b 100%);
 }
@@ -35,7 +40,11 @@
 .hero[data-brand="joolz"] .fallbackMedia {
   background:
     radial-gradient(circle at 18% 5%, rgba(217, 85, 95, 0.72), transparent 34%),
-    radial-gradient(circle at 71% 23%, rgba(232, 160, 102, 0.58), transparent 35%),
+    radial-gradient(
+      circle at 71% 23%,
+      rgba(232, 160, 102, 0.58),
+      transparent 35%
+    ),
     linear-gradient(155deg, #2b1715 0%, #694039 42%, #202225 100%);
 }
 
@@ -58,26 +67,53 @@
   z-index: 2;
 }
 
+.contentBlock {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  left: 0;
+  position: absolute;
+  right: 0;
+}
+
+.hero[data-brand="bugaboo"] .contentBlock {
+  bottom: 0;
+  padding-bottom: 70px;
+}
+
+.hero[data-brand="bugaboo"]:not([data-has-cta="true"]) .contentBlock {
+  gap: 48px;
+}
+
+.hero[data-brand="bugaboo"][data-has-cta="true"] .contentBlock {
+  gap: 36px;
+}
+
+.hero[data-brand="joolz"] .contentBlock {
+  bottom: 0;
+  justify-content: center;
+  top: 0;
+}
+
+/* LITTLE HACK HERE: 
+   padding-top = gap + approx nav height (20px)
+   shifts the centering axis so copy lands at hero center, not the group */
+.hero[data-brand="joolz"]:not([data-has-cta="true"]) .contentBlock {
+  gap: 124px;
+  padding-top: 144px; /* 124 + 20 */
+}
+
+.hero[data-brand="joolz"][data-has-cta="true"] .contentBlock {
+  gap: 66px;
+  padding-top: 86px; /* 66 + 20 */
+}
+
 .copy {
   align-items: center;
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  left: 50%;
-  position: absolute;
+  gap: 0;
   text-align: center;
-  transform: translateX(-50%);
-  width: min(313px, calc(100% - 48px));
-}
-
-.hero[data-brand="bugaboo"] .copy {
-  bottom: 166px;
-  gap: 16px;
-}
-
-.hero[data-brand="joolz"] .copy {
-  top: 39.5%;
-  transform: translate(-50%, -50%);
 }
 
 .heading {
@@ -96,7 +132,7 @@
   gap: 0;
 }
 
-.heading mark {
+.heading mark:not(.productHighlight) {
   align-self: center;
   background: #d9b8e8;
   color: #130f31;
@@ -110,35 +146,114 @@
   padding: 0 12px 5px;
 }
 
+.productLine {
+  align-items: center;
+  display: inline-flex;
+  font-family: var(--font-value-sans-joolz);
+  font-size: 46px;
+  font-weight: 700;
+  gap: 6px;
+  justify-content: center;
+  line-height: 1.1;
+  margin: 0;
+}
+
+.productHighlight {
+  background: #fdfdfd;
+  color: #130f31;
+  display: inline-block;
+  font-family: var(--font-value-sans-joolz);
+  font-size: 46px;
+  font-weight: 700;
+  padding: 6.97px 6.97px 1.92px;
+  transform: rotate(1.16deg);
+}
+
+.productHeadline {
+  display: block;
+  font-family: var(--font-goudy);
+  font-size: 59px;
+  font-weight: 400;
+  line-height: 1;
+  margin-top: 4px;
+}
+
+.eyebrow {
+  color: rgba(255, 255, 255, 0.85);
+  font-family: var(--type-body-l-font);
+  font-size: var(--type-body-l-size);
+  font-weight: var(--type-body-l-weight);
+  line-height: var(--type-body-l-line-height);
+  margin: 0 0 8px;
+}
+
+.hero[data-brand="joolz"] .eyebrow {
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.hero[data-brand="joolz"][data-has-cta="true"] .eyebrow {
+  margin-bottom: 20px;
+}
+
 .subtitle {
   color: inherit;
   font-family: var(--type-hero-subtitle-font);
   font-size: var(--type-hero-subtitle-size);
   font-weight: var(--type-hero-subtitle-weight);
   line-height: var(--type-hero-subtitle-line-height);
-  margin: 0;
+  margin: 12px 0 0;
   max-width: 265px;
+}
+
+.hero[data-brand="bugaboo"]:not([data-has-cta="true"]) .subtitle {
+  margin-top: 16px;
+}
+
+.ctaButton {
+  align-items: center;
+  background: #ffffff;
+  border-radius: 100px;
+  color: #0a0a0a;
+  display: inline-flex;
+  font-family: var(--type-button-l-font);
+  font-size: var(--type-button-l-size);
+  font-weight: var(--type-button-l-weight);
+  justify-content: center;
+  line-height: var(--type-button-l-line-height);
+  margin-top: 32px;
+  padding: 11px 24px 13px;
+  text-decoration: none;
+}
+
+.hero[data-brand="joolz"] .ctaButton {
+  background: #ffffff;
+  border: 3px solid var(--joolz-deep-blue);
+  border-radius: 8px;
+  color: var(--joolz-deep-blue);
+  font-weight: 900;
+  outline: 2px solid #ffffff;
+  outline-offset: 0;
+  padding: 11px 24px 13px;
 }
 
 .hero[data-brand="joolz"] .subtitle {
   max-width: 313px;
+  white-space: pre-line;
 }
 
 .categoryNav {
   align-items: center;
-  bottom: 71px;
   display: flex;
   flex-direction: column;
   gap: 12px;
-  left: 50%;
   opacity: 0.8;
-  position: absolute;
-  transform: translateX(-50%);
   width: max-content;
 }
 
 .hero[data-brand="joolz"] .categoryNav {
-  bottom: 163px;
   flex-direction: row;
   gap: 32px;
 }

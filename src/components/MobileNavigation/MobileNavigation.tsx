@@ -44,7 +44,11 @@ export function MobileNavigation({
       {createPortal(
         <AnimatePresence>
           {isMenuOpen ? (
-            <DebugMenu key="debug-menu" brand={brand} onClose={() => setIsMenuOpen(false)} />
+            <DebugMenu
+              key="debug-menu"
+              brand={brand}
+              onClose={() => setIsMenuOpen(false)}
+            />
           ) : null}
         </AnimatePresence>,
         document.body,
@@ -71,7 +75,11 @@ export function MobileNavigation({
         <button className={styles.iconButton} type="button" aria-label="Search">
           <SearchIcon />
         </button>
-        <button className={styles.iconButton} type="button" aria-label="Open basket">
+        <button
+          className={styles.iconButton}
+          type="button"
+          aria-label="Open basket"
+        >
           <BasketIcon />
         </button>
       </div>
@@ -87,13 +95,32 @@ export function MobileNavigation({
  * SPA-routed via window.location.pathname parsing on mount, so an anchor
  * click re-runs the route parse with a clean state.
  */
-function DebugMenu({ brand, onClose }: { brand: BrandId; onClose: () => void }) {
-  const sections: { brand: BrandId; label: string; items: { href: string; label: string; sublabel?: string }[] }[] = [
+function DebugMenu({
+  brand,
+  onClose,
+}: {
+  brand: BrandId;
+  onClose: () => void;
+}) {
+  const sections: {
+    brand: BrandId;
+    label: string;
+    items: { href: string; label: string; sublabel?: string }[];
+  }[] = [
     {
       brand: "bugaboo",
       label: "Bugaboo",
       items: [
-        { href: "/bugaboo", label: "Homepage", sublabel: "Bugaboo home" },
+        {
+          href: "/bugaboo/v1",
+          label: "Homepage v1",
+          sublabel: "Bugaboo home – variant 1",
+        },
+        {
+          href: "/bugaboo/v2",
+          label: "Homepage v2",
+          sublabel: "Bugaboo home – variant 2",
+        },
         ...productCatalog.bugaboo.map((p) => ({
           href: `/bugaboo/products/${p.slug}`,
           label: p.title + (p.titleSuffix ? ` ${p.titleSuffix}` : ""),
@@ -105,7 +132,16 @@ function DebugMenu({ brand, onClose }: { brand: BrandId; onClose: () => void }) 
       brand: "joolz",
       label: "Joolz",
       items: [
-        { href: "/joolz", label: "Homepage", sublabel: "Joolz home" },
+        {
+          href: "/joolz/v1",
+          label: "Homepage v1",
+          sublabel: "Joolz home – variant 1",
+        },
+        {
+          href: "/joolz/v2",
+          label: "Homepage v2",
+          sublabel: "Joolz home – variant 2",
+        },
         ...productCatalog.joolz.map((p) => ({
           href: `/joolz/products/${p.slug}`,
           label: p.title + (p.titleSuffix ? ` ${p.titleSuffix}` : ""),
@@ -152,17 +188,27 @@ function DebugMenu({ brand, onClose }: { brand: BrandId; onClose: () => void }) 
         </div>
 
         {sections.map((section) => (
-          <div className={styles.debugMenuSection} key={section.brand} data-brand={section.brand}>
+          <div
+            className={styles.debugMenuSection}
+            key={section.brand}
+            data-brand={section.brand}
+          >
             <p className={styles.debugMenuSectionLabel}>{section.label}</p>
             <ul className={styles.debugMenuList}>
               {section.items.map((item) => (
                 <li key={item.href}>
                   <a className={styles.debugMenuItem} href={item.href}>
-                    <span className={styles.debugMenuItemLabel}>{item.label}</span>
+                    <span className={styles.debugMenuItemLabel}>
+                      {item.label}
+                    </span>
                     {item.sublabel ? (
-                      <span className={styles.debugMenuItemSub}>{item.sublabel}</span>
+                      <span className={styles.debugMenuItemSub}>
+                        {item.sublabel}
+                      </span>
                     ) : null}
-                    <span className={styles.debugMenuItemPath}>{item.href}</span>
+                    <span className={styles.debugMenuItemPath}>
+                      {item.href}
+                    </span>
                   </a>
                 </li>
               ))}

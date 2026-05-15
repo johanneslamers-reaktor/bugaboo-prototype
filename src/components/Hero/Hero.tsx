@@ -36,7 +36,12 @@ export function Hero({ brand, content, onLogoDoubleClick }: HeroProps) {
   };
 
   return (
-    <section className={styles.hero} data-brand={brand} data-node-id={content.nodeId}>
+    <section
+      className={styles.hero}
+      data-brand={brand}
+      data-node-id={content.nodeId}
+      data-has-cta={content.ctaLabel ? "true" : undefined}
+    >
       <div className={styles.media} aria-hidden="true">
         {content.videoSrc ? (
           <motion.video
@@ -61,22 +66,35 @@ export function Hero({ brand, content, onLogoDoubleClick }: HeroProps) {
         onLogoDoubleClick={onLogoDoubleClick}
       />
 
-      <div className={styles.copy}>
-        <HeroHeading title={content.title} />
-        <p className={styles.subtitle}>{content.subtitle}</p>
-      </div>
+      <div className={styles.contentBlock}>
+        <div className={styles.copy}>
+          {content.eyebrow ? (
+            <p className={styles.eyebrow}>{content.eyebrow}</p>
+          ) : null}
+          <HeroHeading title={content.title} />
+          <p className={styles.subtitle}>{content.subtitle}</p>
+          {content.ctaLabel && content.ctaHref ? (
+            <a className={styles.ctaButton} href={content.ctaHref}>
+              {content.ctaLabel}
+            </a>
+          ) : null}
+        </div>
 
-      <nav className={styles.categoryNav} aria-label="Hero categories">
-        {content.categories.map((row, index) => (
-          <div className={styles.categoryRow} key={index}>
-            {row.map((category) => (
-              <a href={`#${category.toLowerCase().replaceAll(" ", "-")}`} key={category}>
-                {category}
-              </a>
-            ))}
-          </div>
-        ))}
-      </nav>
+        <nav className={styles.categoryNav} aria-label="Hero categories">
+          {content.categories.map((row, index) => (
+            <div className={styles.categoryRow} key={index}>
+              {row.map((category) => (
+                <a
+                  href={`#${category.toLowerCase().replaceAll(" ", "-")}`}
+                  key={category}
+                >
+                  {category}
+                </a>
+              ))}
+            </div>
+          ))}
+        </nav>
+      </div>
 
       <button
         className={styles.playbackButton}
@@ -92,6 +110,20 @@ export function Hero({ brand, content, onLogoDoubleClick }: HeroProps) {
 }
 
 function HeroHeading({ title }: { title: HeroContent["title"] }) {
+  if (title.kind === "product") {
+    return (
+      <h1 className={styles.heading}>
+        <span className={styles.productLine}>
+          <span>{title.productName}</span>
+          <mark className={styles.productHighlight}>
+            {title.productHighlight}
+          </mark>
+        </span>
+        <span className={styles.productHeadline}>{title.headline}</span>
+      </h1>
+    );
+  }
+
   if (title.kind === "highlight") {
     return (
       <h1 className={styles.heading}>

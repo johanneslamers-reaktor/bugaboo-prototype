@@ -9,12 +9,21 @@ export type HeroTitle =
       kind: "highlight";
       before: string;
       highlight: string;
+    }
+  | {
+      kind: "product";
+      productName: string;
+      productHighlight: string;
+      headline: string;
     };
 
 export type HeroContent = {
   nodeId: string;
+  eyebrow?: string;
   title: HeroTitle;
   subtitle: string;
+  ctaLabel?: string;
+  ctaHref?: string;
   categories: string[][];
   videoSrc?: string;
   posterSrc?: string;
@@ -127,27 +136,65 @@ export type BrandUspContent = {
   };
 };
 
-export const homepageHero: Record<BrandId, HeroContent> = {
+export const homepageHero: Record<BrandId, Record<"v1" | "v2", HeroContent>> = {
   bugaboo: {
-    nodeId: "8612:3105",
-    title: {
-      kind: "plain",
-      lines: ["Engineered for", "the future"],
+    v1: {
+      nodeId: "8612:3105",
+      title: {
+        kind: "plain",
+        lines: ["Engineered for", "the future"],
+      },
+      subtitle: "Built to move with you today, and designed for what's next.",
+      categories: [
+        ["Strollers", "Bundles", "Car Seats"],
+        ["High Chairs", "Accessories"],
+      ],
+      videoSrc: "/assets/hero/bugaboo hero mobile 1.mp4",
     },
-    subtitle: "Built to move with you today, and designed for what's next.",
-    categories: [["Strollers", "Bundles", "Car Seats"], ["High Chairs", "Accessories"]],
-    videoSrc: "/assets/hero/bugaboo-hero.mp4",
+    v2: {
+      nodeId: "8612:3105",
+      eyebrow: "Butterfly 2",
+      title: {
+        kind: "plain",
+        lines: ["Travel freely, your way"],
+      },
+      subtitle: "Designed for life on the move",
+      ctaLabel: "Shop now",
+      ctaHref: "/bugaboo/products/butterfly-2",
+      categories: [
+        ["Strollers", "Bundles", "Car Seats"],
+        ["High Chairs", "Accessories"],
+      ],
+      videoSrc: "/assets/hero/bugaboo hero mobile 2.mp4",
+    },
   },
   joolz: {
-    nodeId: "8612:3610",
-    title: {
-      kind: "highlight",
-      before: "In the little",
-      highlight: "moments",
+    v1: {
+      nodeId: "8612:3610",
+      title: {
+        kind: "highlight",
+        before: "In the little",
+        highlight: "moments",
+      },
+      subtitle: "From first days to messy moments, find what fits your world",
+      categories: [["Strollers", "Bundles", "Accessories"]],
+      videoSrc: "/assets/hero/joolz hero mobile 1.mp4",
     },
-    subtitle: "From first days to messy moments, find what fits your world",
-    categories: [["Strollers", "Bundles", "Accessories"]],
-    videoSrc: "/assets/hero/joolz-hero.mp4",
+    v2: {
+      nodeId: "8612:3610",
+      eyebrow: "DISCOVER",
+      title: {
+        kind: "product",
+        productName: "Joolz",
+        productHighlight: "Aer²",
+        headline: "Incredibly easy",
+      },
+      subtitle: "One hand for the stroller.\nOne hand for everything else.",
+      ctaLabel: "Shop now",
+      ctaHref: "/joolz/products/joolz-aer-2",
+      categories: [["Strollers", "Bundles", "Accessories"]],
+      videoSrc: "/assets/hero/joolz hero mobile 2.mp4",
+    },
   },
 };
 
@@ -173,7 +220,8 @@ export const homepageBrandUsp: Record<BrandId, BrandUspContent> = {
         description:
           "Durable materials and thoughtful engineering made to last. Designed to support daily use over time, without compromising on comfort.",
         imageSrc: "/assets/brand-usp/bugaboo-usp2.jpg",
-        imageAlt: "Parent pushing a Bugaboo stroller through a grassy landscape",
+        imageAlt:
+          "Parent pushing a Bugaboo stroller through a grassy landscape",
       },
       {
         title: "Made to last",
@@ -212,13 +260,16 @@ export const homepageBrandUsp: Record<BrandId, BrandUspContent> = {
         description:
           "For every stroller sold, we plant a tree — growing our Birth Forest for future generations.",
         imageSrc: "/assets/brand-usp/joolz-usp2.jpg",
-        imageAlt: "Child beside a Joolz stroller basket filled with toys and day-trip essentials",
+        imageAlt:
+          "Child beside a Joolz stroller basket filled with toys and day-trip essentials",
       },
       {
         title: "Built to last",
-        description: "With a 10-year transferable warranty, made to support your family for years to come.",
+        description:
+          "With a 10-year transferable warranty, made to support your family for years to come.",
         imageSrc: "/assets/brand-usp/joolz-usp3.jpg",
-        imageAlt: "Parent carrying a child with a folded Joolz stroller on their back",
+        imageAlt:
+          "Parent carrying a child with a folded Joolz stroller on their back",
       },
     ],
     reel: {
@@ -230,7 +281,10 @@ export const homepageBrandUsp: Record<BrandId, BrandUspContent> = {
   },
 };
 
-export const homepageCategoryCarousel: Record<BrandId, CategoryCarouselContent> = {
+export const homepageCategoryCarousel: Record<
+  BrandId,
+  CategoryCarouselContent
+> = {
   bugaboo: {
     nodeId: "8612:3139",
     title: "Explore a stroller category",
@@ -291,117 +345,122 @@ export const homepageCategoryCarousel: Record<BrandId, CategoryCarouselContent> 
   },
 };
 
-export const homepageProductCarousel: Record<BrandId, ProductCarouselContent> = {
-  bugaboo: {
-    nodeId: "8612:3201",
-    title: "Loved by parents",
-    items: [
-      {
-        id: "dragonfly-2-in-1",
-        badge: "New",
-        title: [{ text: "Dragonfly 2-in-1 stroller" }],
-        subtitle: "Most comfortable city stroller",
-        compareAtPrice: "€ 1.149,00",
-        price: "€976,65",
-        images: [
-          {
-            src: "/assets/products/bugaboo-dragonfly-1.png",
-            alt: "Bugaboo Dragonfly stroller with bassinet in side view",
-          },
-          {
-            src: "/assets/products/bugaboo-dragonfly-2.png",
-            alt: "Bugaboo Dragonfly stroller folded orientation",
-          },
-          {
-            src: "/assets/products/bugaboo-dragonfly-3.png",
-            alt: "Bugaboo Dragonfly stroller alternate angle",
-          },
-        ],
-      },
-      {
-        id: "donkey-6-double",
-        badge: "New",
-        title: [{ text: "Donkey 6 double stroller" }],
-        subtitle: "Convertible, side by side",
-        price: "€1.769,00",
-        images: [
-          {
-            src: "/assets/products/bugaboo-donkey-1.png",
-            alt: "Bugaboo Donkey 6 double stroller in side view",
-          },
-          {
-            src: "/assets/products/bugaboo-donkey-3.png",
-            alt: "Bugaboo Donkey 6 double stroller alternate configuration",
-          },
-          {
-            src: "/assets/products/bugaboo-donkey-4.png",
-            alt: "Bugaboo Donkey 6 double stroller folded orientation",
-          },
-        ],
-      },
-      {
-        id: "fox-5-renew-bundle",
-        badge: "Bundle",
-        title: [{ text: "Fox 5 Renew Travel System Bundle" }],
-        subtitle: "Gets you ready for road trips",
-        compareAtPrice: "€ 1.959,00",
-        price: "€ 1.769,00",
-        images: [
-          {
-            src: "/assets/products/bugaboo-fox-bundle-1.jpg",
-            alt: "Bugaboo Fox 5 Renew travel system bundle",
-          },
-        ],
-      },
-    ],
-  },
-  joolz: {
-    nodeId: "8612:3714",
-    title: "Loved by parents",
-    items: [
-      {
-        id: "joolz-geo-5",
-        badge: "New",
-        title: [{ text: "Joolz Geo" }, { text: "5", superscript: true }],
-        subtitle: "Most versatile, for all-terrain",
-        price: "€ 1899,00",
-        images: [
-          {
-            src: "/assets/products/joolz-geo-1.png",
-            alt: "Joolz Geo stroller in forest green",
-          },
-        ],
-      },
-      {
-        id: "joolz-day-5",
-        badge: "New",
-        title: [{ text: "Joolz Day" }, { text: "5", superscript: true }],
-        subtitle: "Highest comfort, 3-in-1",
-        price: "€ 1299,00",
-        images: [
-          {
-            src: "/assets/products/joolz-day-1.jpg",
-            alt: "Joolz Day stroller in sand color",
-          },
-        ],
-      },
-      {
-        id: "joolz-day-5-essentials",
-        badge: "Bundle",
-        title: [{ text: "Joolz Day" }, { text: "5", superscript: true }, { text: " Essentials Bundle" }],
-        subtitle: "Everything you need from day one",
-        compareAtPrice: "€ 1679,00",
-        price: "€ 1549,00",
-        images: [
-          {
-            src: "/assets/products/joolz-day-bundle-1.jpg",
-            alt: "Joolz Day essentials stroller bundle",
-          },
-        ],
-      },
-    ],
-  },
-};
+export const homepageProductCarousel: Record<BrandId, ProductCarouselContent> =
+  {
+    bugaboo: {
+      nodeId: "8612:3201",
+      title: "Loved by parents",
+      items: [
+        {
+          id: "dragonfly-2-in-1",
+          badge: "New",
+          title: [{ text: "Dragonfly 2-in-1 stroller" }],
+          subtitle: "Most comfortable city stroller",
+          compareAtPrice: "€ 1.149,00",
+          price: "€976,65",
+          images: [
+            {
+              src: "/assets/products/bugaboo-dragonfly-1.png",
+              alt: "Bugaboo Dragonfly stroller with bassinet in side view",
+            },
+            {
+              src: "/assets/products/bugaboo-dragonfly-2.png",
+              alt: "Bugaboo Dragonfly stroller folded orientation",
+            },
+            {
+              src: "/assets/products/bugaboo-dragonfly-3.png",
+              alt: "Bugaboo Dragonfly stroller alternate angle",
+            },
+          ],
+        },
+        {
+          id: "donkey-6-double",
+          badge: "New",
+          title: [{ text: "Donkey 6 double stroller" }],
+          subtitle: "Convertible, side by side",
+          price: "€1.769,00",
+          images: [
+            {
+              src: "/assets/products/bugaboo-donkey-1.png",
+              alt: "Bugaboo Donkey 6 double stroller in side view",
+            },
+            {
+              src: "/assets/products/bugaboo-donkey-3.png",
+              alt: "Bugaboo Donkey 6 double stroller alternate configuration",
+            },
+            {
+              src: "/assets/products/bugaboo-donkey-4.png",
+              alt: "Bugaboo Donkey 6 double stroller folded orientation",
+            },
+          ],
+        },
+        {
+          id: "fox-5-renew-bundle",
+          badge: "Bundle",
+          title: [{ text: "Fox 5 Renew Travel System Bundle" }],
+          subtitle: "Gets you ready for road trips",
+          compareAtPrice: "€ 1.959,00",
+          price: "€ 1.769,00",
+          images: [
+            {
+              src: "/assets/products/bugaboo-fox-bundle-1.jpg",
+              alt: "Bugaboo Fox 5 Renew travel system bundle",
+            },
+          ],
+        },
+      ],
+    },
+    joolz: {
+      nodeId: "8612:3714",
+      title: "Loved by parents",
+      items: [
+        {
+          id: "joolz-geo-5",
+          badge: "New",
+          title: [{ text: "Joolz Geo" }, { text: "5", superscript: true }],
+          subtitle: "Most versatile, for all-terrain",
+          price: "€ 1899,00",
+          images: [
+            {
+              src: "/assets/products/joolz-geo-1.png",
+              alt: "Joolz Geo stroller in forest green",
+            },
+          ],
+        },
+        {
+          id: "joolz-day-5",
+          badge: "New",
+          title: [{ text: "Joolz Day" }, { text: "5", superscript: true }],
+          subtitle: "Highest comfort, 3-in-1",
+          price: "€ 1299,00",
+          images: [
+            {
+              src: "/assets/products/joolz-day-1.jpg",
+              alt: "Joolz Day stroller in sand color",
+            },
+          ],
+        },
+        {
+          id: "joolz-day-5-essentials",
+          badge: "Bundle",
+          title: [
+            { text: "Joolz Day" },
+            { text: "5", superscript: true },
+            { text: " Essentials Bundle" },
+          ],
+          subtitle: "Everything you need from day one",
+          compareAtPrice: "€ 1679,00",
+          price: "€ 1549,00",
+          images: [
+            {
+              src: "/assets/products/joolz-day-bundle-1.jpg",
+              alt: "Joolz Day essentials stroller bundle",
+            },
+          ],
+        },
+      ],
+    },
+  };
 
 export const homepageEditorialRail: Record<BrandId, EditorialRailContent> = {
   bugaboo: {
@@ -416,7 +475,9 @@ export const homepageEditorialRail: Record<BrandId, EditorialRailContent> = {
       {
         id: "sustainability",
         eyebrow: "Sustainability",
-        title: [{ text: "Circular stroller engineering for the next-generation" }],
+        title: [
+          { text: "Circular stroller engineering for the next-generation" },
+        ],
         imageSrc: "/assets/editorial/bugaboo-story-sustainability.jpg",
         imageAlt: "Child walking through tall grass beside an adult",
       },
