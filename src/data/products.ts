@@ -31,6 +31,11 @@ export type ProductDetail = {
   stockStatus: string;
   description: string;
   reasons: ProductReasonItem[];
+  /**
+   * Optional autoplay carousel of reasons (Bugaboo PDPs).
+   * If set, `ProductReasonsCarousel` renders in place of the static `reasons` list.
+   */
+  reasonsCarousel?: ProductReasonsCarouselContent;
   floatingCta?: ProductFloatingCtaContent;
   featureBenefits?: ProductFeatureBenefitsContent;
   bundle?: ProductBundleContent;
@@ -56,6 +61,17 @@ export type ProductFloatingCtaContent = {
 export type ProductReasonItem = {
   id: "trial" | "delivery" | "warranty";
   label: string;
+};
+
+export type ProductReasonsCarouselItem = {
+  id: string;
+  label: string;
+  iconSrc: string;
+  iconAlt: string;
+};
+
+export type ProductReasonsCarouselContent = {
+  items: ProductReasonsCarouselItem[];
 };
 
 export type ProductImpactContent = {
@@ -450,6 +466,34 @@ export const productCatalog: Record<BrandId, ProductDetail[]> = {
         { id: "delivery", label: "Free delivery and returns" },
         { id: "warranty", label: "4-year warranty" },
       ],
+      reasonsCarousel: {
+        items: [
+          {
+            id: "trial",
+            label: "Buy and try for 100 days",
+            iconSrc: "/assets/pdp/reasons/bugaboo/trial.svg",
+            iconAlt: "Try at home icon",
+          },
+          {
+            id: "delivery",
+            label: "Free delivery and returns",
+            iconSrc: "/assets/pdp/reasons/bugaboo/delivery.svg",
+            iconAlt: "Free delivery icon",
+          },
+          {
+            id: "warranty",
+            label: "Extended 4-year warranty",
+            iconSrc: "/assets/pdp/reasons/bugaboo/warranty.svg",
+            iconAlt: "Warranty icon",
+          },
+          {
+            id: "klarna",
+            label: "Buy now, pay later with Klarna",
+            iconSrc: "/assets/pdp/reasons/bugaboo/klarna.svg",
+            iconAlt: "Klarna icon",
+          },
+        ],
+      },
       impact: {
         nodeId: "8618:3552",
         hero: {
@@ -1105,6 +1149,34 @@ export const productCatalog: Record<BrandId, ProductDetail[]> = {
         { id: "delivery", label: "Free delivery and returns" },
         { id: "warranty", label: "4-year warranty" },
       ],
+      reasonsCarousel: {
+        items: [
+          {
+            id: "trial",
+            label: "Buy and try for 100 days",
+            iconSrc: "/assets/pdp/reasons/bugaboo/trial.svg",
+            iconAlt: "Try at home icon",
+          },
+          {
+            id: "delivery",
+            label: "Free delivery and returns",
+            iconSrc: "/assets/pdp/reasons/bugaboo/delivery.svg",
+            iconAlt: "Free delivery icon",
+          },
+          {
+            id: "warranty",
+            label: "Extended 4-year warranty",
+            iconSrc: "/assets/pdp/reasons/bugaboo/warranty.svg",
+            iconAlt: "Warranty icon",
+          },
+          {
+            id: "klarna",
+            label: "Buy now, pay later with Klarna",
+            iconSrc: "/assets/pdp/reasons/bugaboo/klarna.svg",
+            iconAlt: "Klarna icon",
+          },
+        ],
+      },
       impact: {
         nodeId: "8618:3552",
         hero: {
