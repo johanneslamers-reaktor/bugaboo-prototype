@@ -1,8 +1,9 @@
 .page {
-  /* No bottom margin while the gradient + Klarna text are removed —
-     CTA pill sits flush against the safe-area edge. */
+  /* Reserved space accounts for the full-width gradient bar that holds the
+     pill + Klarna line: 8px top gradient + pill + 8px gap + ~20px Klarna +
+     4px bottom pad + safe-area. */
   --floating-cta-bottom-offset: env(safe-area-inset-bottom, 0px);
-  --floating-cta-reserved-space: calc(58px + var(--floating-cta-bottom-offset) + 24px);
+  --floating-cta-reserved-space: calc(112px + var(--floating-cta-bottom-offset));
 
   background: #ffffff;
   color: var(--brand-text);
@@ -12,7 +13,7 @@
 }
 
 .page[data-brand="joolz"] {
-  --floating-cta-reserved-space: calc(88px + var(--floating-cta-bottom-offset) + 24px);
+  --floating-cta-reserved-space: calc(116px + var(--floating-cta-bottom-offset));
 }
 
 .navigation {

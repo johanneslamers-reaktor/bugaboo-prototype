@@ -108,7 +108,8 @@ export function ProductMasterPage({ brand, product }: ProductMasterPageProps) {
         compareAtPrice={product.floatingCta?.compareAtPrice}
         financing={product.floatingCta?.financing}
         price={product.price}
-        productTitle={`${product.title}${product.titleSuffix ?? ""}`}
+        productTitle={product.title}
+        productTitleSuffix={product.titleSuffix}
         onDoubleClick={handleEasterEgg}
       />
     </article>
