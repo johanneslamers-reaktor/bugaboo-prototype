@@ -55,6 +55,12 @@
   gap: 4px;
 }
 
+/*
+ * The .dash <button> renders the visible dash mark itself. To meet
+ * touch-target guidance without enlarging the visible pill, we extend
+ * the click area via an invisible ::after pseudo-element — clicks on
+ * the pseudo-element still fire on the host button.
+ */
 .dash {
   appearance: none;
   background: #d4d4d4;
@@ -64,8 +70,15 @@
   display: block;
   height: 2px;
   padding: 0;
+  position: relative;
   transition: background-color 200ms ease;
   width: 14px;
+}
+
+.dash::after {
+  content: "";
+  inset: -14px -6px;
+  position: absolute;
 }
 
 .dash[data-active="true"] {
@@ -75,4 +88,48 @@
 .dash:focus-visible {
   outline: 1.5px solid #1a1a1a;
   outline-offset: 4px;
+}
+
+/*
+ * Joolz brand overrides per Vanessa's Figma spec:
+ *   - Card has 4px border-radius
+ *   - Icon is smaller (24px)
+ *   - Label uses Value Sans Pro Medium, Joolz deep blue at 50% opacity
+ *   - Dashes are small rounded pills (2x12px) — inactive at 30% opacity,
+ *     active full opacity, both colored #737373
+ */
+.section[data-brand="joolz"] .card {
+  border-radius: 4px;
+  padding: 16px;
+}
+
+.section[data-brand="joolz"] .icon {
+  flex: 0 0 24px;
+  height: 24px;
+  width: 24px;
+}
+
+.section[data-brand="joolz"] .label {
+  color: rgb(32 26 51 / 50%);
+  font-family: var(--font-value-sans);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+}
+
+.section[data-brand="joolz"] .dash {
+  background: #737373;
+  border-radius: 100px;
+  height: 2px;
+  opacity: 0.3;
+  width: 12px;
+}
+
+.section[data-brand="joolz"] .dash[data-active="true"] {
+  background: #737373;
+  opacity: 1;
+}
+
+.section[data-brand="joolz"] .dash:focus-visible {
+  outline-color: var(--joolz-deep-blue);
 }

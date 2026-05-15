@@ -1285,6 +1285,34 @@ export const productCatalog: Record<BrandId, ProductDetail[]> = {
         { id: "delivery", label: "Free delivery and returns" },
         { id: "warranty", label: "4-year warranty" },
       ],
+      reasonsCarousel: {
+        items: [
+          {
+            id: "warranty",
+            label: "10 year transferrable warranty",
+            iconSrc: "/assets/pdp/reasons/joolz/warranty.svg",
+            iconAlt: "Warranty icon",
+          },
+          {
+            id: "delivery",
+            label: "Free standard delivery",
+            iconSrc: "/assets/pdp/reasons/joolz/delivery.svg",
+            iconAlt: "Free delivery icon",
+          },
+          {
+            id: "returns",
+            label: "Free returns within 30 days",
+            iconSrc: "/assets/pdp/reasons/joolz/returns.svg",
+            iconAlt: "Free returns icon",
+          },
+          {
+            id: "klarna",
+            label: "Buy now, pay later with Klarna",
+            iconSrc: "/assets/pdp/reasons/joolz/klarna.svg",
+            iconAlt: "Klarna icon",
+          },
+        ],
+      },
       featureBenefits: {
         nodeId: "8612:5030",
         title: "Features & Benefits",
@@ -1723,6 +1751,34 @@ export const productCatalog: Record<BrandId, ProductDetail[]> = {
         { id: "delivery", label: "Free delivery and returns" },
         { id: "warranty", label: "4-year warranty" },
       ],
+      reasonsCarousel: {
+        items: [
+          {
+            id: "warranty",
+            label: "10 year transferrable warranty",
+            iconSrc: "/assets/pdp/reasons/joolz/warranty.svg",
+            iconAlt: "Warranty icon",
+          },
+          {
+            id: "delivery",
+            label: "Free standard delivery",
+            iconSrc: "/assets/pdp/reasons/joolz/delivery.svg",
+            iconAlt: "Free delivery icon",
+          },
+          {
+            id: "returns",
+            label: "Free returns within 30 days",
+            iconSrc: "/assets/pdp/reasons/joolz/returns.svg",
+            iconAlt: "Free returns icon",
+          },
+          {
+            id: "klarna",
+            label: "Buy now, pay later with Klarna",
+            iconSrc: "/assets/pdp/reasons/joolz/klarna.svg",
+            iconAlt: "Klarna icon",
+          },
+        ],
+      },
       impact: {
         nodeId: "8677:5113",
         hero: {
