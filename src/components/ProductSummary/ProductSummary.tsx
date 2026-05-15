@@ -30,8 +30,12 @@ export function ProductSummary({
     >
       <div className={styles.productInfo}>
         <div className={styles.titleGroup}>
-          <div className={styles.brandRow}>
-            <p className={styles.brandLabel}>{product.brandLabel}</p>
+          <p className={styles.brandLabel}>{product.brandLabel}</p>
+          <div className={styles.titleRow}>
+            <h1 className={styles.productTitle}>
+              {product.title}
+              {product.titleSuffix ? <sup>{product.titleSuffix}</sup> : null}
+            </h1>
             <button
               className={styles.wishlistButton}
               type="button"
@@ -42,10 +46,6 @@ export function ProductSummary({
               <HeartIcon isFilled={isWishlisted} />
             </button>
           </div>
-          <h1 className={styles.productTitle}>
-            {product.title}
-            {product.titleSuffix ? <sup>{product.titleSuffix}</sup> : null}
-          </h1>
           <p className={styles.productSubtitle}>{product.subtitle}</p>
         </div>
 
