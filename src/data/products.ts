@@ -136,6 +136,8 @@ export type ProductBundleVariant = {
 
 export type ProductShopTheLookContent = {
   nodeId: string;
+  /** Optional eyebrow shown above the section title. */
+  eyebrow?: string;
   title: string;
   /** Optional top hero image shown above the body copy. */
   topImage?: { src: string; alt: string };
@@ -850,7 +852,8 @@ export const productCatalog: Record<BrandId, ProductDetail[]> = {
       },
       shopTheLook: {
         nodeId: "8677:6556",
-        title: "Shop the look",
+        eyebrow: "Thoughtfully paired",
+        title: "Meet the\nNest bassinet",
         topImage: {
           src: "/assets/pdp/shop-the-look/bugaboo/top-image.jpg",
           alt: "Parent with newborn in Bugaboo bassinet",
