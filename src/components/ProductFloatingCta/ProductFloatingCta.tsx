@@ -39,11 +39,20 @@ export function ProductFloatingCta({
         transition={{ duration: 0.42, ease: [0.22, 1, 0.36, 1] }}
       >
         <div className={styles.priceGroup}>
-          {compareAtPrice ? (
+          {brand === "bugaboo" ? (
+            <span className={styles.title}>{productTitle}</span>
+          ) : null}
+          {brand !== "bugaboo" && compareAtPrice ? (
             <span className={styles.compareAtPrice}>{compareAtPrice}</span>
           ) : null}
           <span className={styles.price}>{price}</span>
         </div>
+
+        {brand === "bugaboo" ? (
+          <button className={styles.selectBundle} type="button">
+            Select bundle
+          </button>
+        ) : null}
 
         <motion.button
           className={styles.button}
