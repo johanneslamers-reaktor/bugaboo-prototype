@@ -232,7 +232,7 @@ export const homepageBrandUsp: Record<BrandId, BrandUspContent> = {
       },
     ],
     reel: {
-      label: "Play the reel",
+      label: "Explore the story",
       thumbnailSrc: "/assets/brand-usp/bugaboo-reel-thumb.png",
       thumbnailAlt: "Bugaboo reel preview",
       videoSrc: "/assets/brand-usp/bugaboo-reel.mp4",
