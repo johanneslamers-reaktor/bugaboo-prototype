@@ -805,10 +805,10 @@ export const productCatalog: Record<BrandId, ProductDetail[]> = {
         gallery: [
           {
             id: "harness",
-            src: "/assets/pdp/sustainability/bugaboo/thumb-1.jpg",
-            alt: "Bugaboo Fox 5 harness detail",
-            thumbnailSrc: "/assets/pdp/sustainability/bugaboo/thumb-1.jpg",
-            thumbnailAlt: "Harness detail",
+            src: "/assets/pdp/sustainability/bugaboo/thumb-2.jpg",
+            alt: "Bugaboo Fox 5 wheels",
+            thumbnailSrc: "/assets/pdp/sustainability/bugaboo/thumb-2.jpg",
+            thumbnailAlt: "Wheel detail",
             hotspots: [
               {
                 id: "folding-button",
@@ -823,10 +823,10 @@ export const productCatalog: Record<BrandId, ProductDetail[]> = {
           },
           {
             id: "wheels",
-            src: "/assets/pdp/sustainability/bugaboo/thumb-2.jpg",
-            alt: "Bugaboo Fox 5 wheels",
-            thumbnailSrc: "/assets/pdp/sustainability/bugaboo/thumb-2.jpg",
-            thumbnailAlt: "Wheel detail",
+            src: "/assets/pdp/sustainability/bugaboo/thumb-1.jpg",
+            alt: "Bugaboo Fox 5 harness detail",
+            thumbnailSrc: "/assets/pdp/sustainability/bugaboo/thumb-1.jpg",
+            thumbnailAlt: "Harness detail",
             hotspots: [],
           },
           {
