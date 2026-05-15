@@ -114,13 +114,21 @@
 }
 
 .section[data-brand="bugaboo"] .playBadge {
+  appearance: none;
   background: rgb(188 179 166 / 86%);
   border: 0;
   bottom: 16px;
   color: #ffffff;
+  cursor: pointer;
   height: 34px;
+  padding: 0;
   right: 16px;
   width: 34px;
+}
+
+.section[data-brand="bugaboo"] .playBadge:focus-visible {
+  outline: 1.5px solid #ffffff;
+  outline-offset: 3px;
 }
 
 .section[data-brand="bugaboo"] .playBadge svg {
