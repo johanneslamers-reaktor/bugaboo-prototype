@@ -228,6 +228,11 @@
   z-index: 3;
 }
 
+.section[data-brand="bugaboo"] .hotspotCard {
+  border-radius: 0;
+  gap: 10px;
+}
+
 .hotspotCardThumb {
   background: #dadada;
   display: block;
