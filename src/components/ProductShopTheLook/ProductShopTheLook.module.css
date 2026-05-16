@@ -37,6 +37,11 @@
   white-space: pre-line;
 }
 
+.section[data-brand="joolz"] .eyebrow {
+  font-family: var(--font-value-sans);
+  font-weight: 500;
+}
+
 .section[data-brand="joolz"] .title {
   font-family: var(--font-value-sans-joolz);
   font-size: 28px;
@@ -112,7 +117,13 @@
   font-family: var(--font-value-sans-joolz);
   font-size: 14px;
   font-weight: 700;
-  gap: 12px;
+  gap: 4px;
+}
+
+.section[data-brand="joolz"] .link .chevron {
+  height: 16px;
+  width: 16px;
+  stroke-width: 1.25;
 }
 
 .link:focus-visible {

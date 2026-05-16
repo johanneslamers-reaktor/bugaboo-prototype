@@ -1613,17 +1613,18 @@ export const productCatalog: Record<BrandId, ProductDetail[]> = {
       },
       shopTheLook: {
         nodeId: "8612:5105",
-        title: "Shop the look",
+        eyebrow: "Made to match",
+        title: "Meet the Aer2\nbasket bag",
         topImage: {
           src: "/assets/pdp/shop-the-look/joolz/top-image.jpg",
           alt: "Joolz Aer 2 with parent using one-hand fold",
         },
-        subheading: "Designed for one-hand use",
-        body: "Designed for one-hand use, you can grab all your items in a single motion while folding your stroller. When you need more space, simply hang the basket bag by tucking its flap into the pocket behind the seat, instantly creating extra storage.",
+        subheading: "18L of extra storage under your seat",
+        body: "Extra room for everything your day brings. Designed to fit seamlessly under the Joolz Aer2, this lightweight storage bag keeps daily essentials close at hand, from snacks and toys to groceries on the go. Easy to attach, easy to carry, and ready for every outing.",
         link: {
           label: "View product",
           href: "#shop-the-look",
-          icon: "plus-circle",
+          icon: "chevron",
         },
         heroImage: {
           src: "/assets/pdp/shop-the-look/joolz/feature-bg.jpg",
