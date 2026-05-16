@@ -28,20 +28,23 @@
 }
 
 .section[data-brand="joolz"] .decoration {
-  bottom: 0;
+  /*
+   * Cream "smile" graphic acts as a visual backdrop to the body-text area.
+   * Natural SVG aspect 586/658. Positioned anchored to the right of the
+   * section, top-aligned just below the author block, sized larger than
+   * the section so the curve wraps behind the lead/body copy and extends
+   * off-screen on the right.
+   */
+  aspect-ratio: 586 / 658;
+  bottom: auto;
   display: block;
   height: auto;
-  /*
-   * Anchor decoration to the right side of the section, spanning the full
-   * height so it scales with content. The image is wider than it is tall
-   * so we anchor by height; about half of it sits off-screen to the right.
-   */
-  max-height: 100%;
+  max-height: none;
   pointer-events: none;
   position: absolute;
-  right: -32%;
-  top: 0;
-  width: auto;
+  right: -20%;
+  top: 320px;
+  width: 130%;
   z-index: 0;
 }
 
@@ -60,7 +63,7 @@
 }
 
 .section[data-brand="joolz"] .copy {
-  background: var(--story-bg);
+  background: transparent;
   padding: 0 22px;
 }
 
@@ -127,7 +130,7 @@
 }
 
 .section[data-brand="joolz"] .author {
-  gap: 16px;
+  gap: 12px;
   margin-top: 18px;
 }
 
@@ -140,8 +143,8 @@
 }
 
 .section[data-brand="joolz"] .author img {
-  height: 40px;
-  width: 40px;
+  height: 48px;
+  width: 48px;
 }
 
 .author p,
@@ -159,7 +162,7 @@
 
 .section[data-brand="joolz"] .author p {
   font-family: var(--font-value-sans);
-  font-size: 14px;
+  font-size: 16px;
 }
 
 .author strong {
@@ -194,7 +197,7 @@
 }
 
 .section[data-brand="joolz"] .storyCopy {
-  margin-top: 32px;
+  margin-top: 24px;
 }
 
 .lead {
@@ -253,8 +256,8 @@
   font-family: var(--font-value-sans-joolz);
   font-size: 16px;
   font-weight: 700;
-  gap: 12px;
-  margin-top: 55px;
+  gap: 4px;
+  margin-top: 40px;
 }
 
 .storyLinkIcon {
@@ -273,41 +276,17 @@
 }
 
 .section[data-brand="joolz"] .storyLink::after {
-  display: none;
-}
-
-.section[data-brand="joolz"] .storyLinkIcon {
-  align-items: center;
-  background: #fdfdfd;
-  border-radius: 999px;
-  box-shadow: 0 2px 8px rgb(19 15 49 / 8%);
-  display: flex;
-  height: 44px;
-  justify-content: center;
-  position: relative;
-  width: 44px;
-}
-
-.section[data-brand="joolz"] .storyLinkIcon::before,
-.section[data-brand="joolz"] .storyLinkIcon::after {
-  background: var(--joolz-deep-blue);
-  border-radius: 999px;
-  content: "";
-  left: 50%;
-  position: absolute;
-  top: 50%;
-  transform: translate(-50%, -50%);
-}
-
-.section[data-brand="joolz"] .storyLinkIcon::before {
-  height: 2px;
+  border-width: 1.5px 1.5px 0 0;
+  height: 9px;
   width: 9px;
 }
 
-.section[data-brand="joolz"] .storyLinkIcon::after {
-  height: 9px;
-  width: 2px;
+.section[data-brand="joolz"] .storyLinkIcon {
+  display: none;
 }
+
+/* Joolz: the old circular plus-icon button has been retired in favour of
+ * the simple chevron-after-label pattern (see `.storyLink::after` above). */
 
 .mediaArea {
   margin-top: 32px;

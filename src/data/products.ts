@@ -1491,10 +1491,10 @@ export const productCatalog: Record<BrandId, ProductDetail[]> = {
           strong:
             "Becoming a parent changed everything, but not how I expected. I thought getting out the door",
           muted:
-            " would take forever, that every plan needed planning. Instead, we just go. A quick coffee while he naps, hopping on trams, folding it up with one hand while holding him with the other.",
+            " would take forever, that every plan needed planning. Instead, we just go. A quick coffee while he naps, hopping on trams.",
         },
         body:
-          "The Joolz Aer 2 makes that easy. Lightweight, compact, and effortless from the start, it fits into days on the move. From narrow sidewalks to overhead compartments, it's always ready. It gave me the confidence to head out without a second thought.",
+          "The Joolz Aer 2 makes that easy. Lightweight, compact, and effortless from the start, it fits into days on the move. From narrow sidewalks to overhead compartments, it's always ready. It gave me the confidence to go.",
         ctaLabel: "Read the full story",
         decorationSrc: "/assets/pdp/story-shop/joolz/smile-bg.svg",
         decorationAlt: "",
