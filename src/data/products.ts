@@ -1563,7 +1563,7 @@ export const productCatalog: Record<BrandId, ProductDetail[]> = {
       sustainability: {
         nodeId: "8612:6206",
         eyebrow: "Sustainability",
-        title: "40.000 trees planted",
+        title: "40.000\ntrees planted",
         decoration: {
           src: "/assets/pdp/sustainability/joolz/tree-mascot.svg",
           alt: "Joolz tree mascot illustration",
@@ -1571,9 +1571,9 @@ export const productCatalog: Record<BrandId, ProductDetail[]> = {
         subheading: "We plant a tree for every stroller",
         body: "Made with recycled and bio-based materials, the Aer 2 reduces CO₂ emissions by 30%, while being designed for long-lasting, repairable use.",
         link: {
-          label: "Read the full story",
+          label: "More about materials",
           href: "#sustainability",
-          icon: "plus-circle",
+          icon: "chevron",
         },
         gallery: [
           {
