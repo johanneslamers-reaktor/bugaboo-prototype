@@ -9,6 +9,7 @@
 .section[data-brand="joolz"] {
   background: #d0b6d8;
   color: #130f31;
+  padding-bottom: 32px;
 }
 
 .top {
@@ -16,6 +17,10 @@
   padding: 50px 17px 24px;
   position: relative;
   z-index: 1;
+}
+
+.section[data-brand="joolz"] .top {
+  padding-bottom: 48px;
 }
 
 .eyebrow {
@@ -29,8 +34,8 @@
 
 .section[data-brand="joolz"] .eyebrow {
   font-family: var(--font-value-sans);
-  font-size: 18px;
-  font-weight: 700;
+  font-size: 16px;
+  font-weight: 500;
 }
 
 .title {
@@ -48,6 +53,7 @@
   font-size: 36px;
   font-weight: 700;
   letter-spacing: 0;
+  white-space: pre-line;
 }
 
 .topImage {
@@ -136,7 +142,13 @@
   font-family: var(--font-value-sans-joolz);
   font-size: 16px;
   font-weight: 700;
-  gap: 12px;
+  gap: 4px;
+}
+
+.section[data-brand="joolz"] .link .chevron {
+  height: 16px;
+  width: 16px;
+  stroke-width: 1.25;
 }
 
 .link:focus-visible {

@@ -1563,7 +1563,7 @@ export const productCatalog: Record<BrandId, ProductDetail[]> = {
       sustainability: {
         nodeId: "8612:6206",
         eyebrow: "Sustainability",
-        title: "40.000 trees planted",
+        title: "40.000\ntrees planted",
         decoration: {
           src: "/assets/pdp/sustainability/joolz/tree-mascot.svg",
           alt: "Joolz tree mascot illustration",
@@ -1571,9 +1571,9 @@ export const productCatalog: Record<BrandId, ProductDetail[]> = {
         subheading: "We plant a tree for every stroller",
         body: "Made with recycled and bio-based materials, the Aer 2 reduces CO₂ emissions by 30%, while being designed for long-lasting, repairable use.",
         link: {
-          label: "Read the full story",
+          label: "More about materials",
           href: "#sustainability",
-          icon: "plus-circle",
+          icon: "chevron",
         },
         gallery: [
           {
@@ -1613,17 +1613,18 @@ export const productCatalog: Record<BrandId, ProductDetail[]> = {
       },
       shopTheLook: {
         nodeId: "8612:5105",
-        title: "Shop the look",
+        eyebrow: "Made to match",
+        title: "Meet the Aer2\nbasket bag",
         topImage: {
           src: "/assets/pdp/shop-the-look/joolz/top-image.jpg",
           alt: "Joolz Aer 2 with parent using one-hand fold",
         },
-        subheading: "Designed for one-hand use",
-        body: "Designed for one-hand use, you can grab all your items in a single motion while folding your stroller. When you need more space, simply hang the basket bag by tucking its flap into the pocket behind the seat, instantly creating extra storage.",
+        subheading: "18L of extra storage under your seat",
+        body: "Extra room for everything your day brings. Designed to fit seamlessly under the Joolz Aer2, this lightweight storage bag keeps daily essentials close at hand, from snacks and toys to groceries on the go. Easy to attach, easy to carry, and ready for every outing.",
         link: {
           label: "View product",
           href: "#shop-the-look",
-          icon: "plus-circle",
+          icon: "chevron",
         },
         heroImage: {
           src: "/assets/pdp/shop-the-look/joolz/feature-bg.jpg",
