@@ -106,50 +106,24 @@ function CrossSellCard({
         </div>
         {item.subtitle ? <p className={styles.subtitle}>{item.subtitle}</p> : null}
 
-        {brand === "joolz" ? (
-          <>
-            <p className={styles.stockLine}>
-              {item.colorLabel} <span aria-hidden="true">•</span> {item.stockStatus}
-            </p>
-            <div className={styles.commerceRow}>
-              <Price item={item} />
-              <span className={styles.divider} aria-hidden="true" />
-              <button
-                className={styles.inlineAdd}
-                type="button"
-                aria-pressed={isAdded}
-                onClick={(event) => {
-                  event.stopPropagation();
-                  onAdd();
-                }}
-              >
-                {isAdded ? "Added" : "Add to cart"}
-              </button>
-            </div>
-            <Swatches brand={brand} item={item} />
-          </>
-        ) : (
-          <>
-            <Price item={item} />
-            <Swatches brand={brand} item={item} />
-            <p className={styles.stockLine}>
-              {item.colorLabel} <span aria-hidden="true">•</span> {item.stockStatus}
-            </p>
-            <motion.button
-              className={styles.addButton}
-              type="button"
-              aria-pressed={isAdded}
-              onClick={(event) => {
-                event.stopPropagation();
-                onAdd();
-              }}
-              whileTap={shouldReduceMotion ? undefined : { scale: 0.96 }}
-            >
-              <PlusIcon />
-              {isAdded ? "Added" : "Add to cart"}
-            </motion.button>
-          </>
-        )}
+        <Price item={item} />
+        <Swatches brand={brand} item={item} />
+        <p className={styles.stockLine}>
+          {item.colorLabel} <span aria-hidden="true">•</span> {item.stockStatus}
+        </p>
+        <motion.button
+          className={styles.addButton}
+          type="button"
+          aria-pressed={isAdded}
+          onClick={(event) => {
+            event.stopPropagation();
+            onAdd();
+          }}
+          whileTap={shouldReduceMotion ? undefined : { scale: 0.96 }}
+        >
+          <PlusIcon />
+          {isAdded ? "Added" : "Add to cart"}
+        </motion.button>
       </div>
     </motion.article>
   );

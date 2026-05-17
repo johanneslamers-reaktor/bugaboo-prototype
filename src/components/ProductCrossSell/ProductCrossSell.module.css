@@ -23,13 +23,14 @@
 }
 
 .section[data-brand="bugaboo"] .heading {
-  font-size: 24px;
-  letter-spacing: -0.48px;
+  font-size: 26px;
+  letter-spacing: -0.52px;
   line-height: 1.1;
 }
 
 .section[data-brand="joolz"] .heading {
   font-family: var(--font-value-sans-joolz);
+  font-size: 26px;
   font-weight: 700;
   letter-spacing: 0;
   line-height: normal;
@@ -99,13 +100,13 @@
 }
 
 .card[data-brand="joolz"] .wishlist {
-  background: #ffffff;
-  border-radius: 4px;
+  background: transparent;
+  border-radius: 0;
   color: var(--joolz-deep-blue);
-  height: 24px;
-  right: 10px;
-  top: 10px;
-  width: 24px;
+  height: 16px;
+  right: 16px;
+  top: 16px;
+  width: 16px;
 }
 
 .wishlist:focus-visible,
@@ -134,8 +135,15 @@
   z-index: 1;
 }
 
+/*
+ * Mini "image gallery" progress bar below the card photo. Hidden in
+ * this component because the cross-sell cards only show one image
+ * each — leave the markup in place so the same Card can render a
+ * progress bar in a future view that wires up gallery functionality.
+ */
 .imageProgress {
   background: #cfcfd5;
+  display: none;
   height: 2px;
   overflow: hidden;
   width: 209px;
@@ -194,9 +202,9 @@
 
 .card[data-brand="joolz"] .titleRow h3 {
   font-family: var(--font-value-sans);
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 500;
-  letter-spacing: 0.14px;
+  letter-spacing: 0.16px;
 }
 
 .rating {
@@ -234,8 +242,12 @@
 .card[data-brand="joolz"] .stockLine {
   color: rgb(19 15 49 / 50%);
   font-family: var(--font-value-sans);
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 500;
+}
+
+.card[data-brand="joolz"] .stockLine {
+  font-weight: 400;
 }
 
 .price {
@@ -263,9 +275,9 @@
 .card[data-brand="joolz"] .price {
   color: var(--joolz-deep-blue);
   font-family: var(--font-value-sans);
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 500;
-  line-height: 1.3;
+  line-height: 1.5;
 }
 
 .swatches {
@@ -278,8 +290,7 @@
 
 .card[data-brand="joolz"] .swatches {
   gap: 6px;
-  order: 4;
-  padding-top: 14px;
+  padding-top: 6px;
 }
 
 .swatch {
@@ -308,13 +319,21 @@
 
 .swatch[data-brand="joolz"] {
   border-radius: 4px;
-  height: 12px;
-  width: 12px;
+  height: 16px;
+  width: 16px;
 }
 
+/*
+ * Vanessa's Joolz cards wrap the selected swatch in a 1 px deep-blue
+ * outline with 6 px padding and 8 px corner radius. We fake the
+ * "padding + outline" with two box-shadows on the chip itself: an
+ * inner 6 px white ring (the padding), then a 1 px deep-blue ring
+ * (the outline). margin-7 keeps neighbours from sitting under the
+ * ring.
+ */
 .swatch[data-brand="joolz"][data-active="true"] {
   box-shadow: 0 0 0 6px #ffffff, 0 0 0 7px var(--joolz-deep-blue);
-  margin: 6px;
+  margin: 7px;
 }
 
 .moreColors {
@@ -372,6 +391,25 @@
   margin-top: 14px;
   padding: 8px 16px;
   width: fit-content;
+}
+
+/*
+ * Joolz "Add to cart" button per Vanessa's Essential add-ons cards
+ * design: short bordered button (~100 px wide) with 8 px corners, the
+ * Joolz deep-blue outline + label, Value Sans Pro Black typography,
+ * and a 4 px gap between the plus icon and the label.
+ */
+.card[data-brand="joolz"] .addButton {
+  border-color: var(--joolz-deep-blue);
+  border-radius: 8px;
+  color: var(--joolz-deep-blue);
+  font-family: var(--font-value-sans);
+  font-size: 12px;
+  font-weight: 900;
+  gap: 4px;
+  margin-top: 12px;
+  padding: 8px 20px;
+  width: auto;
 }
 
 .icon {
