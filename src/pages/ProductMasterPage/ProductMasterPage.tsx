@@ -11,6 +11,7 @@ import { ProductGallery } from "../../components/ProductGallery";
 import { ProductImpact } from "../../components/ProductImpact";
 import { ProductReasons } from "../../components/ProductReasons";
 import { ProductReasonsCarousel } from "../../components/ProductReasonsCarousel";
+import { ProductReviews } from "../../components/ProductReviews";
 import { ProductStoryShop } from "../../components/ProductStoryShop";
 import { ProductSummary } from "../../components/ProductSummary";
 import { ProductShopTheLook } from "../../components/ProductShopTheLook";
@@ -100,6 +101,9 @@ export function ProductMasterPage({ brand, product }: ProductMasterPageProps) {
         ) : null}
         {product.shopTheLook ? (
           <ProductShopTheLook brand={brand} content={product.shopTheLook} />
+        ) : null}
+        {product.reviews ? (
+          <ProductReviews brand={brand} content={product.reviews} />
         ) : null}
       </div>
 

@@ -45,9 +45,32 @@ export type ProductDetail = {
   storyShop?: ProductStoryShopContent;
   sustainability?: ProductSustainabilityContent;
   shopTheLook?: ProductShopTheLookContent;
+  reviews?: ProductReviewsContent;
   impact: ProductImpactContent;
   accordions: ProductAccordionItem[];
   colorways: ProductColorway[];
+};
+
+/**
+ * Static customer-reviews block — surfaced at the bottom of the PDP for
+ * user testing only. No real data fetching or filtering; the checkboxes
+ * and "view reviews" CTA are visual only.
+ */
+export type ProductReviewsContent = {
+  overall: {
+    rating: number;
+    outOf: number;
+    count: number;
+  };
+  photos: { src: string; alt: string }[];
+  /** How many photos exist in total (drives the "Show all (N)" overlay). */
+  photoTotal: number;
+  subRatings: { label: string; rating: number; outOf: number }[];
+  distribution: {
+    /** Total reviews shown beside the "Reviews" heading. */
+    total: number;
+    buckets: { label: "Excellent" | "Great" | "Average" | "Poor" | "Bad"; percent: number }[];
+  };
 };
 
 export type ProductFloatingCtaContent = {
@@ -493,6 +516,29 @@ export const productCatalog: Record<BrandId, ProductDetail[]> = {
             iconAlt: "Klarna icon",
           },
         ],
+      },
+      reviews: {
+        overall: { rating: 4.7, outOf: 5, count: 98 },
+        photos: [
+          { src: "/assets/pdp/bugaboo-fox/heritage-black/gallery-02.avif", alt: "Customer photo" },
+          { src: "/assets/pdp/bugaboo-fox/heritage-black/gallery-03.avif", alt: "Customer photo" },
+          { src: "/assets/pdp/bugaboo-fox/heritage-black/gallery-04.avif", alt: "Customer photo" },
+        ],
+        photoTotal: 3,
+        subRatings: [
+          { label: "Quality", rating: 4.4, outOf: 5 },
+          { label: "Value for money", rating: 4.1, outOf: 5 },
+        ],
+        distribution: {
+          total: 18,
+          buckets: [
+            { label: "Excellent", percent: 84 },
+            { label: "Great", percent: 9 },
+            { label: "Average", percent: 3 },
+            { label: "Poor", percent: 2 },
+            { label: "Bad", percent: 2 },
+          ],
+        },
       },
       impact: {
         nodeId: "8618:3552",
@@ -1177,6 +1223,29 @@ export const productCatalog: Record<BrandId, ProductDetail[]> = {
           },
         ],
       },
+      reviews: {
+        overall: { rating: 4.7, outOf: 5, count: 98 },
+        photos: [
+          { src: "/assets/pdp/bugaboo-fox/heritage-black/gallery-02.avif", alt: "Customer photo" },
+          { src: "/assets/pdp/bugaboo-fox/heritage-black/gallery-03.avif", alt: "Customer photo" },
+          { src: "/assets/pdp/bugaboo-fox/heritage-black/gallery-04.avif", alt: "Customer photo" },
+        ],
+        photoTotal: 3,
+        subRatings: [
+          { label: "Quality", rating: 4.4, outOf: 5 },
+          { label: "Value for money", rating: 4.1, outOf: 5 },
+        ],
+        distribution: {
+          total: 18,
+          buckets: [
+            { label: "Excellent", percent: 84 },
+            { label: "Great", percent: 9 },
+            { label: "Average", percent: 3 },
+            { label: "Poor", percent: 2 },
+            { label: "Bad", percent: 2 },
+          ],
+        },
+      },
       impact: {
         nodeId: "8618:3552",
         hero: {
@@ -1530,6 +1599,29 @@ export const productCatalog: Record<BrandId, ProductDetail[]> = {
             imageAlt: "Joolz sun canopy",
           },
         ],
+      },
+      reviews: {
+        overall: { rating: 4.7, outOf: 5, count: 98 },
+        photos: [
+          { src: "/assets/pdp/joolz-aer/sandy-taupe/gallery-02.jpg", alt: "Customer photo" },
+          { src: "/assets/pdp/joolz-aer/sandy-taupe/gallery-03.jpg", alt: "Customer photo" },
+          { src: "/assets/pdp/joolz-aer/sandy-taupe/gallery-04.jpg", alt: "Customer photo" },
+        ],
+        photoTotal: 3,
+        subRatings: [
+          { label: "Quality", rating: 4.4, outOf: 5 },
+          { label: "Value for money", rating: 4.1, outOf: 5 },
+        ],
+        distribution: {
+          total: 18,
+          buckets: [
+            { label: "Excellent", percent: 84 },
+            { label: "Great", percent: 9 },
+            { label: "Average", percent: 3 },
+            { label: "Poor", percent: 2 },
+            { label: "Bad", percent: 2 },
+          ],
+        },
       },
       impact: {
         nodeId: "8677:5113",
@@ -1886,6 +1978,29 @@ export const productCatalog: Record<BrandId, ProductDetail[]> = {
             iconAlt: "Klarna icon",
           },
         ],
+      },
+      reviews: {
+        overall: { rating: 4.7, outOf: 5, count: 98 },
+        photos: [
+          { src: "/assets/pdp/joolz-aer/sage-green/gallery-02.jpg", alt: "Customer photo" },
+          { src: "/assets/pdp/joolz-aer/sage-green/gallery-03.jpg", alt: "Customer photo" },
+          { src: "/assets/pdp/joolz-aer/sage-green/gallery-04.jpg", alt: "Customer photo" },
+        ],
+        photoTotal: 3,
+        subRatings: [
+          { label: "Quality", rating: 4.4, outOf: 5 },
+          { label: "Value for money", rating: 4.1, outOf: 5 },
+        ],
+        distribution: {
+          total: 18,
+          buckets: [
+            { label: "Excellent", percent: 84 },
+            { label: "Great", percent: 9 },
+            { label: "Average", percent: 3 },
+            { label: "Poor", percent: 2 },
+            { label: "Bad", percent: 2 },
+          ],
+        },
       },
       impact: {
         nodeId: "8677:5113",
