@@ -125,6 +125,7 @@ export function ProductSustainability({ brand, content }: ProductSustainabilityP
               label={openHotspotId === hotspot.id ? `Close ${hotspot.title}` : `Open ${hotspot.title}`}
               isActive={openHotspotId === hotspot.id}
               ariaExpanded={openHotspotId === hotspot.id}
+              brand={brand}
               onClick={() =>
                 setOpenHotspotId((current) => (current === hotspot.id ? null : hotspot.id))
               }

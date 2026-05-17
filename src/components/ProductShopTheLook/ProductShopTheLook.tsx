@@ -85,6 +85,7 @@ export function ProductShopTheLook({ brand, content }: ProductShopTheLookProps) 
               x={hotspot.x}
               y={hotspot.y}
               label={`View ${content.products[hotspot.productIndex]?.title ?? "product"}`}
+              brand={brand}
               onClick={() => gotoPage(hotspot.productIndex)}
             />
           ))}
