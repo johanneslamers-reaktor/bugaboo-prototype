@@ -325,3 +325,257 @@
     width: 100%;
   }
 }
+
+/* ---------------------------------------------------------------------
+ * Joolz overrides
+ *
+ * The bundle block on the Joolz Aer 2 PDP follows Vanessa's design at
+ * Figma node 8721:4494. The component structure is shared with Bugaboo
+ * but most surfaces flip: rounded card corners, deep-blue outline tabs,
+ * a green "Aer²" chip baked into the hero caption, plus-icons in the
+ * tile corners instead of top-center, and a deep-blue bordered buy
+ * widget with a filled CTA pill.
+ * ------------------------------------------------------------------ */
+
+.bundle[data-brand="joolz"] {
+  color: var(--joolz-deep-blue);
+}
+
+.bundle[data-brand="joolz"] .eyebrow {
+  color: var(--joolz-deep-blue);
+  font-family: var(--font-value-sans);
+  font-weight: 500;
+  opacity: 0.5;
+}
+
+.bundle[data-brand="joolz"] .header h2 {
+  color: var(--joolz-deep-blue);
+  font-family: var(--font-value-sans);
+  font-size: 32px;
+  font-weight: 700;
+  letter-spacing: -0.32px;
+  line-height: 1.05;
+  max-width: 361px;
+}
+
+/* Filter tab pill: light-grey container, white active with deep-blue
+ * outline, inactive sits flush against the container at 50% opacity. */
+.bundle[data-brand="joolz"] .filters {
+  background: #eeeeee;
+  border-radius: 8px;
+  margin: 24px auto 32px;
+  max-width: 298px;
+  padding: 2px;
+}
+
+.bundle[data-brand="joolz"] .filterButton {
+  border: 2px solid transparent;
+  border-radius: 6px;
+  color: var(--joolz-deep-blue);
+  font-family: var(--font-value-sans);
+  font-size: 14px;
+  font-weight: 900;
+  min-height: 38px;
+  opacity: 0.5;
+  padding: 0 24px;
+}
+
+.bundle[data-brand="joolz"] .filterButton[data-active="true"] {
+  background: #ffffff;
+  opacity: 1;
+}
+
+/* Hero card: rounded corners + dark-to-transparent bottom gradient so
+ * the caption reads against the lifestyle image. The flat 20% tint
+ * Bugaboo uses is removed. */
+.bundle[data-brand="joolz"] .hero {
+  border-radius: 12px;
+  max-width: 378px;
+  width: calc(100% - 16px);
+}
+
+/*
+ * Joolz hero PNG is the clean lifestyle photo + cream decorative
+ * blobs only (no save badge, no heart, no caption — those are
+ * re-exported from Figma without the overlay layers). The save text,
+ * wishlist button, and caption are rendered as live HTML on top so
+ * the bundle stays data-driven.
+ *
+ * The flat 20 % .hero::after tint that Bugaboo applies is dropped —
+ * Vanessa's design relies on the photo's own tonal range.
+ */
+.bundle[data-brand="joolz"] .hero::after {
+  display: none;
+}
+
+/* "You save €…" pill, top-left. The white pill is fully opaque and
+ * sized to match Figma so it covers the baked-in copy cleanly. */
+.bundle[data-brand="joolz"] .saveBadge {
+  color: rgb(26 26 26 / 80%);
+  font-family: var(--font-value-sans);
+  font-size: 12px;
+  font-weight: 700;
+  left: 16px;
+  padding: 2px 8px;
+  top: 16px;
+}
+
+/* Heart icon, top-right. Inverted to white over the photo gradient. */
+.bundle[data-brand="joolz"] .wishlistButton {
+  filter: brightness(0) invert(1);
+  height: 24px;
+  right: 16px;
+  top: 16px;
+  width: 24px;
+}
+
+/* Caption positioned over Vanessa's lifestyle photo — "Joolz [Aer²]
+ * Essential bundle" stacked centred ~40 % from the top of the 407 px
+ * hero card. Using a percentage rather than the literal 163 px from
+ * Figma lets the caption follow the hero when it shrinks below the
+ * 378 px max-width on narrow viewports. */
+.bundle[data-brand="joolz"] .heroCaption {
+  align-items: center;
+  bottom: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  left: 50%;
+  max-width: 320px;
+  top: 40%;
+  transform: translateX(-50%);
+  width: calc(100% - 32px);
+}
+
+.bundle[data-brand="joolz"] .heroCaption span {
+  align-items: center;
+  display: inline-flex;
+  font-family: var(--font-value-sans);
+  font-size: 28px;
+  font-weight: 700;
+  gap: 4px;
+  justify-content: center;
+  letter-spacing: -0.28px;
+  line-height: 1.1;
+}
+
+/* The green "Aer²" chip — rotated ~1° to feel hand-placed, matching
+ * the angle Vanessa drew in Figma. */
+.bundle[data-brand="joolz"] .captionHighlight {
+  background: #ffffff;
+  color: var(--joolz-deep-blue);
+  display: inline-block;
+  font-family: var(--font-value-sans-joolz);
+  font-size: 28px;
+  font-style: normal;
+  font-weight: 700;
+  letter-spacing: -0.28px;
+  line-height: 1.2;
+  padding: 3px 6px;
+  transform: rotate(1.16deg);
+}
+
+.bundle[data-brand="joolz"] .heroCaption strong {
+  font-family: var(--font-value-sans);
+  font-size: 32px;
+  font-weight: 700;
+  letter-spacing: -0.32px;
+  line-height: 1.1;
+  margin-top: 4px;
+}
+
+/* Product grid: lighter tile bg, 6 px rounded corners. The shared grid
+ * (2.09fr / 1fr / 1fr with the large tile spanning 2 rows) handles the
+ * 5-item Essentials layout. For the 3-item On-the-go bundle we let
+ * each non-large tile span both right columns so they stack vertically. */
+.bundle[data-brand="joolz"] .productGrid {
+  max-width: 378px;
+  width: calc(100% - 16px);
+}
+
+.bundle[data-brand="joolz"] .productTile {
+  background: #f5f5f5;
+  border-radius: 6px;
+}
+
+/*
+ * 3-item bundle layout (e.g. On-the-go / 3-in-1): explicit 2-column
+ * grid with the large stroller spanning both rows and the two small
+ * tiles stacked on the right at a 2:1 landscape aspect.
+ *
+ * Bottom-alignment trick: the right column's total height is
+ * 2 × (column-width / 2) + row-gap = column-width + gap, i.e. 8 px
+ * taller than a perfectly square left tile. We drop the
+ * aspect-ratio:1 lock on the large tile (only for this 3-item
+ * layout) so the grid stretches it to the right column's exact
+ * height. The large tile ends up ~185 × 193 — visually a hair
+ * taller than wide, but the bottoms line up cleanly.
+ */
+.bundle[data-brand="joolz"] .productGrid[data-tile-count="3"] {
+  grid-template-columns: 1fr 1fr;
+}
+
+.bundle[data-brand="joolz"] .productGrid[data-tile-count="3"] .productTile[data-large="true"] {
+  aspect-ratio: auto;
+}
+
+.bundle[data-brand="joolz"] .productGrid[data-tile-count="3"] .productTile:not([data-large="true"]) {
+  aspect-ratio: 2 / 1;
+}
+
+/* Plus icon sits in the bottom-right corner on a small white square. */
+.bundle[data-brand="joolz"] .plusIcon {
+  background: #ffffff;
+  bottom: 6px;
+  height: 16px;
+  padding: 2px;
+  right: 6px;
+  width: 16px;
+}
+
+/* Buy widget: rounded card with deep-blue outline + filled CTA pill. */
+.bundle[data-brand="joolz"] .buyWidget {
+  background: rgb(255 255 255 / 75%);
+  border: 2px solid var(--joolz-deep-blue);
+  border-radius: 12px;
+  max-width: 370px;
+  padding: 8px;
+  width: calc(100% - 16px);
+}
+
+.bundle[data-brand="joolz"] .thumbnail {
+  background: #f5f5f5;
+  border-radius: 6px;
+  flex: 0 0 48px;
+  height: 48px;
+  width: 48px;
+}
+
+.bundle[data-brand="joolz"] .thumbnail img {
+  height: 34px;
+  width: 34px;
+}
+
+.bundle[data-brand="joolz"] .compareAt {
+  color: rgb(0 0 0 / 50%);
+  font-family: var(--font-value-sans);
+  font-weight: 500;
+}
+
+.bundle[data-brand="joolz"] .price {
+  color: var(--joolz-deep-blue);
+  font-family: var(--font-value-sans);
+  font-weight: 700;
+}
+
+.bundle[data-brand="joolz"] .cta {
+  background: var(--joolz-deep-blue);
+  border: 2px solid var(--joolz-deep-blue);
+  border-radius: 8px;
+  color: #ffffff;
+  font-family: var(--font-value-sans);
+  font-size: 14px;
+  font-weight: 900;
+  height: auto;
+  padding: 10px 24px 12px;
+}

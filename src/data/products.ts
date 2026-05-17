@@ -158,6 +158,13 @@ export type ProductBundleVariant = {
   label: string;
   saveLabel: string;
   brandLabel: string;
+  /**
+   * Optional product chip rendered after the brand label in the hero
+   * caption (e.g. "Joolz [Aer²] Essential bundle"). Used by Joolz to
+   * stamp the rotated green Aer² mark beside the brand wordmark.
+   * Omit for brands that just want "Brand · Title".
+   */
+  productHighlight?: string;
   title: string;
   heroImageSrc: string;
   heroImageAlt: string;
@@ -1423,6 +1430,87 @@ export const productCatalog: Record<BrandId, ProductDetail[]> = {
               alt: "Joolz stroller wheels on a path",
               objectPosition: "50% 18%",
             },
+          },
+        ],
+      },
+      bundle: {
+        nodeId: "8721:4494",
+        eyebrow: "Bundle & Save",
+        heading: "Everything you need for your Joolz Aer²",
+        variants: [
+          {
+            id: "essentials",
+            label: "Essentials",
+            saveLabel: "You save €124,75",
+            brandLabel: "Joolz",
+            productHighlight: "Aer²",
+            title: "Essential bundle",
+            heroImageSrc: "/assets/pdp/bundles/joolz/essentials-hero.jpg",
+            heroImageAlt: "Baby resting in a Joolz Aer 2 stroller cot",
+            thumbnailSrc: "/assets/pdp/bundles/joolz/essentials-thumb.png",
+            thumbnailAlt: "Joolz Aer 2 stroller",
+            compareAtPrice: "€ 1.673,75",
+            price: "€ 1.549,00",
+            ctaLabel: "Add to cart",
+            items: [
+              {
+                id: "essentials-stroller",
+                imageSrc: "/assets/pdp/bundles/joolz/essentials-stroller.png",
+                imageAlt: "Joolz Aer 2 stroller with cot",
+              },
+              {
+                id: "essentials-cot",
+                imageSrc: "/assets/pdp/bundles/joolz/essentials-item-1.png",
+                imageAlt: "Joolz Aer 2 cot",
+              },
+              {
+                id: "essentials-footmuff",
+                imageSrc: "/assets/pdp/bundles/joolz/essentials-item-2.png",
+                imageAlt: "Joolz footmuff",
+              },
+              {
+                id: "essentials-cup-holder",
+                imageSrc: "/assets/pdp/bundles/joolz/essentials-item-3.png",
+                imageAlt: "Joolz cup holder",
+              },
+              {
+                id: "essentials-bag",
+                imageSrc: "/assets/pdp/bundles/joolz/essentials-item-4.png",
+                imageAlt: "Joolz changing bag",
+              },
+            ],
+          },
+          {
+            id: "on-the-go",
+            label: "3-in-1 bundle",
+            saveLabel: "You save €201,10",
+            brandLabel: "Joolz",
+            productHighlight: "Aer²",
+            title: "3-in-1 bundle",
+            heroImageSrc: "/assets/pdp/bundles/joolz/onthego-hero.jpg",
+            heroImageAlt: "Child seated in a Joolz Aer 2 stroller",
+            thumbnailSrc: "/assets/pdp/bundles/joolz/onthego-thumb.png",
+            thumbnailAlt: "Joolz Aer 2 stroller",
+            compareAtPrice: "€ 1.820,00",
+            price: "€ 1.618,90",
+            ctaLabel: "Add to cart",
+            items: [
+              {
+                id: "onthego-stroller",
+                imageSrc: "/assets/pdp/bundles/joolz/onthego-stroller.png",
+                imageAlt: "Joolz Aer 2 stroller",
+              },
+              {
+                id: "onthego-car-seat",
+                imageSrc: "/assets/pdp/bundles/joolz/onthego-item-1.png",
+                imageAlt: "Joolz iZi Go car seat",
+              },
+              {
+                id: "onthego-adapter",
+                imageSrc: "/assets/pdp/bundles/joolz/onthego-item-2.png",
+                imageAlt: "Joolz car seat adapter",
+              },
+            ],
           },
         ],
       },
