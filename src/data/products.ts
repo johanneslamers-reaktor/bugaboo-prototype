@@ -1530,15 +1530,15 @@ export const productCatalog: Record<BrandId, ProductDetail[]> = {
       },
       videoStory: {
         nodeId: "8612:5017",
-        videoSrc: "/assets/hero/joolz-hero.mp4",
-        posterSrc: "/assets/pdp/video-story/joolz/poster.jpg",
-        posterAlt: "Baby resting in a Joolz stroller cot",
+        videoSrc: "/assets/pdp/video-story/joolz/aer2-easy-to-carry.mp4",
+        posterSrc: "/assets/pdp/video-story/joolz/aer2-easy-to-carry-poster.jpg",
+        posterAlt: "Parent carrying a folded Joolz Aer 2 stroller",
         title: {
           kind: "split",
-          strong: "Out in the world,",
-          accent: "fast asleep in theirs",
+          strong: "Easy to carry,",
+          accent: "easy to bring along",
         },
-        ariaLabel: "Joolz Aer2 video story",
+        ariaLabel: "Joolz Aer 2 — easy to carry video",
       },
       storyShop: {
         nodeId: "8612:5055",
