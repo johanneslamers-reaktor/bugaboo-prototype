@@ -76,14 +76,14 @@
 }
 
 .heading mark {
-  background: #f8eed8;
+  background: #73c37a;
   color: inherit;
   display: inline-block;
   font: inherit;
   justify-self: end;
   line-height: 0.94;
   margin-top: -2px;
-  padding: 0 10px 7px;
+  padding: 4px 10px;
 }
 
 .imageFrame {
