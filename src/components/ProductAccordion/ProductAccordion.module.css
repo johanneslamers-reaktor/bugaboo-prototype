@@ -304,12 +304,37 @@
 .accordion[data-brand="joolz"] .specPanel,
 .accordion[data-brand="joolz"] .boxPanel,
 .accordion[data-brand="joolz"] .panelHeading,
-.accordion[data-brand="joolz"] .featureText,
 .accordion[data-brand="joolz"] .bulletList,
 .accordion[data-brand="joolz"] .specText,
 .accordion[data-brand="joolz"] .boxItem h3 {
   color: var(--brand-text);
   font-family: var(--font-value-sans);
+}
+
+/*
+ * Joolz feature-panel typography & tiles, per Vanessa's Figma spec
+ * (node 8722:5310):
+ *   - Sub-heading "The details behind..." & "Other key features":
+ *     Value Sans Pro Bold (700), #1a1a1a
+ *   - Feature text / bullets: Value Sans Pro Medium, #737373
+ *   - Image tile: warm beige #efebe8, 4px radius
+ */
+.accordion[data-brand="joolz"] .featurePanel .panelHeading {
+  font-weight: 700;
+}
+
+.accordion[data-brand="joolz"] .featureText {
+  color: #737373;
+  font-family: var(--font-value-sans);
+}
+
+.accordion[data-brand="joolz"] .featurePanel .bulletList {
+  color: #737373;
+}
+
+.accordion[data-brand="joolz"] .featureMedia {
+  background: #efebe8;
+  border-radius: 4px;
 }
 
 .accordion[data-brand="joolz"] .boxItem p {
