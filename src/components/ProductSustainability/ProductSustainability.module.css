@@ -393,6 +393,11 @@
   display: none;
 }
 
+.section[data-brand="joolz"] .thumbnail[data-active="true"] {
+  outline: 1.5px solid #ffffff;
+  outline-offset: 0;
+}
+
 .counter {
   color: rgb(19 15 49 / 60%);
   font-family: var(--font-value-sans-joolz);

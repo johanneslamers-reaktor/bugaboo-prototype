@@ -1609,7 +1609,6 @@ export const productCatalog: Record<BrandId, ProductDetail[]> = {
             hotspots: [],
           },
         ],
-        thumbnailsCounter: "1/3",
       },
       shopTheLook: {
         nodeId: "8612:5105",
