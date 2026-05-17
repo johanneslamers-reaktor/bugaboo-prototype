@@ -3,8 +3,10 @@ import type { BrandId } from "./brands/brands";
 import { BrandUsp } from "./components/BrandUsp";
 import { CategoryCarousel } from "./components/CategoryCarousel";
 import { EditorialRail } from "./components/EditorialRail";
+import { Footer } from "./components/Footer";
 import { Hero } from "./components/Hero";
 import { ProductCarousel } from "./components/ProductCarousel";
+import { footerContent } from "./data/footer";
 import {
   homepageBrandUsp,
   homepageCategoryCarousel,
@@ -111,6 +113,7 @@ export default function App() {
                   brand={brand}
                   content={homepageEditorialRail[brand]}
                 />
+                <Footer brand={brand} content={footerContent[brand]} />
               </>
             )}
           </div>
