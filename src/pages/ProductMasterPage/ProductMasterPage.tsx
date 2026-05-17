@@ -1,6 +1,8 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import type { BrandId } from "../../brands/brands";
+import { footerContent } from "../../data/footer";
 import { productCatalog } from "../../data/products";
+import { Footer } from "../../components/Footer";
 import { MobileNavigation } from "../../components/MobileNavigation";
 import { ProductAccordion } from "../../components/ProductAccordion";
 import { ProductBundle } from "../../components/ProductBundle";
@@ -106,6 +108,8 @@ export function ProductMasterPage({ brand, product }: ProductMasterPageProps) {
           <ProductReviews brand={brand} content={product.reviews} />
         ) : null}
       </div>
+
+      <Footer brand={brand} content={footerContent[brand]} />
 
       <ProductFloatingCta
         brand={brand}

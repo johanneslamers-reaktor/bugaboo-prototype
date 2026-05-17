@@ -1,0 +1,598 @@
+.footer {
+  background: #ededed;
+  box-sizing: border-box;
+  color: #1a1a1a;
+  display: flex;
+  flex-direction: column;
+  font-family: var(--brand-font-body, var(--font-aeonik));
+  width: 100%;
+}
+
+.inner {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  padding: 28px 20px 32px;
+  width: 100%;
+}
+
+.wordmark {
+  font-family: var(--brand-font-body, var(--font-aeonik));
+  font-size: 22px;
+  font-weight: 400;
+  letter-spacing: 0.18em;
+  margin: 0 auto;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+/* ---------- Collapsible sections ---------- */
+
+.sections {
+  border-top: 1px solid rgb(0 0 0 / 14%);
+  display: flex;
+  flex-direction: column;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.section {
+  border-bottom: 1px solid rgb(0 0 0 / 14%);
+}
+
+.sectionTrigger {
+  align-items: center;
+  appearance: none;
+  background: transparent;
+  border: 0;
+  color: inherit;
+  cursor: pointer;
+  display: flex;
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 700;
+  justify-content: space-between;
+  padding: 18px 0;
+  text-align: left;
+  width: 100%;
+}
+
+.chevron {
+  flex-shrink: 0;
+  height: 16px;
+  width: 16px;
+}
+
+/* ---------- Newsletter ---------- */
+
+.newsletter {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-top: 12px;
+}
+
+.newsletterHeading {
+  color: #1a1a1a;
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0;
+  line-height: 1.3;
+  margin: 0;
+}
+
+.newsletterSubheading {
+  color: #1a1a1a;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.3;
+  margin: 0;
+}
+
+.field {
+  align-items: center;
+  background: #ffffff;
+  border: 1px solid rgb(0 0 0 / 65%);
+  box-sizing: border-box;
+  display: flex;
+  gap: 8px;
+  height: 48px;
+  justify-content: space-between;
+  padding: 0 16px;
+  width: 100%;
+}
+
+.fieldInput {
+  color: #1a1a1a;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.ownerRow {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.ownerLabel {
+  color: #1a1a1a;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.3;
+  margin: 0;
+}
+
+.ownerOptions {
+  display: flex;
+  gap: 32px;
+}
+
+.radio {
+  align-items: center;
+  display: inline-flex;
+  font-family: inherit;
+  font-size: 14px;
+  gap: 8px;
+}
+
+.radioDot {
+  background: #ffffff;
+  border: 1px solid rgb(0 0 0 / 50%);
+  border-radius: 999px;
+  display: inline-block;
+  height: 16px;
+  width: 16px;
+}
+
+.consent {
+  align-items: flex-start;
+  display: grid;
+  font-family: inherit;
+  font-size: 13px;
+  gap: 12px;
+  grid-template-columns: 16px 1fr;
+  line-height: 1.4;
+  margin-top: 4px;
+}
+
+.checkbox {
+  background: #ffffff;
+  border: 1px solid rgb(0 0 0 / 50%);
+  border-radius: 2px;
+  display: inline-block;
+  height: 16px;
+  margin-top: 2px;
+  width: 16px;
+}
+
+.consentLink {
+  color: inherit;
+  text-decoration: underline;
+}
+
+.submit {
+  appearance: none;
+  background: #2f5f2c;
+  border: 0;
+  color: #ffffff;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  margin-top: 8px;
+  padding: 16px;
+  width: 100%;
+}
+
+/* ---------- Payments ---------- */
+
+.payments {
+  border-top: 1px solid rgb(0 0 0 / 14%);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-top: 18px;
+}
+
+.paymentsHeading {
+  color: #1a1a1a;
+  font-family: inherit;
+  font-size: 13px;
+  margin: 0;
+}
+
+.paymentList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.paymentBadge {
+  align-items: center;
+  background: #ffffff;
+  border: 1px solid rgb(0 0 0 / 12%);
+  border-radius: 4px;
+  color: #1a1a1a;
+  display: inline-flex;
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 700;
+  height: 22px;
+  letter-spacing: 0.04em;
+  padding: 0 8px;
+  text-transform: uppercase;
+}
+
+/* ---------- Contact / country ---------- */
+
+.contact {
+  border-top: 1px solid rgb(0 0 0 / 14%);
+  display: grid;
+  gap: 24px;
+  grid-template-columns: 1fr 1fr;
+  padding-top: 24px;
+}
+
+.contactLeft {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.countryRow {
+  align-items: center;
+  display: flex;
+  font-family: inherit;
+  font-size: 14px;
+  gap: 10px;
+  margin: 0;
+}
+
+.countrySwatch {
+  flex-shrink: 0;
+  height: 24px;
+  width: 24px;
+}
+
+.countryLabel {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+}
+
+.countryAccent {
+  color: rgb(0 0 0 / 55%);
+  font-size: 13px;
+}
+
+.utilityList {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.utilityItem {
+  align-items: center;
+  color: #1a1a1a;
+  display: flex;
+  font-family: inherit;
+  font-size: 14px;
+  gap: 10px;
+}
+
+.utilityIcon {
+  flex-shrink: 0;
+  height: 20px;
+  width: 20px;
+}
+
+.contactRight {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.contactHeading {
+  color: #1a1a1a;
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.contactPhone {
+  color: #1a1a1a;
+  font-family: inherit;
+  font-size: 14px;
+  margin: 0;
+}
+
+.contactHours {
+  color: #1a1a1a;
+  font-family: inherit;
+  font-size: 14px;
+  margin: 0;
+  white-space: pre-line;
+}
+
+/* ---------- Legal strip ---------- */
+
+.legal {
+  background: #ffffff;
+  border-top: 1px solid rgb(0 0 0 / 8%);
+  box-sizing: border-box;
+  color: #1a1a1a;
+  display: flex;
+  flex-direction: column;
+  font-family: inherit;
+  gap: 6px;
+  padding: 20px 16px 24px;
+  text-align: center;
+  width: 100%;
+}
+
+.legalLinks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 0;
+  justify-content: center;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.legalLink {
+  align-items: center;
+  color: #1a1a1a;
+  display: inline-flex;
+  font-family: inherit;
+  font-size: 13px;
+  gap: 6px;
+}
+
+.legalSeparator {
+  color: rgb(0 0 0 / 35%);
+  padding-left: 6px;
+}
+
+.copyright {
+  color: #1a1a1a;
+  font-family: inherit;
+  font-size: 13px;
+  margin: 0;
+}
+
+/* =================== Joolz brand variant =================== */
+
+.footer[data-brand="joolz"] {
+  color: var(--brand-text);
+  font-family: var(--font-value-sans);
+}
+
+.footer[data-brand="joolz"] .wordmark {
+  color: var(--brand-text);
+  font-family: var(--font-value-sans-joolz);
+  font-weight: 400;
+}
+
+.footer[data-brand="joolz"] .sectionTrigger,
+.footer[data-brand="joolz"] .newsletterHeading,
+.footer[data-brand="joolz"] .contactHeading {
+  color: var(--brand-text);
+  font-family: var(--font-value-sans-joolz);
+  font-weight: 700;
+}
+
+.footer[data-brand="joolz"] .submit {
+  background: #2f5f2c;
+  font-family: var(--font-value-sans);
+}
+
+.footer[data-brand="joolz"] .field {
+  border-color: var(--brand-text);
+  border-radius: 2px;
+}
+
+/* =================== Bugaboo brand variant =================== */
+
+.footer[data-brand="bugaboo"] {
+  background: #000000;
+  color: #ffffff;
+  font-family: var(--font-aeonik);
+}
+
+.footer[data-brand="bugaboo"] .inner {
+  align-items: center;
+  gap: 36px;
+  padding: 48px 24px 40px;
+  text-align: center;
+}
+
+.footer[data-brand="bugaboo"] .brandMark {
+  color: #ffffff;
+  display: inline-block;
+}
+
+.brandMarkSvg {
+  display: block;
+  height: 96px;
+  width: 96px;
+}
+
+.footer[data-brand="bugaboo"] .sections {
+  border-top: 0;
+  gap: 4px;
+  width: 100%;
+}
+
+.footer[data-brand="bugaboo"] .section {
+  border-bottom: 0;
+}
+
+.footer[data-brand="bugaboo"] .sectionTrigger {
+  color: #ffffff;
+  font-family: var(--font-aeonik);
+  font-size: 20px;
+  font-weight: 500;
+  gap: 12px;
+  justify-content: center;
+  padding: 12px 0;
+}
+
+.footer[data-brand="bugaboo"] .sectionTrigger .chevron {
+  height: 14px;
+  width: 14px;
+}
+
+.footer[data-brand="bugaboo"] .newsletter {
+  align-items: center;
+  gap: 16px;
+  padding-top: 8px;
+  width: 100%;
+}
+
+.footer[data-brand="bugaboo"] .newsletterHeading {
+  color: #ffffff;
+  font-family: var(--font-aeonik);
+  font-size: 20px;
+  font-weight: 500;
+  text-align: center;
+}
+
+.footer[data-brand="bugaboo"] .newsletterSubheading {
+  display: none;
+}
+
+.footer[data-brand="bugaboo"] .field {
+  background: #ffffff;
+  border: 0;
+  border-radius: 999px;
+  color: #1a1a1a;
+  height: 56px;
+  padding: 0 28px;
+}
+
+.footer[data-brand="bugaboo"] .fieldInput {
+  color: rgb(0 0 0 / 55%);
+  font-family: var(--font-aeonik);
+  font-size: 15px;
+  font-weight: 400;
+}
+
+.footer[data-brand="bugaboo"] .field .chevron {
+  color: rgb(0 0 0 / 60%);
+}
+
+.footer[data-brand="bugaboo"] .submit {
+  background: transparent;
+  border: 1px solid #ffffff;
+  border-radius: 999px;
+  color: #ffffff;
+  font-family: var(--font-aeonik);
+  font-size: 16px;
+  font-weight: 500;
+  height: 56px;
+  letter-spacing: 0.01em;
+  margin: 0;
+  padding: 0 24px;
+  width: 100%;
+}
+
+.disclaimer,
+.disclaimerMuted {
+  color: rgb(255 255 255 / 78%);
+  font-family: var(--font-aeonik);
+  font-size: 14px;
+  line-height: 1.5;
+  margin: 4px 0 0;
+  max-width: 520px;
+  text-align: center;
+}
+
+.disclaimerMuted {
+  color: rgb(255 255 255 / 62%);
+  font-size: 13px;
+  margin-top: 14px;
+}
+
+.footer[data-brand="bugaboo"] .payments,
+.footer[data-brand="bugaboo"] .contact,
+.footer[data-brand="bugaboo"] .legal {
+  background: transparent;
+  border-top-color: rgb(255 255 255 / 14%);
+  color: #ffffff;
+}
+
+.footer[data-brand="bugaboo"] .payments,
+.footer[data-brand="bugaboo"] .contact {
+  width: 100%;
+}
+
+.footer[data-brand="bugaboo"] .paymentsHeading,
+.footer[data-brand="bugaboo"] .contactHeading,
+.footer[data-brand="bugaboo"] .contactPhone,
+.footer[data-brand="bugaboo"] .contactHours,
+.footer[data-brand="bugaboo"] .utilityItem,
+.footer[data-brand="bugaboo"] .countryRow,
+.footer[data-brand="bugaboo"] .copyright,
+.footer[data-brand="bugaboo"] .legalLink {
+  color: #ffffff;
+}
+
+.footer[data-brand="bugaboo"] .countryAccent {
+  color: rgb(255 255 255 / 65%);
+}
+
+.footer[data-brand="bugaboo"] .legalSeparator {
+  color: rgb(255 255 255 / 45%);
+}
+
+.footer[data-brand="bugaboo"] .legal {
+  background: #000000;
+}
+
+.footer[data-brand="bugaboo"] .paymentBadge {
+  background: #ffffff;
+  color: #1a1a1a;
+}
+
+/* B Corp badge */
+
+.bcorp {
+  align-items: center;
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  font-family: var(--font-aeonik);
+  font-size: 9px;
+  gap: 2px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.bcorpEyebrow,
+.bcorpFoot {
+  display: block;
+  line-height: 1;
+}
+
+.bcorpMark {
+  display: block;
+  height: 36px;
+  margin: 4px 0;
+  width: 36px;
+}
