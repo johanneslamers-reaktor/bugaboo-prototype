@@ -76,12 +76,21 @@ export function ProductBundle({ brand, content }: ProductBundleProps) {
             <img src="/assets/pdp/bundles/bugaboo/heart.svg" alt="" loading="eager" />
           </button>
           <figcaption className={styles.heroCaption}>
-            <span>{variant.brandLabel}</span>
+            <span>
+              {variant.brandLabel}
+              {variant.productHighlight ? (
+                <em className={styles.captionHighlight}>{variant.productHighlight}</em>
+              ) : null}
+            </span>
             <strong>{variant.title}</strong>
           </figcaption>
         </figure>
 
-        <div className={styles.productGrid} aria-label="Bundle contents">
+        <div
+          className={styles.productGrid}
+          data-tile-count={variant.items.length}
+          aria-label="Bundle contents"
+        >
           {variant.items.map((item, index) => (
             <div
               className={styles.productTile}
