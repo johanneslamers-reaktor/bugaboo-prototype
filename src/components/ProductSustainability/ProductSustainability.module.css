@@ -245,6 +245,14 @@
   gap: 10px;
 }
 
+.section[data-brand="joolz"] .hotspotCard {
+  border-radius: 9px;
+}
+
+.section[data-brand="joolz"] .hotspotCardThumb {
+  border-radius: 6px;
+}
+
 .hotspotCardThumb {
   background: #dadada;
   display: block;
@@ -282,18 +290,11 @@
   font-weight: 400;
 }
 
-.section[data-brand="joolz"] .hotspotCardCopy {
-  font-family: var(--font-value-sans);
-}
-
-.section[data-brand="joolz"] .hotspotCardCopy strong {
-  color: var(--joolz-deep-blue);
-  font-family: var(--font-value-sans-joolz);
-}
-
-.section[data-brand="joolz"] .hotspotCardCopy span {
-  color: rgb(19 15 49 / 80%);
-}
+/*
+ * Joolz hotspot card uses Aeonik Pro + dark gray per Vanessa's spec
+ * (Figma node 8760:6236) — same as the base. No Joolz typography
+ * override needed here.
+ */
 
 
 .hotspotCardClose {
