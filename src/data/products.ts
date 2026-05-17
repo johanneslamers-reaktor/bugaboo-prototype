@@ -1541,22 +1541,22 @@ export const productCatalog: Record<BrandId, ProductDetail[]> = {
         },
         items: [
           {
-            id: "warranty",
-            label: "10-year transferable warranty",
-            iconSrc: "/assets/pdp/benefits/joolz/lifetime-warranty.png",
-            iconAlt: "Warranty icon",
+            id: "tree",
+            label: "Aer2 owners helped plant 200.000+ trees",
+            iconSrc: "/assets/pdp/benefits/joolz/trees-planted.png",
+            iconAlt: "Trees planted icon",
+          },
+          {
+            id: "materials",
+            label: "Premium materials, lower impact -30% CO₂ footprint",
+            iconSrc: "/assets/pdp/benefits/joolz/premium-materials.png",
+            iconAlt: "Premium materials icon",
           },
           {
             id: "bottles",
             label: "+90 recycled bottles user per stroller",
-            iconSrc: "/assets/pdp/benefits/joolz/one-tree.png",
+            iconSrc: "/assets/pdp/benefits/joolz/recycled-bottles.png",
             iconAlt: "Recycled bottles icon",
-          },
-          {
-            id: "materials",
-            label: "Lower impact materials with -30% CO₂ footprint",
-            iconSrc: "/assets/pdp/benefits/joolz/sustainable-materials.png",
-            iconAlt: "Sustainable materials icon",
           },
         ],
       },
