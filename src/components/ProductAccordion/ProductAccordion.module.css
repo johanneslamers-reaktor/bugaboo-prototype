@@ -300,22 +300,65 @@
   font-weight: 500;
 }
 
+/*
+ * Joolz accordion typography (all three panels), per Vanessa's
+ * Figma spec (nodes 8722:5310 / 8722:5338 / 8722:5385):
+ *
+ *   Headings  — Value Sans Pro Bold (700), 16 px / line-height 1.3,
+ *               color #1a1a1a. Applies to the sub-headings inside
+ *               every panel ("The details behind…", "Age and
+ *               weight range", "Stroller base", etc.).
+ *   Body copy — Value Sans Pro Medium (500), 16 px / line-height
+ *               1.3, color #737373. Applies to feature labels,
+ *               bullets, spec text, and box-item descriptions.
+ *
+ * One consolidated rule keeps the three panels visually
+ * consistent and easy to re-tune.
+ */
 .accordion[data-brand="joolz"] .featurePanel,
 .accordion[data-brand="joolz"] .specPanel,
-.accordion[data-brand="joolz"] .boxPanel,
-.accordion[data-brand="joolz"] .panelHeading,
-.accordion[data-brand="joolz"] .featureText,
-.accordion[data-brand="joolz"] .bulletList,
-.accordion[data-brand="joolz"] .specText,
-.accordion[data-brand="joolz"] .boxItem h3 {
-  color: var(--brand-text);
+.accordion[data-brand="joolz"] .boxPanel {
   font-family: var(--font-value-sans);
 }
 
-.accordion[data-brand="joolz"] .boxItem p {
-  color: rgb(19 15 49 / 58%);
+.accordion[data-brand="joolz"] .panelHeading,
+.accordion[data-brand="joolz"] .boxItem h3 {
+  color: #1a1a1a;
   font-family: var(--font-value-sans);
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.accordion[data-brand="joolz"] .featureText,
+.accordion[data-brand="joolz"] .bulletList,
+.accordion[data-brand="joolz"] .specText,
+.accordion[data-brand="joolz"] .boxItem p {
+  color: #737373;
+  font-family: var(--font-value-sans);
+  font-size: 16px;
   font-weight: 500;
+  line-height: 1.3;
+}
+
+.accordion[data-brand="joolz"] .featureMedia {
+  background: #efebe8;
+  border-radius: 4px;
+}
+
+/*
+ * Joolz "What's in the box" hero — per Vanessa's Figma spec
+ * (node 8722:5405/5406): 187px-tall container with 8px radius and
+ * a 276 × 165 image inside. The Bugaboo default (149 × 149, no
+ * radius) is kept untouched.
+ */
+.accordion[data-brand="joolz"] .boxHero {
+  border-radius: 8px;
+}
+
+.accordion[data-brand="joolz"] .boxHero img {
+  height: 165px;
+  width: 276px;
 }
 
 /*

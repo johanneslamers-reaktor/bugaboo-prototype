@@ -1665,24 +1665,130 @@ export const productCatalog: Record<BrandId, ProductDetail[]> = {
         {
           id: "features",
           title: "Features",
-          content: [
-            "Lightweight, compact design made for everyday city movement and travel.",
-            "Comfortable seat and bassinet setup designed around the small moments of parenthood.",
-          ],
+          panel: {
+            type: "features",
+            nodeId: "8722:5310",
+            heading: "The details behind the Joolz Aer²",
+            features: [
+              {
+                title: "Extended sun hood with UPF 50+ protection",
+                imageSrc: "/assets/pdp/accordion/joolz/feature-canopy.jpg",
+                imageAlt: "Joolz Aer 2 extended sun hood",
+              },
+              {
+                title: "Ergonomic seat, supporting up to 22 kg",
+                imageSrc: "/assets/pdp/accordion/joolz/feature-seat.jpg",
+                imageAlt: "Joolz Aer 2 ergonomic seat",
+              },
+              {
+                title: "One-hand steering, with a high handlebar",
+                imageSrc: "/assets/pdp/accordion/joolz/feature-handlebar.jpg",
+                imageAlt: "Joolz Aer 2 handlebar",
+              },
+              {
+                title: "Large wheels with suspension",
+                imageSrc: "/assets/pdp/accordion/joolz/feature-wheels.jpg",
+                imageAlt: "Joolz Aer 2 wheels with suspension",
+              },
+            ],
+            otherHeading: "Other key features",
+            otherFeatures: [
+              "3 sleeping positions: seated, relaxed, and sleep, all adjustable with one-hand.",
+              "Consciously crafted, premium materials made from bio-based plastic",
+            ],
+          },
         },
         {
           id: "specifications",
-          title: "Specifications",
-          content: [
-            "Compact fold, travel-friendly handling, and compatible accessories for flexible daily use.",
-          ],
+          title: "Specifications & Dimensions",
+          panel: {
+            type: "specifications",
+            nodeId: "8722:5338",
+            sections: [
+              {
+                title: "Age and weight range",
+                bullets: ["From birth", "0 - 22 kg"],
+              },
+              {
+                title: "Dimensions — Unfolded",
+                bullets: ["Length: 85 cm", "Width: 45 cm", "Height: 106.5 cm"],
+              },
+              {
+                title: "Dimensions — Folded",
+                bullets: ["Length: 53 cm", "Width: 44 cm", "Height: 23.5 cm"],
+              },
+              {
+                title: "Sizes",
+                bullets: [
+                  "Mattress length: 77 cm",
+                  "Mattress width: 32 cm",
+                  "Mattress height: 3 cm",
+                  "Front wheel size: 14.4 cm",
+                  "Rear wheel size: 15.5 cm",
+                  "Seat sitting area length: 35.5 cm",
+                  "Seat sitting area width: 38 cm",
+                  "Seat backrest length: 55 cm",
+                  "Seat backrest width: 34 cm",
+                ],
+              },
+              {
+                title: "Weight capacity",
+                bullets: ["Max capacity stroller: 22 kg", "Max capacity shopping basket: 8 kg"],
+              },
+              {
+                title: "Weights",
+                bullets: [
+                  "Weight stroller with cot: 8.5 kg",
+                  "Weight cot: 4 kg",
+                  "Volume shopping basket: 17 L",
+                  "Buggy weight: 6.5 kg",
+                ],
+              },
+              {
+                title: "Care instructions",
+                text: "To refresh the fabrics, we advise hand wash with a mild detergent. Rinse thoroughly and dry flat. Please keep in mind it is not possible to wash the fabrics in the washing machine.\n\nTo remove dirt for your chassis simply use a lukewarm wet cloth (no detergents needed). You can clean the wheels with water and mild detergent. Make sure you remove them before cleaning and put them back when they are dry.",
+              },
+            ],
+          },
         },
         {
           id: "box",
           title: "What’s in the box",
-          content: [
-            "Stroller, bassinet, canopy, wheels, basket, and essential setup components.",
-          ],
+          panel: {
+            type: "box",
+            nodeId: "8722:5385",
+            imageSrc: "/assets/pdp/accordion/joolz/box-stroller-base.jpg",
+            imageAlt: "Joolz Aer 2 stroller base with travel pouch",
+            items: [
+              {
+                title: "Stroller base",
+                description: "The hardware for your Joolz Aer². Includes wheels, wheel caps, and grips.",
+              },
+              {
+                title: "Seat",
+                description:
+                  "Reversible and reclinable seat. Includes the seat/bassinet frame, seat fabric, seat hardware, five-point safety harness, adjustable seat footrest, and rotating carry handle.",
+              },
+              {
+                title: "Seat liner",
+                description: "With dual sides and enhanced breathability for year-round comfort.",
+              },
+              {
+                title: "Sun canopy",
+                description:
+                  "Extendable and height-adjustable, with UPF 50+ protection and a peek-a-boo panel. Includes fabrics, wires, and clamps.",
+              },
+              {
+                title: "Underseat basket",
+                description:
+                  "With extendable panels. Maximum 10 kg (22 lbs) or 39 liters (10.3 gallons).",
+              },
+              {
+                title: "Travel pouch",
+                description: "Spare travel pouch to carry everything you need on the go.",
+              },
+            ],
+          },
         },
       ],
       colorways: [
