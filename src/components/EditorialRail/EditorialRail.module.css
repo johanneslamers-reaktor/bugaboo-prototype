@@ -206,7 +206,7 @@
   background: var(--story-color);
   border-radius: 8px;
   height: 472px;
-  padding: 16px;
+  padding: 20px 16px;
 }
 
 .storyImage {
@@ -319,7 +319,7 @@
   align-items: center;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 8px;
   min-height: 92px;
   text-align: center;
   width: 100%;
@@ -356,12 +356,12 @@
 
 .joolzStoryImage {
   display: block;
-  height: 322px;
+  height: 292px;
   object-fit: contain;
   pointer-events: none;
   transform: rotate(0.92deg) skewX(1.38deg);
   user-select: none;
-  width: 216px;
+  width: 213px;
   -webkit-user-drag: none;
 }
 

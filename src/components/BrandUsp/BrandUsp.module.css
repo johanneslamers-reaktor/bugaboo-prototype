@@ -181,7 +181,7 @@
 }
 
 .section[data-brand="joolz"] .point {
-  grid-template-columns: 4px 1fr;
+  grid-template-columns: 2px 1fr;
 }
 
 .section[data-brand="joolz"] .point[data-active="true"] {

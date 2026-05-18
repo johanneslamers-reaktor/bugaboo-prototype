@@ -273,7 +273,7 @@ export const homepageBrandUsp: Record<BrandId, BrandUspContent> = {
       },
     ],
     reel: {
-      label: "Play the reel",
+      label: "Explore the story",
       thumbnailSrc: "/assets/brand-usp/joolz-reel-thumb.png",
       thumbnailAlt: "Joolz reel preview",
       videoSrc: "/assets/brand-usp/joolz-reel.mp4",
@@ -536,7 +536,7 @@ export const homepageEditorialRail: Record<BrandId, EditorialRailContent> = {
           { text: "Tiny trips with\n" },
           { text: "big stories", serif: true },
         ],
-        imageSrc: "/assets/brand-usp/joolz-real-life-cutout.jpg",
+        imageSrc: "/assets/editorial/joolz-story-tips.png",
         imageAlt: "Parent holding a baby behind a Joolz stroller",
         color: "#d6b6df",
       },
