@@ -200,10 +200,10 @@
    * to .gallery, not the sticky viewport, so it scrolls 1:1 with the page
    * while the parallax image moves at half speed underneath.
    */
-  height: 1px;
+  height: 2px;
   left: 0;
   position: absolute;
-  top: calc(70svh - 1px);
+  top: calc(70svh - 2px);
   width: 100%;
   z-index: 2;
 }
@@ -211,7 +211,7 @@
 .progressTrack,
 .progressIndicator {
   display: block;
-  height: 1px;
+  height: 2px;
   left: 0;
   position: absolute;
   top: 0;
