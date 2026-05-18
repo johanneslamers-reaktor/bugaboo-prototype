@@ -199,7 +199,7 @@
 .editorial[data-brand="bugaboo"] .storyCard {
   background: #171717;
   height: 467px;
-  padding: 17px;
+  padding: 20px;
 }
 
 .editorial[data-brand="joolz"] .storyCard {
@@ -236,7 +236,12 @@
 }
 
 .editorial[data-brand="bugaboo"] .storyCard::after {
-  background: linear-gradient(180deg, rgb(18 18 18 / 12%) 0%, rgb(18 18 18 / 0%) 45%, rgb(0 0 0 / 24%) 100%);
+  background: linear-gradient(
+    180deg,
+    rgb(18 18 18 / 12%) 0%,
+    rgb(18 18 18 / 0%) 45%,
+    rgb(0 0 0 / 24%) 100%
+  );
 }
 
 .bugabooStoryContent,
@@ -265,7 +270,7 @@
   border-bottom: 1px solid rgb(255 255 255 / 50%);
   color: #ffffff;
   font-family: var(--font-aeonik);
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 400;
   line-height: 1.15;
   margin: 0;
@@ -277,7 +282,7 @@
 .bugabooStoryTitle {
   color: #f4f4f4;
   font-family: var(--font-aeonik);
-  font-size: 20px;
+  font-size: 24px;
   font-weight: 400;
   letter-spacing: -0.4px;
   line-height: 1.2;
@@ -288,7 +293,7 @@
 
 .readMore {
   color: currentColor;
-  font-size: 10px;
+  font-size: 12px;
   line-height: 1.3;
   text-align: center;
   text-decoration: underline;
